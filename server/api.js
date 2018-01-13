@@ -1,19 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 
 /**
- * Connecting to database
+ * Setting up database connection
  */
-const db = "mongodb://admin:admin@ds245277.mlab.com:45277/heroku_1r1pwztj";
-mongoose.Promise = require('bluebird');
-mongoose.connect(db, function(err){
-    if(err){
-        console.error("Error! " + err);
-    }
+global.db = mysql.createConnection({
+  host: "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "ysl7tl8kom3eqlm6",
+  password: "h9ax1h8bkk9v8qog",
+  database : 'wq87o6l37jigk9p5'
 });
 
-// #4Ne3^k91%S1
+/**
+ * Connecting to the database
+ */
+db.connect((err) => {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 /**
  * API Health status

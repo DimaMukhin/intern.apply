@@ -1,15 +1,14 @@
-const employerModel = require('../models/employer/employer.model');
-
 module.exports = (router) => {
 
   /**
    * GET all employers from the database
    */
   router.get('/employer', (req, res) => {
-    employerModel.findAllEmployers().then((employers) => {
-      res.send(employers);
-    }).catch((error) => {
-      res.status(400).send(error);
+    db.query(`SELECT * FROM Persons`, (err, qres, fields) => {
+      if (err) res.status(400).send(err);
+      else {
+        res.send(qres);
+      }
     });
   });
 
