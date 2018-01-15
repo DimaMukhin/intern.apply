@@ -5,7 +5,7 @@
 playground.js
 
 # compiled output
-# /dist # dist required for remote deployment
+/dist
 /tmp
 /out-tsc
 

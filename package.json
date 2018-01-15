@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
+    "postinstall": "ng build --aot -prod",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "1.6.3",
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
@@ -31,7 +33,6 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.3",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/jasmine": "~2.5.53",
