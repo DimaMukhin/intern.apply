@@ -27,11 +27,11 @@ conn.connect((err) => {
 });
 
 /**
- * get all the persons from db
+ * get all the jobs from db
  * @param  {Function} callback callback function (err, res, fields)
  */
-db.getAllPersons = (callback) => {
-  conn.query('SELECT * FROM Persons', (err, res, fields) => {
+db.getAllJobs = (callback) => {
+  conn.query('SELECT * FROM job', (err, res, fields) => {
     callback(err,res,fields);
   });
 };

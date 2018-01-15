@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // setting up all api routes
-require('./routes/employer.route')(router);
+require('./routes/job.route')(router);
 
 // development playground
 // require('./playground');

@@ -5,8 +5,8 @@ module.exports = (router) => {
   /**
    * GET all employers from the database
    */
-  router.get('/employer', (req, res) => {
-    db.getAllPersons((err, response, fields) => {
+  router.get('/job', (req, res) => {
+    db.getAllJobs((err, response, fields) => {
       if (err) res.status(400).send(err);
       else res.send(response);
     });
