@@ -15,7 +15,6 @@
   "dependencies": {
     "@angular/cli": "1.6.3",
     "@angular/compiler-cli": "^5.0.0",
-    "typescript": "~2.4.2",
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
@@ -32,7 +31,8 @@
     "mysql2": "^1.5.1",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "typescript": "~2.4.2"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^5.0.0",
