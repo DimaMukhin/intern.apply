@@ -5,7 +5,8 @@ import { InternApiService } from './intern-api.service';
 describe('InternApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [InternApiService]
+      providers: [InternApiService],
+      imports: []
     });
   });
 
