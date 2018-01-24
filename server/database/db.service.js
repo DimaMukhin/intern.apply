@@ -36,4 +36,14 @@ db.getAllJobs = (callback) => {
   });
 };
 
+/**
+ * add a user
+ * @param  {Function} callback callback function (err, res, fields)
+ */
+db.addUser = (user, callback) => {
+    conn.query('SELECT * FROM job', (err, res, fields) => {
+        callback(err,res,fields);
+    });
+};
+
 module.exports = db;
