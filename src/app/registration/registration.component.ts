@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -7,17 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
-
-  validateUsername(usernameField: string)  {
-
-    if (usernameField.length < 6) {
-      console.log('less than 6');
-    }else if (usernameField.length > 20) {
-      console.log('more than 20');
-    }else {
-      console.log('valid');
-    }
+  constructor() {
   }
 
   ngOnInit() {
