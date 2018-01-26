@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col" align="center">
+    <h1>Address</h1>
+    66 Chancellors Cir, Winnipeg, MB R3T 2N2
+    <h1>Phone</h1>
+    +1 (204) 1234-567
+    <h1>Email</h1>
+    intern@apply.com
+  </div>
+  <div class="col" align="center">
+    <h1>Location</h1>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2574.8599392726965!2d-97.13881458399517!3d49.80750077939174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea75f0911e9c5f%3A0x5460e2841ad770fa!2sUniversity+of+Manitoba!5e0!3m2!1sen!2sca!4v1516894098374" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<h1>Send us a message</h1>
+
+<form [formGroup]="contactMessageForm" (submit)="onMessageSubmit">
+  <div class="form-group">
+    <label for="emailInput">Email address</label>
+    <input 
+      type="email" 
+      class="form-control" 
+      id="emailInput" 
+      formControlName="email"
+      placeholder="name@example.com">
+      <span 
+        class="text-danger" 
+        *ngIf="!contactMessageForm.get('email').valid && contactMessageForm.get('email').touched">
+        Please enter a valid email
+      </span>
+  </div>
+  <div class="form-group">
+    <label for="subjectInput">Subject</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="subjectInput" 
+      formControlName="title"
+      placeholder="Title">
+      <span 
+        class="text-danger" 
+        *ngIf="!contactMessageForm.get('title').valid && contactMessageForm.get('title').touched">
+        Please enter a valid title (max 25 characters)
+      </span>
+  </div>
+  <div class="form-group">
+    <label for="messageBody">Message body</label>
+    <textarea 
+      class="form-control" 
+      id="messageBody" 
+      formControlName="messageBody"
+      rows="3">
+    </textarea>
+    <span 
+      class="text-danger" 
+      *ngIf="!contactMessageForm.get('messageBody').valid && contactMessageForm.get('messageBody').touched">
+      Please enter a valid message (max 300 characters)
+    </span>
+  </div>
+  <button type="submit" [disabled]="!contactMessageForm.valid" class="btn btn-primary" (click)="onMessageSubmit()">Submit</button>
+</form>
+
+<p class="text-success" *ngIf="messageSent">Message was sent successfully</p>
+<p class="text-warning" *ngIf="messageSent == false">An error occured while sending your message, please try again later</p>
