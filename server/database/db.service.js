@@ -36,4 +36,20 @@ db.getAllJobs = (callback) => {
   });
 };
 
+/**
+ * get all contact-us messages from the db
+ * @param {*} callback 
+ */
+db.getAllContactMessages = (callback) => {
+  conn.query('SELECT * FROM contactMessage', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+db.addNewContactMessage = (message, callback) => {
+  conn.query('INSERT INTO contactMessage SET ?', message, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
 module.exports = db;
