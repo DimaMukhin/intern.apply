@@ -1,6 +1,3 @@
-
-//import { User } from "../../src/app/shared/models/user.model";
-
 const { User } = require('../shared/models/user.model');
 
 const db = require('../database/db.service');
