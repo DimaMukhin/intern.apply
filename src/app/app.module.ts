@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InternApiService } from './shared/services/intern-api/intern-api.service';
 import { JobFormComponent } from './job-form/job-form.component';
+import { AddJobComponent } from './add-job/add-job.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { JobFormComponent } from './job-form/job-form.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
-    JobFormComponent
+    JobFormComponent,
+    AddJobComponent
   ],
   imports: [
     BrowserModule,
