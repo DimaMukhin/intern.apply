@@ -11,20 +11,26 @@ export class JobFormComponent implements OnInit {
 
   constructor() { }
 
-  
-
   form = new FormGroup({
     organization: new FormControl('', Validators.required),
     title: new FormControl('', Validators.required),
-    location: new FormControl('', Validators.required),
-    appDeadline: new FormControl('', Validators.required),
-    salary: new FormControl(),
-    process: new FormControl(),
     description: new FormControl('', Validators.required)
   });
-  
-  
+
+  get organization() {
+    return this.form.get('organization');
+  }
+
+  get title() {
+    return this.form.get('title');
+  }
+
+  get description() {
+    return this.form.get('description');
+  }
+
   ngOnInit() {
   }
+
 
 }

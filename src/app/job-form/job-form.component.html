@@ -2,16 +2,25 @@
   <div class="form-group">
     <label for="organization">Organization</label>
     <input formControlName="organization" type="text" class="form-control" id="organization" placeholder="Enter organization name">
+    <div *ngIf="organization.touched && organization.invalid" class="text-danger">
+      Organization name is required
+    </div>
   </div>
 
   <div class="form-group">
     <label for="title">Title</label>
     <input formControlName="title" type="text" class="form-control" id="title" placeholder="Enter job title">
+    <div *ngIf="title.touched && title.invalid" class="text-danger">
+      Job title is required
+    </div>
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
     <textarea formControlName="description" rows="10" class="form-control" id="description" placeholder="Enter job description"></textarea>
+    <div *ngIf="description.touched && description.invalid" class="text-danger">
+      Job description is required
+    </div>
   </div>
 
   <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Submit</button>
