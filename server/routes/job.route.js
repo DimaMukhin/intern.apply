@@ -12,4 +12,14 @@ module.exports = (router) => {
     });
   });
 
+  /**
+   * POST job to the database
+   */
+  router.post('/job', (req, res) => {
+    db.addJob(req.body, (err, response, fields) => {
+      if (err) throw err;
+      else res.send(response);
+    });
+  });
+
 };

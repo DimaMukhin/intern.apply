@@ -36,4 +36,15 @@ db.getAllJobs = (callback) => {
   });
 };
 
+/**
+ * add job to db
+ * @param {Job} job to be added to the database 
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.addJob = (job, callback) => {
+  conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
 module.exports = db;
