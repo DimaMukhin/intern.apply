@@ -8,9 +8,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./job-form.component.css']
 })
 export class JobFormComponent implements OnInit {
+  @Output() submitted = new EventEmitter<any>();
 
   constructor() { }
 
+  // Reactive Job form
   form = new FormGroup({
     organization: new FormControl('', Validators.required),
     title: new FormControl('', Validators.required),

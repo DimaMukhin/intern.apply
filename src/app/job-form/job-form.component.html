@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
   <div class="form-group">
     <label for="organization">Organization</label>
     <input formControlName="organization" type="text" class="form-control" id="organization" placeholder="Enter organization name">
