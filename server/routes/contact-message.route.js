@@ -1,4 +1,5 @@
 const db = require('../database/db.service');
+const validate = require('../services/validation.service');
 
 module.exports = (router) => {
 
@@ -18,9 +19,33 @@ module.exports = (router) => {
    */
   router.post('/contactMessage', (req, res) => {
     let message = req.body;
-    db.addNewContactMessage(message, (err, response, fields) => {
+    let error = {
+      set: 0,
+      errors: []
+    };
+
+    if (!validate.validateEmail(message.email)) {
+      error.set = 1;
+      error.errors.push({code: 1, message: 'invalid email address'});
+    }
+
+    if (!validate.validateContactMessageTitle(message.title)) {
+      error.set = 1;
+      error.errors.push({code: 2, message: 'invalid title'});
+    }
+
+    if (!validate.validateContactMessageBody(message.message)) {
+      error.set = 1;
+      error.errors.push({code: 3, message: 'invalid message body'});
+    }
+
+    if (error.set == 1) {
+      res.status(400).send(error);
+    } else {
+      db.addNewContactMessage(message, (err, response, fields) => {
         if (err) res.status(400).send(err);
-        else res.send(response);
-    });
+        else res.send(message);
+      });
+    }
   });
 };
