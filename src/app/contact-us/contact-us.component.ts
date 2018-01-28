@@ -11,14 +11,15 @@ export class ContactUsComponent implements OnInit {
 
   messageSent: boolean;
   contactMessageForm: FormGroup;
+  formValidation: any = {};
 
   constructor(private internApi: InternApiService) { }
 
   ngOnInit() {
     this.contactMessageForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(25)]),
-      'title': new FormControl(null, [Validators.required, Validators.maxLength(25)]),
-      'messageBody': new FormControl(null, [Validators.required, Validators.maxLength(300)])
+      'email': new FormControl(null),
+      'title': new FormControl(null),
+      'messageBody': new FormControl(null)
     });
   }
 
@@ -29,6 +30,7 @@ export class ContactUsComponent implements OnInit {
    */
   private onMessageSubmit(): void {
     this.messageSent = undefined;
+    this.formValidation = {};
     this.internApi.sendContactMessage(
       this.contactMessageForm.value.email, 
       this.contactMessageForm.value.title, 
@@ -36,7 +38,15 @@ export class ContactUsComponent implements OnInit {
       .subscribe((response) => {
         this.setMessageStatus(true);
       }, (error) => {
-        this.setMessageStatus(false);
+        error = error.json();
+        if (error.set == 1) {
+          for (let err of error.errors) {
+            if (err.code == 1) this.formValidation.email = true;
+            if (err.code == 2) this.formValidation.title = true;
+            if (err.code == 3) this.formValidation.message = true;
+          }
+        } else
+          this.setMessageStatus(false);
       });
   }
 

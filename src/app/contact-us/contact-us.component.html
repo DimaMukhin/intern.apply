@@ -26,7 +26,7 @@
       placeholder="name@example.com">
       <span 
         class="text-danger" 
-        *ngIf="!contactMessageForm.get('email').valid && contactMessageForm.get('email').touched">
+        *ngIf="formValidation.email">
         Please enter a valid email
       </span>
   </div>
@@ -40,7 +40,7 @@
       placeholder="Title">
       <span 
         class="text-danger" 
-        *ngIf="!contactMessageForm.get('title').valid && contactMessageForm.get('title').touched">
+        *ngIf="formValidation.title">
         Please enter a valid title (max 25 characters)
       </span>
   </div>
@@ -54,7 +54,7 @@
     </textarea>
     <span 
       class="text-danger" 
-      *ngIf="!contactMessageForm.get('messageBody').valid && contactMessageForm.get('messageBody').touched">
+      *ngIf="formValidation.message">
       Please enter a valid message (max 300 characters)
     </span>
   </div>
