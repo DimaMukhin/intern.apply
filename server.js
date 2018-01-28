@@ -10,8 +10,15 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // setting json parsing of http requests
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// enabling cors 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // setting /api route as the default api route of the application
 app.use('/api', api);
@@ -23,7 +30,7 @@ app.get('*', (req, res) => {
 
 // start listening for requests on the given port
 app.listen(port, () => {
-    console.log("Server running on port:" + port);
+  console.log("Server running on port:" + port);
 });
 
 module.exports = app;
