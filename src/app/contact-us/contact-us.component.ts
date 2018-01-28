@@ -39,8 +39,10 @@ export class ContactUsComponent implements OnInit {
         this.setMessageStatus(true);
       }, (error) => {
         error = error.json();
-        if (error.set == 1) {
-          for (let err of error.errors) {
+        console.log(error);
+        if (error.length) {
+          for (let err of error) {
+            if (err.code == 0) this.setMessageStatus(false);
             if (err.code == 1) this.formValidation.email = true;
             if (err.code == 2) this.formValidation.title = true;
             if (err.code == 3) this.formValidation.message = true;
