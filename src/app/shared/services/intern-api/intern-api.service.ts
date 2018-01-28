@@ -28,9 +28,9 @@ export class InternApiService {
    * @param job job to be added to the database
    */
   public addJob(job: Job) {
-    return this.http.get(BASE_URL + '/api/job').map((res: Response) => {
+    return this.http.post(BASE_URL + '/api/job', job).map((res: Response) => {
       return res.json();
     });
   }
-  
+
 }
