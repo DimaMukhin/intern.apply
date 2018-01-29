@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 import { environment } from '../../../../environments/environment';
-import { Job } from '../../models/job';
+import { Job } from '../../models/job.model';
 
 const BASE_URL = environment.host;
 
