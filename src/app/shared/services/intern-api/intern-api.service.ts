@@ -22,15 +22,4 @@ export class InternApiService {
             return res.json();
         });
     }
-
-    /*
-    * register a new user using registration API
-    * @returns a Observable for confirmation
-    */
-    public register(user: Object): Observable<any> {
-        return this.http.post(BASE_URL + '/reg', user).map((res: Response) => {
-            return res.json();
-        });
-    }
-
 }
