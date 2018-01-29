@@ -36,4 +36,19 @@ db.getAllJobs = (callback) => {
   });
 };
 
+/**
+ * adds a user to the database
+ * @param   user user data model instance
+ * @param  {Function} callback callback function (err, res, fields)
+ *
+ */
+db.addUser = (user, callback) => {
+    const query = `INSERT INTO user (name, email, password) 
+    VALUES ('${user.username}', '${user.email}', '${user.password}')`;
+
+    conn.query(query, (err, res) => {
+        callback(err,res);
+    });
+};
+
 module.exports = db;
