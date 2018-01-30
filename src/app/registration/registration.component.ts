@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
 
     private register(): void {
         this.registerAPI.register(this.user).subscribe((res) => {
-            this.response = 'You we\'re successfully registered';
+            this.response = 'You were successfully registered';
         }, (err) => {
             this.response = 'Something went wrong :(';
         });
