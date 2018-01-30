@@ -1,9 +1,11 @@
 <div *ngIf="isSubmitted; then submitted else notSubmitted"></div>
 
+<!-- the view the user gets when submitting the form -->
 <ng-template #submitted>
     {{response}}
 </ng-template>
 
+<!-- the view the user gets initially -->
 <ng-template #notSubmitted>
     <h2>Registration</h2>
     <form id="registration-form" novalidate>
@@ -11,9 +13,6 @@
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
                    [(ngModel)]="user.username" required>
-            <small class="form-text text-muted">
-                You'll need either your username or your email to login
-            </small>
         </div>
         <div class="form-row">
             <div class="form-group col-lg-6">
