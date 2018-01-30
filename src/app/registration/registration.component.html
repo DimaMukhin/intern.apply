@@ -1,44 +1,43 @@
-<div class="container">
-    <div *ngIf="isSubmitted; then submitted else notSubmitted"></div>
+<div *ngIf="isSubmitted; then submitted else notSubmitted"></div>
 
-    <ng-template #submitted>
-        {{response}}
-    </ng-template>
+<ng-template #submitted>
+    {{response}}
+</ng-template>
 
-    <ng-template #notSubmitted>
-        <h2>Registration</h2>
-        <form novalidate>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
-                       [(ngModel)]="user.username" required>
-                <small class="form-text text-muted">
-                    You'll need either your username or your email to login
-                </small>
+<ng-template #notSubmitted>
+    <h2>Registration</h2>
+    <form id="registration-form" novalidate>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+                   [(ngModel)]="user.username" required>
+            <small class="form-text text-muted">
+                You'll need either your username or your email to login
+            </small>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-lg-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       placeholder="Enter password" [(ngModel)]="user.password" required>
             </div>
-            <div class="form-row">
-                <div class="form-group col-lg-6">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password"
-                           placeholder="Enter password" [(ngModel)]="user.password" required>
-                </div>
-                <div class="form-group col-md-6 align-self-end">
-                    <input type="password" class="form-control" id="confirm-pwd" name="confirm-pwd"
-                           placeholder="Confirm password" [(ngModel)]="user.passwordConfirm" required>
-                </div>
+            <div class="form-group col-md-6 align-self-end">
+                <input type="password" class="form-control" id="confirm-pwd" name="confirm-pwd"
+                       placeholder="Confirm password" [(ngModel)]="user.passwordConfirm" required>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
-                           [(ngModel)]="user.email" required>
-                </div>
-                <div class="form-group col-md-6 align-self-end">
-                    <input type="email" class="form-control" id="confirm-email" name="confirm-email"
-                           placeholder="Confirm email" [(ngModel)]="user.emailConfirm" required>
-                </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
+                       [(ngModel)]="user.email" required>
             </div>
-            <button type="button" (click)="onSubmit()" class="btn btn-primary">Register</button>
-        </form>
-    </ng-template>
-</div>
+            <div class="form-group col-md-6 align-self-end">
+                <input type="email" class="form-control" id="confirm-email" name="confirm-email"
+                       placeholder="Confirm email" [(ngModel)]="user.emailConfirm" required>
+            </div>
+        </div>
+        <button type="button" (click)="onSubmit()" class="btn btn-primary">Register</button>
+    </form>
+</ng-template>
+

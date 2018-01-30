@@ -3,7 +3,6 @@
  * Implements the database provider interface
  * uses callbacks for asynchronous calls
  */
-
 const mysql = require('mysql2');
 
 let db = {};
