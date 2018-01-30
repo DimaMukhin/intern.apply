@@ -7,9 +7,9 @@ import {RegisterApiService} from '../shared/services/register-api/register-api.s
     styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-    public user: object;    // user object
-    public isSubmitted: boolean; // the status of the form submission
-    public response: string;    // the response we get once the form is submitted
+    user: object;    // user object
+    isSubmitted: boolean; // the status of the form submission
+    response: string;    // the response we get once the form is submitted
 
     constructor(private registerAPI: RegisterApiService) {
     }

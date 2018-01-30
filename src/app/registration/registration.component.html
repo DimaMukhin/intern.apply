@@ -8,7 +8,7 @@
 <!-- the view the user gets initially -->
 <ng-template #notSubmitted>
     <h2>Registration</h2>
-    <form id="registration-form" novalidate>
+    <form id="registration-form" (submit)="onSubmit()" novalidate>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
@@ -36,7 +36,7 @@
                        placeholder="Confirm email" [(ngModel)]="user.emailConfirm" required>
             </div>
         </div>
-        <button type="button" (click)="onSubmit()" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
 </ng-template>
 
