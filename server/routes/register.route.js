@@ -7,9 +7,9 @@ module.exports = (router) => {
     router.post('/reg', (req, res) => {
         //create user object with post parameters
         const user = {
-            username: res.body.username,
-            password: res.body.password,
-            email: res.body.email
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email
         };
 
         // pass user to db
