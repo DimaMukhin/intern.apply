@@ -36,4 +36,10 @@ db.getAllJobs = (callback) => {
   });
 };
 
+db.getFilteredJobs = (filter, callback) => {
+  conn.query(`SELECT * FROM job where title LIKE '${filter.filterToApply}%'`, (err, res, fields) => {
+    callback(err,res,fields);
+  });
+};
+
 module.exports = db;
