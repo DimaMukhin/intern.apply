@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InternApiService } from './shared/services/intern-api/intern-api.service';
+import { JobListComponent } from './job-list/job-list.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { InternApiService } from './shared/services/intern-api/intern-api.servic
     AppComponent,
     NavbarComponent,
     HomeComponent,
+    JobListComponent,
     PageNotFoundComponent
   ],
   imports: [
