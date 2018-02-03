@@ -10,7 +10,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InternApiService } from './shared/services/intern-api/intern-api.service';
-import { RegisterApiService } from './shared/services/register-api/register-api.service';
 import { RegistrationComponent } from './registration/registration.component';
 
 
@@ -30,8 +29,7 @@ import { RegistrationComponent } from './registration/registration.component';
     FormsModule
   ],
   providers: [
-    InternApiService,
-    RegisterApiService
+    InternApiService
   ],
   bootstrap: [AppComponent]
 })
