@@ -3,7 +3,6 @@
  * Implements the database provider interface
  * uses callbacks for asynchronous calls
  */
-
 const mysql = require('mysql2');
 
 let db = {};
@@ -34,6 +33,21 @@ db.getAllJobs = (callback) => {
   conn.query('SELECT * FROM job', (err, res, fields) => {
     callback(err,res,fields);
   });
+};
+
+/**
+ * adds a user to the database
+ * @param   user user data model instance
+ * @param  {Function} callback callback function (err, res, fields)
+ *
+ */
+db.addUser = (user, callback) => {
+    const query = `INSERT INTO user (name, email, password) 
+    VALUES ('${user.username}', '${user.email}', '${user.password}')`;
+
+    conn.query(query, (err, res) => {
+        callback(err,res);
+    });
 };
 
 module.exports = db;
