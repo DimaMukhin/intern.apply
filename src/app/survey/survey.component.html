@@ -1,0 +1,21 @@
+<h1>Intern.apply Customer Survey</h1>
+
+<div class="container">
+
+  <form (submit)="onSurveySubmit">
+    <div class="form-group" *ngFor="let question of questions; let questionIndex = index">
+      <h4>{{ questionIndex+1 }}. {{ question.question }}</h4>
+
+      <div *ngFor="let response of question.responses, let resIndex = index" class="btn-group">
+        <label class="btn btn-primary">
+          <input type="radio" class="form-control" name="responses{{ questionIndex }}" [(ngModel)]="userAnswers[questionIndex]" [value]="resIndex"> {{ response }}
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="onSurveySubmit()">Submit</button>
+  </form>
+
+  <p class="text-success" *ngIf="messageSent">Survey was submitted successfully</p>
+  <p class="text-warning" *ngIf="messageSent == false">An error occured while submitting your survey, please try again later</p>
+</div>

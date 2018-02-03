@@ -42,4 +42,28 @@ db.getFilteredJobs = (filter, callback) => {
   });
 };
 
+db.getAllSurveyQuestions = (callback) => {
+  conn.query('SELECT * FROM surveyQuestion ORDER BY questionIndex', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+db.getAllSurveyResponses = (callback) => {
+  conn.query('SELECT * FROM surveyResponse', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+db.addCompleteSurvey = (callback) => {
+  conn.query('INSERT INTO completedSurvey SET completionTime = CURDATE()', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
+  conn.query('INSERT INTO completedSurveyRes SET surveyID = ?, questionIndex = ?, response = ?', [surveyID, index, response], (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
 module.exports = db;
