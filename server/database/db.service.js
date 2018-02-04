@@ -15,7 +15,7 @@ let conn = mysql.createConnection({
   host: "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
   user: "ysl7tl8kom3eqlm6",
   password: "h9ax1h8bkk9v8qog",
-  database : 'wq87o6l37jigk9p5'
+  database: 'wq87o6l37jigk9p5'
 });
 
 /**
@@ -32,7 +32,7 @@ conn.connect((err) => {
  */
 db.getAllJobs = (callback) => {
   conn.query('SELECT * FROM job', (err, res, fields) => {
-    callback(err,res,fields);
+    callback(err, res, fields);
   });
 };
 
