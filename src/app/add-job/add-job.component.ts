@@ -1,5 +1,5 @@
 import { Job } from './../shared/models/job.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { InternApiService } from './../shared/services/intern-api/intern-api.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,24 +10,74 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddJobComponent implements OnInit {
 
+  jobForm: FormGroup;
+  errors: any = {};
+  jobAdded: boolean = undefined;
+
+
   constructor(private service: InternApiService) { }
 
-  addJob(form: NgForm) {
-    let newJob: Job = form.value;
+  ngOnInit() {
+
+    //Setting up the job form 
+    this.jobForm = new FormGroup({
+      organization: new FormControl(null),
+      title: new FormControl(null),
+      location: new FormControl(null),
+      description: new FormControl(null)
+    });
+
+  }
+
+  /**
+   * Sends a request to the server to add a new job
+   */
+  private addJob(): void {
+    let newJob: Job = this.jobForm.value;
+    this.errors = {};
 
     this.service.addJob(newJob).subscribe(
       response => {
-        console.log("Job added");
+        this.displayAlert(true);
+        this.jobForm.reset();
       },
       error => {
-        console.log(error);
+        let serverErrors = error.json();
+
+        if (serverErrors.length > 0) {
+          this.handleErrors(serverErrors);
+        } else {
+          this.displayAlert(false);
+        }
       }
     );
-
-    form.reset();
   }
 
-  ngOnInit() {
+  /**
+   * Handles all the errors sent by the server
+   * @param serverErrors errors sent by the server
+   */
+  private handleErrors(serverErrors): void {
+    this.errors = {};
+
+    for (let err of serverErrors) {
+      if (err.code == 0) this.displayAlert(false);
+      else if (err.code == 1) this.errors.organization = true;
+      else if (err.code == 2) this.errors.title = true;
+      else if (err.code == 3) this.errors.location = true;
+      else if (err.code == 4) this.errors.description = true;
+    }
+  }
+
+  /**
+   * Displays a success or error alert upon submitting the form 
+   * @param flag true to display success message, false to display error
+   */
+  private displayAlert(flag: boolean): void {
+    this.jobAdded = flag;
+    setTimeout(() => {
+      this.jobAdded = undefined;
+    }, 3000);
   }
 
 }
