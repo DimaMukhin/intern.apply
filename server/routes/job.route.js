@@ -14,7 +14,6 @@ module.exports = (router) => {
     });
   });
 
-<<<<<<< HEAD
   /**
    * POST job to the database
    */
@@ -54,12 +53,4 @@ module.exports = (router) => {
 
   });
 
-=======
-  router.post('/job/filter', (req, res) => {
-    db.getFilteredJobs(req.body, (err, response, fields) => {
-      if (err) throw err;
-      else res.send(response);
-    });
-  });
->>>>>>> master
 };
