@@ -8,7 +8,7 @@
 
       <div *ngFor="let response of question.responses, let resIndex = index" class="btn-group">
         <label class="btn btn-primary">
-          <input type="radio" class="form-control" name="responses{{ questionIndex }}" [(ngModel)]="userAnswers[questionIndex]" [value]="resIndex"> {{ response }}
+          <input type="radio" class="form-control" name="responses{{ questionIndex }}" [(ngModel)]="userAnswers[questionIndex]" [value]="response"> {{ response }}
         </label>
       </div>
     </div>

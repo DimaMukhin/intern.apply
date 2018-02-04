@@ -36,7 +36,7 @@ export class InternApiService {
    * send the survey responses to the server, question responses should be ordered in the same way the questions are in the survey
    * @returns Observable holding list of the answers sent
    */
-  public sendSurveyResponses(answers: Array<number>): Observable<any> {
+  public sendSurveyResponses(answers: Array<String>): Observable<any> {
     return this.http.post(BASE_URL + '/api/Survey', { answers }).map((res: Response) => {
       return res.json();
     });

@@ -29,8 +29,8 @@ module.exports = (router) => {
 
     /**
      * POST and save responses to a survey, array should contain the responses for each question, based on the order of the questions
-     * and order of responses to the survey (ie. if the response is second option for the third question, answers[2] is 1)
-     * body format: { answers: array<number> }
+     * (ie. if the response is second option for the third question, answers[2] is second option)
+     * body format: { answers: array<String> }
      */
     router.post('/survey', (req, res) => {
         let message = req.body;
