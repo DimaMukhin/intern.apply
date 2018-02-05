@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { ContactUsComponent } from './contact-us.component';
+import { InternApiService } from '../shared/services/intern-api/intern-api.service';
 
 describe('ContactUsComponent', () => {
   let component: ContactUsComponent;
@@ -8,7 +11,11 @@ describe('ContactUsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactUsComponent ]
+      imports: [
+        ReactiveFormsModule,
+        HttpModule],
+      declarations: [ ContactUsComponent ],
+      providers: [InternApiService]
     })
     .compileComponents();
   }));
