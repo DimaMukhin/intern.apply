@@ -26,6 +26,8 @@ conn.connect((err) => {
   console.log("Connected!");
 });
 
+db.conn = conn;
+
 /**
  * get all the jobs from db
  * @param  {Function} callback callback function (err, res, fields)
@@ -43,6 +45,22 @@ db.getAllJobs = (callback) => {
  */
 db.addJob = (job, callback) => {
   conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get all contact-us messages from the db
+ * @param {*} callback 
+ */
+db.getAllContactMessages = (callback) => {
+  db.conn.query('SELECT * FROM contactMessage', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+db.addNewContactMessage = (message, callback) => {
+  db.conn.query('INSERT INTO contactMessage SET ?', message, (err, res, fields) => {
     callback(err, res, fields);
   });
 };

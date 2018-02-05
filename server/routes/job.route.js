@@ -1,6 +1,6 @@
 const db = require('../database/db.service');
-const jobFormValidate = require('../services/job-form-validation.service');
-const JobFormError = require('../models/job-form-errors.model');
+const validate = require('../services/validation.service');
+const Error = require('../models/error.model');
 
 module.exports = (router) => {
 
@@ -21,20 +21,20 @@ module.exports = (router) => {
     let job = req.body;
     let errors = [];
 
-    if (!jobFormValidate.validateJobOrganization(job.organization)) {
-      errors.push(new JobFormError(1));
+    if (!validate.validateJobOrganization(job.organization)) {
+      errors.push(new Error(11));
     }
 
-    if (!jobFormValidate.validateJobTitle(job.title)) {
-      errors.push(new JobFormError(2));
+    if (!validate.validateJobTitle(job.title)) {
+      errors.push(new Error(12));
     }
 
-    if (!jobFormValidate.validateJobLocation(job.location)) {
-      errors.push(new JobFormError(3));
+    if (!validate.validateJobLocation(job.location)) {
+      errors.push(new Error(13));
     }
 
-    if (!jobFormValidate.validateJobDescription(job.description)) {
-      errors.push(new JobFormError(4));
+    if (!validate.validateJobDescription(job.description)) {
+      errors.push(new Error(14));
     }
 
     if (errors.length > 0) {
@@ -42,7 +42,7 @@ module.exports = (router) => {
     } else {
       db.addJob(req.body, (err, response, fields) => {
         if (err) {
-          res.status(400).send([new JobFormError(0)]);
+          res.status(400).send([new Error(0)]);
         }
         else {
           res.send(response);

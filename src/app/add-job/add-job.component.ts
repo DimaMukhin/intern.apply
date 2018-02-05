@@ -62,10 +62,10 @@ export class AddJobComponent implements OnInit {
 
     for (let err of serverErrors) {
       if (err.code == 0) this.displayAlert(false);
-      else if (err.code == 1) this.errors.organization = true;
-      else if (err.code == 2) this.errors.title = true;
-      else if (err.code == 3) this.errors.location = true;
-      else if (err.code == 4) this.errors.description = true;
+      else if (err.code == 11) this.errors.organization = true;
+      else if (err.code == 12) this.errors.title = true;
+      else if (err.code == 13) this.errors.location = true;
+      else if (err.code == 14) this.errors.description = true;
     }
   }
 
