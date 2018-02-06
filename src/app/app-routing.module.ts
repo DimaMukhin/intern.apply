@@ -1,3 +1,4 @@
+import { AddJobComponent } from './add-job/add-job.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,8 +8,9 @@ import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
-  { path: '', redirectTo:'/home', pathMatch:'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'addjob', component: AddJobComponent },
   { path: 'jobs', component: JobListComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: '**', component: PageNotFoundComponent }

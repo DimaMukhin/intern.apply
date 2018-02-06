@@ -29,6 +29,9 @@ export class ContactUsComponent implements OnInit {
    * On success, display success message
    */
   public onMessageSubmit(): void {
+
+    this.messageSent = undefined;
+
     this.formValidation = {};
     this.internApi.sendContactMessage(
       this.contactMessageForm.value.email, 

@@ -10,14 +10,14 @@ describe('db.service.js', () => {
             host: "fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
             user: "rziicv90jjsju3xj",
             password: "eso1lssuop8145gk",
-            database : 'x9ptoxf7hkxdbkme'
-          });
-        
+            database: 'x9ptoxf7hkxdbkme'
+        });
+
         db.conn.connect((err) => {
             if (err) throw err;
         });
 
-        db.conn.query('DROP TABLE contactMessage', (err, res) => {});
+        db.conn.query('DROP TABLE contactMessage', (err, res) => { });
         db.conn.query(`CREATE TABLE contactMessage (
             id INT NOT NULL AUTO_INCREMENT,
             email VARCHAR(45) NOT NULL,
@@ -31,14 +31,14 @@ describe('db.service.js', () => {
     });
 
     describe('getAllContactMessages', () => {
-        
+
         it('should return 3 contact message records', (done) => {
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
             });
         });
-    
+
         it('should return the correct first record', (done) => {
             db.getAllContactMessages((err, res, fields) => {
                 let firstRecord = res[0];
@@ -53,9 +53,9 @@ describe('db.service.js', () => {
     });
 
     describe('addNewContactMessage', () => {
-        
+
         it('should create a new contact message', (done) => {
-            db.addNewContactMessage({id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(4);
                 done();
@@ -63,7 +63,7 @@ describe('db.service.js', () => {
         });
 
         it('should not create a new contact message with an undefined email', (done) => {
-            db.addNewContactMessage({id: 4, email: undefined, title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
@@ -71,13 +71,11 @@ describe('db.service.js', () => {
         });
 
         it('should not create a new contact message with an already existing id', (done) => {
-            db.addNewContactMessage({id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
             });
         });
-
     });
-
 });

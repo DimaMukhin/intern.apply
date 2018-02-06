@@ -11,7 +11,11 @@ const codes = {
     0: 'unknown error',
     1: 'invalid email address',
     2: 'invalid message title',
-    3: 'invalid message body'
+    3: 'invalid message body',
+    11: 'invalid job organization',
+    12: 'invalid job title',
+    13: 'invalid job location',
+    14: 'invalid job description'
 };
 
 class Error {

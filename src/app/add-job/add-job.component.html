@@ -1,0 +1,57 @@
+<h1>Add Job: </h1>
+<form [formGroup]="jobForm" (ngSubmit)="addJob()">
+  <div class="form-group">
+
+    <label for="organization">Organization</label>
+    <input formControlName="organization" type="text" class="form-control" id="organization" placeholder="Enter organization name">
+
+    <div *ngIf="errors.organization" class="text-danger">
+      Please enter a valid job organization
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="title">Title</label>
+    <input formControlName="title" type="text" class="form-control" id="title" placeholder="Enter job title">
+
+    <div *ngIf="errors.title" class="text-danger">
+      Please enter a valid job title
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="location">Location</label>
+    <input formControlName="location" type="text" class="form-control" id="location" placeholder="Enter job location">
+
+    <div *ngIf="errors.location" class="text-danger">
+      Please enter a valid job location
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="description">Description</label>
+    <textarea formControlName="description" rows="10" class="form-control" id="description" placeholder="Enter job description"></textarea>
+
+    <div *ngIf="errors.description" class="text-danger">
+      Please enter a valid job description
+    </div>
+
+  </div>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+
+  <div *ngIf="jobAdded" class="alert alert-success d-inline">
+    <strong>Success!</strong> Job was successfully added.
+  </div>
+
+  <div class="submit-messages" *ngIf="jobAdded == false" class="alert alert-danger d-inline">
+    <strong>Error!</strong> Job couldn't be added.
+  </div>
+
+</form>
