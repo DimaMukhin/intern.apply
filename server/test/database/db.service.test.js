@@ -10,14 +10,14 @@ describe('db.service.js', () => {
             host: "fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
             user: "rziicv90jjsju3xj",
             password: "eso1lssuop8145gk",
-            database : 'x9ptoxf7hkxdbkme'
-          });
-        
+            database: 'x9ptoxf7hkxdbkme'
+        });
+
         db.conn.connect((err) => {
             if (err) throw err;
         });
 
-        db.conn.query('DROP TABLE contactMessage', (err, res) => {});
+        db.conn.query('DROP TABLE contactMessage', (err, res) => { });
         db.conn.query(`CREATE TABLE contactMessage (
             id INT NOT NULL AUTO_INCREMENT,
             email VARCHAR(45) NOT NULL,
@@ -28,31 +28,17 @@ describe('db.service.js', () => {
             (1, 'dima@gmail.com', 'test title', 'test body'),
             (2, 'ben@gmail.com', 'second title', 'second body'),
             (3, 'what@is.this', 'third title', 'third body')`);
-
-        db.conn.query('DROP TABLE job', (err, res) => {});
-        db.conn.query(`CREATE TABLE job (
-            id INT NOT NULL AUTO_INCREMENT,
-            organization VARCHAR(45) NOT NULL,
-            title VARCHAR(100) NOT NULL,
-            location VARCHAR(45) NOT NULL,
-            description VARCHAR(2000) NOT NULL,
-            PRIMARY KEY (id))`);
-        db.conn.query(`INSERT INTO job (id, organization, title, location, description) VALUES 
-            (1, 'Test Org', 'test title', '123 test st', 'test description'),
-            (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test'),
-            (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
-            (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`);
     });
 
     describe('getAllContactMessages', () => {
-        
+
         it('should return 3 contact message records', (done) => {
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
             });
         });
-    
+
         it('should return the correct first record', (done) => {
             db.getAllContactMessages((err, res, fields) => {
                 let firstRecord = res[0];
@@ -67,9 +53,9 @@ describe('db.service.js', () => {
     });
 
     describe('addNewContactMessage', () => {
-        
+
         it('should create a new contact message', (done) => {
-            db.addNewContactMessage({id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(4);
                 done();
@@ -77,7 +63,7 @@ describe('db.service.js', () => {
         });
 
         it('should not create a new contact message with an undefined email', (done) => {
-            db.addNewContactMessage({id: 4, email: undefined, title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
@@ -85,81 +71,11 @@ describe('db.service.js', () => {
         });
 
         it('should not create a new contact message with an already existing id', (done) => {
-            db.addNewContactMessage({id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4'}, (err, res, fields) => {});
+            db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
             db.getAllContactMessages((err, res, fields) => {
                 expect(res).to.have.lengthOf(3);
                 done();
             });
         });
-
     });
-
-    describe('addJob', () => {
-        
-        it('it should add the new job', (done) => {
-            db.addJob({
-                id: 5, 
-                organization: 'Test Syndicate', 
-                title: 'i am a test for add job', 
-                location: '10 Test Square', 
-                description: 'I am a description'}, 
-                (err, res, fields) => {});
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(5);
-
-                let addedJob = res[4];
-
-                expect(addedJob.id).to.equal(5);
-                expect(addedJob.organization).to.equal('Test Syndicate');
-                expect(addedJob.title).to.equal('i am a test for add job');
-                expect(addedJob.location).to.equal('10 Test Square');
-                expect(addedJob.description).to.equal('I am a description');
-                done();
-            });
-        });
-    
-        it('it should not add a job without an organization', (done) => {
-            db.addJob({
-                id: 5, 
-                organization: undefined, 
-                title: 'i am a test for add job', 
-                location: '10 Test Square', 
-                description: 'I am a description'}, 
-                (err, res, fields) => {});
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
-            });
-        });
-
-        it('it should not add a job without a title', (done) => {
-            db.addJob({
-                id: 5, 
-                organization: 'Super Test Squad', 
-                title: undefined, 
-                location: '10 Test House', 
-                description: 'I am a description'}, 
-                (err, res, fields) => {});
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
-            });
-        });
-
-        it('it should not add a job with a duplicate id', (done) => {
-            db.addJob({
-                id: 1, 
-                organization: 'Return of Test', 
-                title: 'Test Test Test', 
-                location: '101 Test Disco', 
-                description: 'I am not a description'}, 
-                (err, res, fields) => {});
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
-            });
-        });
-
-    });
-
 });
