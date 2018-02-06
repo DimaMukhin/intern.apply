@@ -32,7 +32,7 @@ export class AddJobComponent implements OnInit {
   /**
    * Sends a request to the server to add a new job
    */
-  private addJob(): void {
+  public addJob(): void {
     let newJob: Job = this.jobForm.value;
     this.errors = {};
 
