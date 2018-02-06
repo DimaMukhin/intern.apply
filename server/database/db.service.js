@@ -33,7 +33,7 @@ db.conn = conn;
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getAllJobs = (callback) => {
-  conn.query('SELECT * FROM job', (err, res, fields) => {
+  db.conn.query('SELECT * FROM job', (err, res, fields) => {
     callback(err, res, fields);
   });
 };
@@ -44,7 +44,7 @@ db.getAllJobs = (callback) => {
  * @param {Function} callback callback function (err, res, fields)
  */
 db.addJob = (job, callback) => {
-  conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
+  db.conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
     callback(err, res, fields);
   });
 };
