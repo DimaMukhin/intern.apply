@@ -28,8 +28,7 @@ export class ContactUsComponent implements OnInit {
    * On error, display error message
    * On success, display success message
    */
-  private onMessageSubmit(): void {
-    this.messageSent = undefined;
+  public onMessageSubmit(): void {
     this.formValidation = {};
     this.internApi.sendContactMessage(
       this.contactMessageForm.value.email, 
@@ -38,15 +37,17 @@ export class ContactUsComponent implements OnInit {
       .subscribe((response) => {
         this.setMessageStatus(true);
       }, (error) => {
-        error = error.json();
-        console.log(error);
-        if (error.length) {
-          for (let err of error) {
-            if (err.code == 0) this.setMessageStatus(false);
-            if (err.code == 1) this.formValidation.email = true;
-            if (err.code == 2) this.formValidation.title = true;
-            if (err.code == 3) this.formValidation.message = true;
-          }
+        if (error.json) {
+          error = error.json();
+          if (error.length) {
+            for (let err of error) {
+              if (err.code == 0) this.setMessageStatus(false);
+              if (err.code == 1) this.formValidation.email = true;
+              if (err.code == 2) this.formValidation.title = true;
+              if (err.code == 3) this.formValidation.message = true;
+            }
+          } else
+            this.setMessageStatus(false);
         } else
           this.setMessageStatus(false);
       });
