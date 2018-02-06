@@ -1,0 +1,18 @@
+<div class="m-3">
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Job Title</th>
+        <th>Organization</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+        <td>{{job.title }}</td>
+        <td>{{ job.organization }}</td>
+        <td>{{ job.location }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
