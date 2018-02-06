@@ -25,7 +25,7 @@
       formControlName="email"
       placeholder="name@example.com">
       <span 
-        class="text-danger" 
+        class="text-danger email-danger" 
         *ngIf="formValidation.email">
         Please enter a valid email
       </span>
@@ -39,7 +39,7 @@
       formControlName="title"
       placeholder="Title">
       <span 
-        class="text-danger" 
+        class="text-danger title-danger" 
         *ngIf="formValidation.title">
         Please enter a valid title (max 25 characters)
       </span>
@@ -53,7 +53,7 @@
       rows="3">
     </textarea>
     <span 
-      class="text-danger" 
+      class="text-danger message-danger" 
       *ngIf="formValidation.message">
       Please enter a valid message (max 300 characters)
     </span>
