@@ -1,0 +1,14 @@
+<p>
+  jobs works!
+</p>
+<h1>
+  Serched For: 
+  {{searchText}}
+</h1>
+<div>
+  <ul>
+    <li *ngFor="let job of filteredJobs">
+      {{job.title}}
+    </li>
+  </ul>
+</div>
