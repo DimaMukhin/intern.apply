@@ -1,9 +1,16 @@
-<div id="wrapper">
-  <app-navbar></app-navbar>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-  <div id="push"></div>
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
 </div>
 
-<app-footer id="footer"></app-footer>
+<!-- <div class="container" (click)="onClick()">
+	<input [(ngModel)]="searchText" placeholder="search text goes here">
+	<ul>
+	  <li *ngFor="let c of characters | filter : searchText">
+	    {{c}}
+	  </li>
+	</ul> 
+</div> -->
+
+
+

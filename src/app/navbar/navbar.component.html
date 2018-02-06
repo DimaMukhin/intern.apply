@@ -4,15 +4,21 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
+  <div class="collapse navbar-collapse" id="navbarColor01" >
     <ul class="navbar-nav mr-auto">
       <!-- <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li> -->
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="text"  placeholder="Search" #searchText>
+      <!-- <ul>
+        <li *ngFor="let c of characters | filter : searchText">
+          {{c}}
+        </li>
+      </ul> -->
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit" (click)="onClick(searchText)">Search</button>
     </form>
   </div>
 </nav>
+
