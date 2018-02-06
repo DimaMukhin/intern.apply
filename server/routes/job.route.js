@@ -7,7 +7,7 @@ module.exports = (router) => {
    */
   router.get('/job', (req, res) => {
     let filter = req.query.filter;
- g
+    
     if(filter)
     {
       db.getFilteredJobs(filter,(err, response, fields) => {
