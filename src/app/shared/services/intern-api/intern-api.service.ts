@@ -26,7 +26,6 @@ export class InternApiService {
   //   let filter = {
   //     filter: search
   //   };
-
   //   return this.http.get(BASE_URL + '/api/job', { params: filter }).map((res: Response) => {
   //     return res.json();
   //   });
