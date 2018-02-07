@@ -31,10 +31,6 @@ conn.connect((err) => {
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getAllJobs = (callback) => {
-<<<<<<< HEAD
-  conn.query('SELECT * FROM job', (err, res, fields) => {
-    callback(err,res,fields);
-=======
   db.conn.query('SELECT * FROM job', (err, res, fields) => {
     callback(err, res, fields);
   });
@@ -48,7 +44,6 @@ db.getAllJobs = (callback) => {
 db.addJob = (job, callback) => {
   db.conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
     callback(err, res, fields);
->>>>>>> 85ade48e87639e88e101ef3798709f1a874eb5ca
   });
 };
 

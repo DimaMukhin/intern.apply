@@ -26,9 +26,6 @@ module.exports = (router) => {
     }
   });
 
-<<<<<<< HEAD
-  
-=======
   /**
    * POST job to the database
    */
@@ -68,5 +65,4 @@ module.exports = (router) => {
 
   });
 
->>>>>>> 85ade48e87639e88e101ef3798709f1a874eb5ca
 };

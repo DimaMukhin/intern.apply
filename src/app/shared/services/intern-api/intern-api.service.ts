@@ -23,16 +23,6 @@ export class InternApiService {
     });
   }
 
-<<<<<<< HEAD
-  // public getFilteredJobs(search: string) {
-  //   let filter = {
-  //     filter: search
-  //   };
-  //   return this.http.get(BASE_URL + '/api/job', { params: filter }).map((res: Response) => {
-  //     return res.json();
-  //   });
-  // }
-=======
   /**
    * add job to the database
    * @param job job to be added to the database
@@ -54,6 +44,5 @@ export class InternApiService {
       return res.json();
     });
   }
->>>>>>> 85ade48e87639e88e101ef3798709f1a874eb5ca
 
 }
