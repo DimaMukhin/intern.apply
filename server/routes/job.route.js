@@ -33,7 +33,6 @@ module.exports = (router) => {
           if(err){
             // unknown error
             errors.push(new Error(0));
-            console.log(err);
             res.status(400).send(errors);
           }else{
             res.send(response);
@@ -77,8 +76,5 @@ module.exports = (router) => {
         }
       });
     }
-
-
   });
-
 };

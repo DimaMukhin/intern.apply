@@ -88,5 +88,4 @@ validation.validateID = (id) => {
    return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id));
 };
 
-
 module.exports = validation;
