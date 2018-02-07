@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 import { environment } from '../../../../environments/environment';
+import { Job } from '../../models/job.model';
 
 const BASE_URL = environment.host;
 
@@ -22,6 +23,7 @@ export class InternApiService {
     });
   }
 
+<<<<<<< HEAD
   // public getFilteredJobs(search: string) {
   //   let filter = {
   //     filter: search
@@ -30,5 +32,28 @@ export class InternApiService {
   //     return res.json();
   //   });
   // }
+=======
+  /**
+   * add job to the database
+   * @param job job to be added to the database
+   */
+  public addJob(job: Job) {
+    return this.http.post(BASE_URL + '/api/job', job).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
+   * post a new "contact-us" message
+   * @param email email of the message sender
+   * @param title title of the message
+   * @param message message body
+   */
+  public sendContactMessage(email: string, title: string, message: string): Observable<any> {
+    return this.http.post(BASE_URL + '/api/contactMessage', { email, title, message }).map((res: Response) => {
+      return res.json();
+    });
+  }
+>>>>>>> 85ade48e87639e88e101ef3798709f1a874eb5ca
 
 }

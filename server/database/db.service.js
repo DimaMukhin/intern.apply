@@ -15,7 +15,7 @@ let conn = mysql.createConnection({
   host: "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
   user: "ysl7tl8kom3eqlm6",
   password: "h9ax1h8bkk9v8qog",
-  database : 'wq87o6l37jigk9p5'
+  database: 'wq87o6l37jigk9p5'
 });
 
 /**
@@ -31,8 +31,24 @@ conn.connect((err) => {
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getAllJobs = (callback) => {
+<<<<<<< HEAD
   conn.query('SELECT * FROM job', (err, res, fields) => {
     callback(err,res,fields);
+=======
+  db.conn.query('SELECT * FROM job', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add job to db
+ * @param {Job} job to be added to the database 
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.addJob = (job, callback) => {
+  db.conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
+    callback(err, res, fields);
+>>>>>>> 85ade48e87639e88e101ef3798709f1a874eb5ca
   });
 };
 
