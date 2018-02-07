@@ -7,7 +7,7 @@ const orgMax = 45,
     locMax = 45,
     descMax = 2000;
 
-    
+
 /**
  * validate an email address string
  * @param {string} email email address string to validate 
@@ -45,7 +45,10 @@ validation.validateContactMessageBody = (body) => {
  * @returns true if valid OR false if invalid
  */
 validation.validateJobOrganization = (organization) => {
-    if (!organization) return false;
+    if (!organization) {
+        return false;
+    }
+    organization = organization.trim();
     return organization.length > 0 && organization.length < orgMax;
 };
 
@@ -55,7 +58,11 @@ validation.validateJobOrganization = (organization) => {
  * @returns true if valid OR false if invalid
  */
 validation.validateJobTitle = (title) => {
-    if (!title) return false;
+    if (!title) {
+        return false;
+    }
+
+    title = title.trim();
     return title.length > 0 && title.length < titleMax;
 };
 
@@ -65,7 +72,11 @@ validation.validateJobTitle = (title) => {
  * @returns true if valid OR false if invalid
  */
 validation.validateJobLocation = (location) => {
-    if (!location) return false;
+    if (!location) {
+        return false;
+    }
+
+    location = location.trim();
     return location.length > 0 && location.length < locMax;
 };
 
@@ -75,7 +86,11 @@ validation.validateJobLocation = (location) => {
  * @returns true if valid OR false if invalid
  */
 validation.validateJobDescription = (description) => {
-    if (!description) return false;
+    if (!description) {
+        return false;
+    }
+
+    description = description.trim();
     return description.length > 0 && description.length < descMax;
 };
 
