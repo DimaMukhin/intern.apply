@@ -15,6 +15,7 @@ import { AddJobComponent } from './add-job/add-job.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { FooterComponent } from './footer/footer.component';
+import { ViewJobComponent } from './view-job/view-job.component';
 
 
 
@@ -28,7 +29,8 @@ import { FooterComponent } from './footer/footer.component';
     JobListComponent,
     ContactUsComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ViewJobComponent
   ],
   imports: [
     BrowserModule,

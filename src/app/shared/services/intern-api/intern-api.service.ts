@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import "rxjs/add/observable/of";
-import 'rxjs/add/operator/map'
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 
 import { environment } from '../../../../environments/environment';
 import { Job } from '../../models/job.model';
@@ -23,6 +23,16 @@ export class InternApiService {
       return res.json();
     });
   }
+
+    /**
+     * get a specific job from the db
+     * @returns Observable holding job details
+     */
+    public getJob(id: number): Observable<any> {
+        return this.http.get(BASE_URL + '/api/job/' + id).map((res: Response) => {
+            return res.json();
+        });
+    }
 
   /**
    * add job to the database
