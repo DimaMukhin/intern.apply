@@ -1,3 +1,4 @@
+require('../helper.test');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
@@ -6,18 +7,7 @@ const db = require('../../database/db.service');
 describe('db.service.js', () => {
 
     beforeEach(() => {
-        db.conn = mysql.createConnection({
-            host: "fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-            user: "rziicv90jjsju3xj",
-            password: "eso1lssuop8145gk",
-            database: 'x9ptoxf7hkxdbkme'
-        });
-
-        db.conn.connect((err) => {
-            if (err) throw err;
-        });
-
-        db.conn.query('DROP TABLE contactMessage', (err, res) => { });
+        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { });
         db.conn.query(`CREATE TABLE contactMessage (
             id INT NOT NULL AUTO_INCREMENT,
             email VARCHAR(45) NOT NULL,
