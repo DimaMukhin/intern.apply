@@ -1,8 +1,8 @@
-require('../db-inject-helper.test');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
-const db = require('../../database/db.service');
+const db = require('../db.connection.test');
+
 
 describe('db.service.js', () => {
 

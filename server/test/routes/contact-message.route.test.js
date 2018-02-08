@@ -1,105 +1,144 @@
-require('../db-inject-helper.test');
 const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
 const app = require('../../../server');
-const db = require('../../database/db.service');
+const db = require('../db.connection.test');
 
 describe('contact-message.route.js', () => {
 
-    beforeEach(() => {
-        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => {});
-        db.conn.query(`CREATE TABLE contactMessage (
-            id INT NOT NULL AUTO_INCREMENT,
-            email VARCHAR(45) NOT NULL,
-            title VARCHAR(45) NOT NULL,
-            message VARCHAR(300) NOT NULL,
-            PRIMARY KEY (id))`);
-        db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
-            (1, 'dima@gmail.com', 'test title', 'test body'),
-            (2, 'ben@gmail.com', 'second title', 'second body'),
-            (3, 'what@is.this', 'third title', 'third body')`);
+    describe('ContactMessage', () => {
+
+        beforeEach(() => {
+            db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { });
+            db.conn.query(`CREATE TABLE contactMessage (
+                id INT NOT NULL AUTO_INCREMENT,
+                email VARCHAR(45) NOT NULL,
+                title VARCHAR(45) NOT NULL,
+                message VARCHAR(300) NOT NULL,
+                PRIMARY KEY (id))`);
+            db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
+                (1, 'dima@gmail.com', 'test title', 'test body'),
+                (2, 'ben@gmail.com', 'second title', 'second body'),
+                (3, 'what@is.this', 'third title', 'third body')`);
+        });
+
+        describe('GET /contactMessage', () => {
+            it('should return all the contact messages', (done) => {
+                request(app)
+                    .get('/api/contactMessage')
+                    .expect(200)
+                    .expect(res => {
+                        expect(res.body).to.have.lengthOf(3);
+                    })
+                    .end(done);
+            });
+        });
+
+        describe('POST /contactMessage', () => {
+
+            it('should create a new contact message', (done) => {
+                request(app)
+                    .post('/api/contactMessage')
+                    .send({ email: 'test@gg.com', title: 'testtitle', message: 'test message' })
+                    .expect(200)
+                    .expect(res => {
+                        expect(res.body.email).to.equal('test@gg.com');
+                        expect(res.body.title).to.equal('testtitle');
+                        expect(res.body.message).to.equal('test message');
+                    })
+                    .end(done);
+            });
+
+            it('should return an error message with code 1 for invalid email address', (done) => {
+                request(app)
+                    .post('/api/contactMessage')
+                    .send({ email: 'test', title: 'testtitle', message: 'test message' })
+                    .expect(400)
+                    .expect(res => {
+                        expect(res.body).to.have.lengthOf(1);
+                        expect(res.body[0].code).to.equal(1);
+                    })
+                    .end(done);
+            });
+
+            it('should return an error message with code 2 for invalid title', (done) => {
+                request(app)
+                    .post('/api/contactMessage')
+                    .send({ email: 'test@gmail.com', title: '', message: 'test message' })
+                    .expect(400)
+                    .expect(res => {
+                        expect(res.body).to.have.lengthOf(1);
+                        expect(res.body[0].code).to.equal(2);
+                    })
+                    .end(done);
+            });
+
+            it('should return an error message with code 3 for invalid contact us message', (done) => {
+                request(app)
+                    .post('/api/contactMessage')
+                    .send({ email: 'test@gmail.com', title: 'testtitle', message: '' })
+                    .expect(400)
+                    .expect(res => {
+                        expect(res.body).to.have.lengthOf(1);
+                        expect(res.body[0].code).to.equal(3);
+                    })
+                    .end(done);
+            });
+
+            it('should return 3 error messages with 3 different codes for 3 different invalid fields', (done) => {
+                request(app)
+                    .post('/api/contactMessage')
+                    .send({ email: 'test', title: '', message: '' })
+                    .expect(400)
+                    .expect(res => {
+                        expect(res.body).to.have.lengthOf(3);
+                        expect(res.body[0].code).to.equal(1);
+                        expect(res.body[1].code).to.equal(2);
+                        expect(res.body[2].code).to.equal(3);
+                    })
+                    .end(done);
+            });
+        });
     });
 
-    describe('GET /contactMessage', () => {
+    describe('GetJobs', () => {
 
-        it('should return all the contact messages', (done) => {
-            request(app)
-                .get('/api/contactMessage')
-                .expect(200)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(3);
-                })
-                .end(done);
-        });
-        
-    });
-    
-    describe('POST /contactMessage', () => {
-
-        it('should create a new contact message', (done) => {
-            request(app)
-                .post('/api/contactMessage')
-                .send({email: 'test@gg.com', title: 'testtitle', message: 'test message'})
-                .expect(200)
-                .expect(res => {
-                    expect(res.body.email).to.equal('test@gg.com');
-                    expect(res.body.title).to.equal('testtitle');
-                    expect(res.body.message).to.equal('test message');
-                })
-                .end(done);
-        });
-        
-        it('should return an error message with code 1 for invalid email address', (done) => {
-            request(app)
-                .post('/api/contactMessage')
-                .send({email: 'test', title: 'testtitle', message: 'test message'})
-                .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(1);
-                })
-                .end(done);
+        beforeEach(() => {
+            db.conn.query('DROP TABLE job', (err, res) => { });
+            db.conn.query(`CREATE TABLE job (
+                id INT NOT NULL AUTO_INCREMENT,
+                organization VARCHAR(45) NOT NULL,
+                title VARCHAR(100) NOT NULL,
+                location VARCHAR(45),
+                description VARCHAR(2000),
+                PRIMARY KEY (id))`
+            );
+            db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
+                (1, 'Facebook', 'test title', 'winnipeg'),
+                (2, 'google', 'second title', 'vancouver'),
+                (3, 'CityOFWinnipeg', 'third title', 'location')`);
         });
 
-        it('should return an error message with code 2 for invalid title', (done) => {
-            request(app)
-                .post('/api/contactMessage')
-                .send({email: 'test@gmail.com', title: '', message: 'test message'})
-                .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(2);
-                })
-                .end(done);
-        });
+        describe('getAllJobs', () => {
 
-        it('should return an error message with code 3 for invalid contact us message', (done) => {
-            request(app)
-                .post('/api/contactMessage')
-                .send({email: 'test@gmail.com', title: 'testtitle', message: ''})
-                .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(3);
-                })
-                .end(done);
-        });
+            it('should return 3 jobs records', (done) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(3);
+                    done();
+                });
+            });
 
-        it('should return 3 error messages with 3 different codes for 3 different invalid fields', (done) => {
-            request(app)
-                .post('/api/contactMessage')
-                .send({email: 'test', title: '', message: ''})
-                .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(3);
-                    expect(res.body[0].code).to.equal(1);
-                    expect(res.body[1].code).to.equal(2);
-                    expect(res.body[2].code).to.equal(3);
-                })
-                .end(done);
+            it('should return the correct first record', (done) => {
+                db.getAllJobs((err, res, fields) => {
+                    let firstRecord = res[0];
+                    expect(firstRecord.id).to.equal(1);
+                    expect(firstRecord.organization).to.equal('Facebook');
+                    expect(firstRecord.title).to.equal('test title');
+                    expect(firstRecord.location).to.equal('winnipeg');
+                    done();
+                });
+            });
         });
     });
-
 });
