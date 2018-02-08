@@ -1,4 +1,4 @@
-require('../helper.test');
+require('../db-inject-helper.test');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
