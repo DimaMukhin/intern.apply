@@ -76,4 +76,15 @@ db.addNewContactMessage = (message, callback) => {
   });
 };
 
+/**
+ * get a job by id
+ * @param {id} job id
+ * @param  {Function} callback callback function (err, res, fields)
+ */
+db.getJob = (id, callback) => {
+  db.conn.query('SELECT * FROM job where id = ?', id, (err, res, fields) => {
+    callback(err, res, fields);
+  })
+};
+
 module.exports = db;

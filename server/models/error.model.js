@@ -15,7 +15,8 @@ const codes = {
     11: 'invalid job organization',
     12: 'invalid job title',
     13: 'invalid job location',
-    14: 'invalid job description'
+    14: 'invalid job description',
+    31: 'invalid id'
 };
 
 class Error {

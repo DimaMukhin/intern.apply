@@ -1,0 +1,12 @@
+<div *ngIf="valid; then hasJob else noJob"></div>
+
+<ng-template #hasJob>
+    <h1>{{job.title}}</h1>
+    <h5>{{job.organization}}</h5>
+    <h5>{{job.location}}</h5>
+    <p>{{job.description}}<p>
+</ng-template>
+
+<ng-template #noJob>
+    <h1>{{response}}</h1>
+</ng-template>
