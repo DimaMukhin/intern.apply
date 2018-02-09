@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'addjob', component: AddJobComponent },
   { path: 'jobs', component: JobListComponent },
+  { path: 'job/:searchText', component: JobListComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

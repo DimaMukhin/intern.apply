@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InternApiService } from './../shared/services/intern-api/intern-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: InternApiService, private router: Router) { }
 
-  ngOnInit() {
-  }
+
+  onClick(searchText: HTMLInputElement) { this.router.navigate(['/job', searchText.value]); }
+
+  ngOnInit() { }
 
 }

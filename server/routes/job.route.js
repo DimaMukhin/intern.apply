@@ -6,12 +6,24 @@ module.exports = (router) => {
 
   /**
    * GET all employers from the database
+   * If provided filter, gets the filtered jobs
    */
   router.get('/job', (req, res) => {
-    db.getAllJobs((err, response, fields) => {
-      if (err) res.status(400).send(err);
-      else res.send(response);
-    });
+    let filter = req.query.filter;
+    console.log("outside filter");
+    if (filter) {
+      console.log("inside filter");
+      db.getFilteredJobs(filter, (err, response, fields) => {
+        if (err) res.status(400).send(err);
+        else res.send(response);
+      });
+    }
+    else {
+      db.getAllJobs((err, response, fields) => {
+        if (err) res.status(400).send(err);
+        else res.send(response);
+      });
+    }
   });
 
   /**
