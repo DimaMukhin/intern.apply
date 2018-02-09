@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   constructor(private service: InternApiService, private router: Router) { }
 
 
-  onClick(searchText: HTMLInputElement) { this.router.navigate(['/job', searchText.value]); }
+  onClick(searchText: HTMLInputElement) { this.router.navigate(['/search', searchText.value]); }
 
   ngOnInit() { }
 
