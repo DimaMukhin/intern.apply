@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router/';
 
 import { JobListComponent } from './job-list.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
@@ -14,7 +15,8 @@ describe('JobListComponent', () => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       declarations: [ JobListComponent ],
-      providers: [ InternApiService ]
+      providers: [ InternApiService, ActivatedRoute ],
+      
     })
     .compileComponents();
   }));
