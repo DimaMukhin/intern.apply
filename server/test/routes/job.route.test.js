@@ -16,7 +16,7 @@ describe('job.route.js', () => {
             location VARCHAR(45),
             description VARCHAR(2000),
             PRIMARY KEY (id))`
-        );            
+        );
         db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
             (1, 'Facebook', 'test title', 'winnipeg'),
             (2, 'google', 'second title', 'vancouver'),
@@ -32,9 +32,9 @@ describe('job.route.js', () => {
                     expect(res.body).to.have.lengthOf(3);
                     expect(res.body[2].organization).to.equal('CityOFWinnipeg');
                     expect(res.body[2].title).to.equal('third title');
-                    expect(res.body[2].location).to.equal('location');                    
+                    expect(res.body[2].location).to.equal('location');
                 })
                 .end(done);
-        });        
+        });
     });
 });
