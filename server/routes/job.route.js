@@ -72,7 +72,7 @@ module.exports = (router) => {
           res.status(400).send([new Error(0)]);
         }
         else {
-          res.send(response);
+          res.send(req.body);
         }
       });
     }
