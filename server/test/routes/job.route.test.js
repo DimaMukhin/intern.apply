@@ -24,7 +24,7 @@ describe('job.route.js', () => {
     });
 
     describe('GET /job', () => {
-        it('should return all the jobs', (done) => {
+        it('should return all the jobs with valid data', (done) => {
             request(app)
                 .get('/api/job')
                 .expect(200)
