@@ -75,7 +75,7 @@ describe('db.service.js', () => {
     describe('GetJobs', () => {
 
         beforeEach(() => {
-            db.conn.query('DROP TABLE job', (err, res) => { });
+            db.conn.query('DROP TABLE IF EXISTS job', (err, res) => { });
             db.conn.query(`CREATE TABLE job (
                 id INT NOT NULL AUTO_INCREMENT,
                 organization VARCHAR(45) NOT NULL,
