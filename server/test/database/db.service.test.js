@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
-const db = require('./db.connection.test');
+const db = require('../../database/db.service');
 
 
 describe('db.service.js', () => {

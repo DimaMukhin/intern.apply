@@ -2,8 +2,8 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
-const app = require('../../server');
-const db = require('./db.connection.test');
+const app = require('../../../server');
+const db = require('../db.connection.test');
 
 describe('job.route.js', () => {
 
