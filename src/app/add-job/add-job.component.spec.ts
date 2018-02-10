@@ -70,7 +70,6 @@ describe('AddJobComponent', () => {
 
     let de = fixture.debugElement.queryAll(By.css('.text-danger'));
     expect(de.length).toBe(1);
-
   });
 
   it('should render invalid title error message when adding a job with invalid title', () => {
@@ -103,7 +102,6 @@ describe('AddJobComponent', () => {
 
     expect(de.length).toBe(1);
     expect(component.errors.location).toBeTruthy();
-
   });
 
   it('should render invalid description error message when adding a job with invalid description', () => {
@@ -140,7 +138,4 @@ describe('AddJobComponent', () => {
     expect(component.errors.location).toBeTruthy();
     expect(component.errors.description).toBeTruthy();
   });
-
-
-
 });
