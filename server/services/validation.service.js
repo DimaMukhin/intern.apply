@@ -7,7 +7,6 @@ const orgMax = 45,
     locMax = 45,
     descMax = 2000;
 
-
 /**
  * validate an email address string
  * @param {string} email email address string to validate 
@@ -92,6 +91,16 @@ validation.validateJobDescription = (description) => {
 
     description = description.trim();
     return description.length > 0 && description.length < descMax;
+};
+
+/**
+ * Validate that id is an actual number
+ * @param {int} id
+ * @returns true if valid OR false if invalid
+ */
+validation.validateID = (id) => {
+    // validates that id contains only an integer
+   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id));
 };
 
 module.exports = validation;
