@@ -9,6 +9,7 @@ import { AddJobComponent } from './add-job.component';
 describe('AddJobComponent', () => {
   let component: AddJobComponent;
   let fixture: ComponentFixture<AddJobComponent>;
+  let service: InternApiService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,6 +26,7 @@ describe('AddJobComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddJobComponent);
     component = fixture.componentInstance;
+    service = TestBed.get(InternApiService)
     fixture.detectChanges();
   });
 
@@ -33,12 +35,10 @@ describe('AddJobComponent', () => {
   });
 
   it('should show success message on valid job sent', () => {
-    let service = TestBed.get(InternApiService);
     spyOn(service, 'addJob').and.returnValue(Observable.of(true));
 
     component.addJob();
     fixture.detectChanges();
-
 
     let de = fixture.debugElement.query(By.css('.alert-success'));
     let el: HTMLElement = de.nativeElement;
@@ -46,7 +46,6 @@ describe('AddJobComponent', () => {
   });
 
   it('should show error message when adding invalid job', () => {
-    let service = TestBed.get(InternApiService);
     spyOn(service, 'addJob').and.returnValue(Observable.throw([false]));
 
     component.addJob();
@@ -57,8 +56,7 @@ describe('AddJobComponent', () => {
     expect(el.hidden).toBe(false);
   });
 
-  it('should get an error for organization when adding a job with invalid organization', () => {
-    let service = TestBed.get(InternApiService);
+  it('should render invalid organization error message when adding a job with invalid organization', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
         return [{ code: 11 }];
@@ -70,10 +68,12 @@ describe('AddJobComponent', () => {
 
     expect(component.errors.organization).toBeTruthy();
 
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
+    expect(de.length).toBe(1);
+
   });
 
-  it('should get an error for title when adding a job with invalid title', () => {
-    let service = TestBed.get(InternApiService);
+  it('should render invalid title error message when adding a job with invalid title', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
         return [{ code: 12 }];
@@ -83,12 +83,13 @@ describe('AddJobComponent', () => {
     component.addJob();
     fixture.detectChanges();
 
-    expect(component.errors.title).toBeTruthy();
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
 
+    expect(de.length).toBe(1);
+    expect(component.errors.title).toBeTruthy();
   });
 
-  it('should get an error for location when adding a job with invalid location', () => {
-    let service = TestBed.get(InternApiService);
+  it('should render invalid location error message when adding a job with invalid location', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
         return [{ code: 13 }];
@@ -98,12 +99,14 @@ describe('AddJobComponent', () => {
     component.addJob();
     fixture.detectChanges();
 
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
+
+    expect(de.length).toBe(1);
     expect(component.errors.location).toBeTruthy();
 
   });
 
-  it('should get an error for description when adding a job with invalid description', () => {
-    let service = TestBed.get(InternApiService);
+  it('should render invalid description error message when adding a job with invalid description', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
         return [{ code: 14 }];
@@ -113,11 +116,13 @@ describe('AddJobComponent', () => {
     component.addJob();
     fixture.detectChanges();
 
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
+
+    expect(de.length).toBe(1);
     expect(component.errors.description).toBeTruthy();
   });
 
-  it('should get all errors if every form field is invalid', () => {
-    let service = TestBed.get(InternApiService);
+  it('should render all error messages if every form field is invalid', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
         return [{ code: 11 }, { code: 12 }, { code: 13 }, { code: 14 }];
@@ -127,6 +132,9 @@ describe('AddJobComponent', () => {
     component.addJob();
     fixture.detectChanges();
 
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
+
+    expect(de.length).toBe(4);
     expect(component.errors.organization).toBeTruthy();
     expect(component.errors.title).toBeTruthy();
     expect(component.errors.location).toBeTruthy();
