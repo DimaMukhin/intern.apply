@@ -32,10 +32,12 @@ describe('job.route.js', () => {
                 .send({organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: 'Blank'})
                 .expect(200)
                 .expect(res => {
-                    expect(res.body.organization).to.equal('Test X Team');
-                    expect(res.body.title).to.equal('Title of Test');
-                    expect(res.body.location).to.equal('N/A');
-                    expect(res.body.description).to.equal('Blank');
+                    let job = res.body
+                    
+                    expect(job.organization).to.equal('Test X Team');
+                    expect(job.title).to.equal('Title of Test');
+                    expect(job.location).to.equal('N/A');
+                    expect(job.description).to.equal('Blank');
                 })
                 .end(done);
         });
@@ -46,9 +48,9 @@ describe('job.route.js', () => {
             .post('/api/job')
                 .send({organization: '', title: 'Title of Test', location: 'N/A', description: 'Blank'})
                 .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(11);
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(11);
                 })
                 .end(done);
         });
@@ -58,9 +60,9 @@ describe('job.route.js', () => {
             .post('/api/job')
                 .send({organization: 'Test X Team', title: '', location: 'N/A', description: 'Blank'})
                 .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(12);
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(12);
                 })
                 .end(done);
         });
@@ -70,9 +72,9 @@ describe('job.route.js', () => {
                 .post('/api/job')
                 .send({organization: 'Test X Team', title: 'Title of Test', location: '', description: 'Blank'})
                 .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(13);
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(13);
                 })
                 .end(done);
         });
@@ -82,9 +84,9 @@ describe('job.route.js', () => {
                 .post('/api/job')
                 .send({organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: ''})
                 .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(14);
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(14);
                 })
                 .end(done);
         });
@@ -94,12 +96,14 @@ describe('job.route.js', () => {
                 .post('/api/job')
                 .send({organization: '', title: '', location: '', description: ''})
                 .expect(400)
-                .expect(res => {
-                    expect(res.body).to.have.lengthOf(4);
-                    expect(res.body[0].code).to.equal(11);
-                    expect(res.body[1].code).to.equal(12);
-                    expect(res.body[2].code).to.equal(13);
-                    expect(res.body[3].code).to.equal(14);
+                .expect(err => {
+                    let errorContents = err.body;
+
+                    expect(errorContents).to.have.lengthOf(4);
+                    expect(errorContents[0].code).to.equal(11);
+                    expect(errorContents[1].code).to.equal(12);
+                    expect(errorContents[2].code).to.equal(13);
+                    expect(errorContents[3].code).to.equal(14);
                 })
                 .end(done);
         });

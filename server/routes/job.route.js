@@ -67,12 +67,12 @@ module.exports = (router) => {
     if (errors.length > 0) {
       res.status(400).send(errors);
     } else {
-      db.addJob(req.body, (err, response, fields) => {
+      db.addJob(job, (err, response, fields) => {
         if (err) {
           res.status(400).send([new Error(0)]);
         }
         else {
-          res.send(req.body);
+          res.send(job);
         }
       });
     }
