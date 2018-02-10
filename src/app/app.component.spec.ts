@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { InternApiService } from './shared/services/intern-api/intern-api.service';
 
 describe('AppComponent', () => {
 
@@ -17,6 +18,7 @@ describe('AppComponent', () => {
         NavbarComponent,
         FooterComponent
       ],
+      providers: [ InternApiService ]
     }).compileComponents();
   }));
 

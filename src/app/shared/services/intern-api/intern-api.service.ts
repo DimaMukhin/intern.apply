@@ -25,6 +25,16 @@ export class InternApiService {
     });
   }
 
+  public getFilteredJobs(filterText?:string): Observable<any> {
+    filterText = 'soft';
+    // return this.http.get(BASE_URL + '/api/job/search/'+filterText,{params:{filter: filterText}}).map((res: Response) => {
+    //   return res.json();
+    // });
+    return this.http.get(BASE_URL + '/api/job',{params:{filter: filterText}}).map((res: Response) => {
+      return res.json();
+    });
+  }
+
     /**
      * get a specific job from the db
      * @returns Observable holding job details

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
-const db = require('../db.connection.test');
+const db = require('./db.connection.test');
 
 
 describe('db.service.js', () => {
@@ -21,7 +21,7 @@ describe('db.service.js', () => {
             (2, 'ben@gmail.com', 'second title', 'second body'),
             (3, 'what@is.this', 'third title', 'third body')`);
         });
-
+        console.log("Testint Running. ");
         describe('getAllContactMessages', () => {
 
             it('should return 3 contact message records', (done) => {
@@ -134,7 +134,8 @@ describe('db.service.js', () => {
         describe('getFilteredJobs', () => {
 
             it('should return 3 jobs records', (done) => {
-                db.getFilteredJobs((err, res, fields) => {
+                db.getFilteredJobs("Soft",(err, res, fields) => {
+                    
                     expect(res).to.have.lengthOf(3);
                     done();
                 });
@@ -144,9 +145,16 @@ describe('db.service.js', () => {
                 db.getFilteredJobs("Soft",(err, res, fields) => {
                     let firstRecord = res[0];
                     expect(firstRecord.id).to.equal(1);
-                    expect(firstRecord.organization).to.equal('dfdf');
+                    expect(firstRecord.organization).to.equal('Facebook');
                     expect(firstRecord.title).to.equal('Software Engineer');
                     expect(firstRecord.location).to.equal('winnipeg');
+                    done();
+                });
+            });
+
+            it('should return nothing', (done) => {
+                db.getFilteredJobs("Random Text",(err, res, fields) => {
+                    expect(res).to.have.lengthOf(0);
                     done();
                 });
             });

@@ -10,12 +10,16 @@ describe('JobListComponent', () => {
   let component: JobListComponent;
   let fixture: ComponentFixture<JobListComponent>;
 
+  const fakeActivatedRoute = {
+    snapshot: { data: { } }
+  } as ActivatedRoute;
+
   
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       declarations: [ JobListComponent ],
-      providers: [ InternApiService, ActivatedRoute ],
+      providers: [ InternApiService, {provide: ActivatedRoute, useValue: fakeActivatedRoute} ],
       
     })
     .compileComponents();

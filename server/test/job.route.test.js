@@ -2,8 +2,8 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
-const app = require('../../../server');
-const db = require('../db.connection.test');
+const app = require('../../server');
+const db = require('./db.connection.test');
 
 describe('job.route.js', () => {
 
@@ -33,6 +33,23 @@ describe('job.route.js', () => {
                     expect(res.body[2].organization).to.equal('CityOFWinnipeg');
                     expect(res.body[2].title).to.equal('third title');
                     expect(res.body[2].location).to.equal('location');
+                })
+                .end(done);
+        });
+    });
+
+    describe('GET /job', () => {
+        it('should return all the jobs with valid data', (done) => {
+            request(app)
+                .get('/api/search/soft')
+                .expect(200)
+                .expect( response => {
+                    console.log(response);
+                    // console.log(req.query);
+                    // expect(res.body).to.have.lengthOf(3);
+                    // expect(res.body[2].organization).to.equal('CityOFWinnipeg');
+                    // expect(res.body[2].title).to.equal('third title');
+                    // expect(res.body[2].location).to.equal('location');
                 })
                 .end(done);
         });
