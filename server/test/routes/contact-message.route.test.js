@@ -1,29 +1,27 @@
-require('../db-inject-helper.test');
 const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
 
 const app = require('../../../server');
-const db = require('../../database/db.service');
+const db = require('../db.connection.test');
 
 describe('contact-message.route.js', () => {
 
     beforeEach(() => {
-        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => {});
+        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { });
         db.conn.query(`CREATE TABLE contactMessage (
-            id INT NOT NULL AUTO_INCREMENT,
-            email VARCHAR(45) NOT NULL,
-            title VARCHAR(45) NOT NULL,
-            message VARCHAR(300) NOT NULL,
-            PRIMARY KEY (id))`);
+                id INT NOT NULL AUTO_INCREMENT,
+                email VARCHAR(45) NOT NULL,
+                title VARCHAR(45) NOT NULL,
+                message VARCHAR(300) NOT NULL,
+                PRIMARY KEY (id))`);
         db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
-            (1, 'dima@gmail.com', 'test title', 'test body'),
-            (2, 'ben@gmail.com', 'second title', 'second body'),
-            (3, 'what@is.this', 'third title', 'third body')`);
+                (1, 'dima@gmail.com', 'test title', 'test body'),
+                (2, 'ben@gmail.com', 'second title', 'second body'),
+                (3, 'what@is.this', 'third title', 'third body')`);
     });
 
     describe('GET /contactMessage', () => {
-
         it('should return all the contact messages', (done) => {
             request(app)
                 .get('/api/contactMessage')
@@ -33,15 +31,14 @@ describe('contact-message.route.js', () => {
                 })
                 .end(done);
         });
-        
     });
-    
+
     describe('POST /contactMessage', () => {
 
         it('should create a new contact message', (done) => {
             request(app)
                 .post('/api/contactMessage')
-                .send({email: 'test@gg.com', title: 'testtitle', message: 'test message'})
+                .send({ email: 'test@gg.com', title: 'testtitle', message: 'test message' })
                 .expect(200)
                 .expect(res => {
                     expect(res.body.email).to.equal('test@gg.com');
@@ -50,11 +47,11 @@ describe('contact-message.route.js', () => {
                 })
                 .end(done);
         });
-        
+
         it('should return an error message with code 1 for invalid email address', (done) => {
             request(app)
                 .post('/api/contactMessage')
-                .send({email: 'test', title: 'testtitle', message: 'test message'})
+                .send({ email: 'test', title: 'testtitle', message: 'test message' })
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
@@ -66,7 +63,7 @@ describe('contact-message.route.js', () => {
         it('should return an error message with code 2 for invalid title', (done) => {
             request(app)
                 .post('/api/contactMessage')
-                .send({email: 'test@gmail.com', title: '', message: 'test message'})
+                .send({ email: 'test@gmail.com', title: '', message: 'test message' })
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
@@ -78,7 +75,7 @@ describe('contact-message.route.js', () => {
         it('should return an error message with code 3 for invalid contact us message', (done) => {
             request(app)
                 .post('/api/contactMessage')
-                .send({email: 'test@gmail.com', title: 'testtitle', message: ''})
+                .send({ email: 'test@gmail.com', title: 'testtitle', message: '' })
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
@@ -90,7 +87,7 @@ describe('contact-message.route.js', () => {
         it('should return 3 error messages with 3 different codes for 3 different invalid fields', (done) => {
             request(app)
                 .post('/api/contactMessage')
-                .send({email: 'test', title: '', message: ''})
+                .send({ email: 'test', title: '', message: '' })
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(3);
@@ -101,5 +98,4 @@ describe('contact-message.route.js', () => {
                 .end(done);
         });
     });
-
 });

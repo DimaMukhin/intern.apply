@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { HomeComponent } from './home.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { JobListComponent } from '../job-list/job-list.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,7 +12,9 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [ HttpModule ],
+      declarations: [ HomeComponent, JobListComponent ],
+      providers: [ InternApiService ]
     })
     .compileComponents();
   }));
