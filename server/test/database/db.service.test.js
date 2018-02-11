@@ -134,15 +134,15 @@ describe('db.service.js', () => {
         describe('getFilteredJobs', () => {
 
             it('should return 3 jobs records', (done) => {
-                db.getFilteredJobs("Soft",(err, res, fields) => {
-                    
+                db.getFilteredJobs("Soft", (err, res, fields) => {
+
                     expect(res).to.have.lengthOf(3);
                     done();
                 });
             });
 
             it('should return the correct first record', (done) => {
-                db.getFilteredJobs("Soft",(err, res, fields) => {
+                db.getFilteredJobs("Soft", (err, res, fields) => {
                     let firstRecord = res[0];
                     expect(firstRecord.id).to.equal(1);
                     expect(firstRecord.organization).to.equal('Facebook');
@@ -153,7 +153,7 @@ describe('db.service.js', () => {
             });
 
             it('should return nothing', (done) => {
-                db.getFilteredJobs("Random Text",(err, res, fields) => {
+                db.getFilteredJobs("Random Text", (err, res, fields) => {
                     expect(res).to.have.lengthOf(0);
                     done();
                 });
