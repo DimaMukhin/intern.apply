@@ -10,7 +10,7 @@ describe('JobListComponent', () => {
   let component: JobListComponent;
   let fixture: ComponentFixture<JobListComponent>;
 
-  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
@@ -38,7 +38,7 @@ describe('JobListComponent', () => {
     ]]));
 
     fixture.detectChanges();
-    
+
     expect(component.jobs.length).toBe(3);
 
     expect(component.jobs[2].title).toBe('test title 3');
@@ -51,7 +51,7 @@ describe('JobListComponent', () => {
     spyOn(service, 'getAllJobs').and.returnValue(Observable.throw(null));
 
     fixture.detectChanges();
-    
+
     expect(component.jobs.length).toBe(0);
   });
 });

@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./view-job.component.css']
 })
 export class ViewJobComponent implements OnInit {
-    job: object;
+    job;
     valid: boolean;
     response: string;
 

@@ -81,7 +81,7 @@ validation.validateJobLocation = (location) => {
 
 /**
  * Validate the job description
- * @param {string} body the body to validate
+ * @param {string} description the body to validate
  * @returns true if valid OR false if invalid
  */
 validation.validateJobDescription = (description) => {
@@ -100,7 +100,7 @@ validation.validateJobDescription = (description) => {
  */
 validation.validateID = (id) => {
     // validates that id contains only an integer
-   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && (id % 1 == 0);
+   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && Number.isInteger(parseFloat(id));
 };
 
 module.exports = validation;
