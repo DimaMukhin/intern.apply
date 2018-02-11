@@ -123,4 +123,41 @@ describe('job.route.js', () => {
                 .end(done);
         });
     });
+
+    describe('GET /job/:id', () => {
+        it('should get one job with id 3', (done) => {
+            request(app)
+                .get('/api/job/3')
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(1);
+                    let job = res.body[0];
+
+                    expect(job.id).to.equal(3);
+                })
+                .end(done);
+        });
+
+        it('should return an error message with code 31 for an id that is a decimal', (done) => {
+            request(app)
+                .get('/api/job/3.14159')
+                .expect(400)
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(31);
+                })
+                .end(done);
+        });
+
+        it('should return an error message with code 31 for an id that is not a number', (done) => {
+            request(app)
+                .get('/api/job/TEST')
+                .expect(400)
+                .expect(err => {
+                    expect(err.body).to.have.lengthOf(1);
+                    expect(err.body[0].code).to.equal(31);
+                })
+                .end(done);
+            });
+        });
 });

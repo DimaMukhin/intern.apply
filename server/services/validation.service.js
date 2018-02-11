@@ -100,7 +100,7 @@ validation.validateJobDescription = (description) => {
  */
 validation.validateID = (id) => {
     // validates that id contains only an integer
-   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id));
+   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && (id % 1 == 0);
 };
 
 module.exports = validation;
