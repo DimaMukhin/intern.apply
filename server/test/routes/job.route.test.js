@@ -34,7 +34,8 @@ describe('job.route.js', () => {
                     expect(res.body[2].organization).to.equal('The Test Mafia');
                     expect(res.body[2].title).to.equal('second title');
                     expect(res.body[2].location).to.equal('456 test avenue');
-                });
+                })
+                .end(done);
         })
     });
 

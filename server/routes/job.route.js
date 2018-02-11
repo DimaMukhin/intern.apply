@@ -9,6 +9,7 @@ module.exports = (router) => {
    */
   router.get('/job', (req, res) => {
     db.getAllJobs((err, response, fields) => {
+      console.log(err);
       if (err) res.status(400).send(err);
       else res.send(response);
     });

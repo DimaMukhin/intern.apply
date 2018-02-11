@@ -7,7 +7,7 @@
     "start": "node server",
     "postinstall": "ng build --aot -prod",
     "build": "ng build --prod",
-    "test": "mocha --exit --recursive --timeout 4000 ./server/**/*.test.js",
+    "test": "mocha --exit --recursive --timeout 5000 ./server/**/*.test.js",
     "test-watch": "nodemon --exec \"npm test\"",
     "test-front": "ng test -sm=false",
     "lint": "ng lint",
