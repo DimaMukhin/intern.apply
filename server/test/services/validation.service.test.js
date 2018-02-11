@@ -84,17 +84,17 @@ describe('validation.service.js', () => {
         
         it('should return true for a valid id', () => {
             let validID = 7357;
-            expect(validation.validateContactMessageBody(validID)).to.be.true;
+            expect(validation.validateID(validID)).to.be.true;
         });
 
         it('should return false for a decimal id', () => {
             let decimalID = 3.14159265
-            expect(validation.validateContactMessageBody(decimal)).to.be.false;
+            expect(validation.validateID(decimalID)).to.be.false;
         });
 
         it('should return false for a non number id', () => {
             let wordID = 'Testing'
-            expect(validation.validateContactMessageBody(wordID)).to.be.false;
+            expect(validation.validateID(wordID)).to.be.false;
         });
     });
 });
