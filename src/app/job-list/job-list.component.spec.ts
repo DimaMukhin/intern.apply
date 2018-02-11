@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router/';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 import { JobListComponent } from './job-list.component';
@@ -13,14 +14,9 @@ describe('JobListComponent', () => {
   let component: JobListComponent;
   let fixture: ComponentFixture<JobListComponent>;
 
-  const fakeActivatedRoute = {
-    snapshot: { data: {} }
-  } as ActivatedRoute;
-
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule ],
+      imports: [ HttpModule, RouterTestingModule ],
       declarations: [ JobListComponent, RouterLinkStubDirective ],
       providers: [ InternApiService ]
     })
@@ -64,16 +60,18 @@ describe('JobListComponent', () => {
 
   it('should return filtered job list from the server', () => {
     let service = TestBed.get(InternApiService);
-    spyOn(service, 'filterJobs').and.returnValue(Observable.from([[
+    spyOn(service, 'getAllJobs').and.returnValue(Observable.from([[
       { title: 'Software Devloper', organization: 'C1' },
       { title: 'Software Engineer', organization: 'C2' },
       { title: 'Soft Dev', organization: 'C3' }
     ]]));
 
+    component.filterJobs('Soft');
+
     fixture.detectChanges();
 
     expect(component.jobs.length).toBe(3);
-    expect(component.jobs[2].title).toBe('Soft Dev');
+    expect(component.jobs[2].title.indexOf('Soft')).toBeGreaterThan(-1);
     expect(component.jobs[2].organization).toBe('C3');
 
   });

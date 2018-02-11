@@ -21,7 +21,7 @@ describe('db.service.js', () => {
             (2, 'ben@gmail.com', 'second title', 'second body'),
             (3, 'what@is.this', 'third title', 'third body')`);
         });
-        console.log("Testint Running. ");
+
         describe('getAllContactMessages', () => {
 
             it('should return 3 contact message records', (done) => {

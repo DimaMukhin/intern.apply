@@ -29,7 +29,6 @@ export class JobListComponent implements OnInit {
       if (this.searchText != null) {
         this.jobs = this.filteredJobs;
       }
-      console.log(this.jobs);
     }, (error) => {
       this.jobs = [];
     });

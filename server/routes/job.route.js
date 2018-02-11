@@ -10,9 +10,7 @@ module.exports = (router) => {
    */
   router.get('/job', (req, res) => {
     let filter = req.query.filter;
-    console.log("outside filter");
     if (filter) {
-      console.log("inside filter");
       db.getFilteredJobs(filter, (err, response, fields) => {
         if (err) res.status(400).send(err);
         else res.send(response);
