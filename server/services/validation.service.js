@@ -1,4 +1,3 @@
-
 let validation = {};
 
 // Maximum values of the job form input fields 
@@ -13,7 +12,9 @@ const orgMax = 45,
  * @returns true if valid, false otherwise
  */
 validation.validateEmail = (email) => {
-    if (!email) return false;
+    if (!email) {
+        return false;
+    }
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase()) && email.length < 25;
 };
@@ -24,7 +25,9 @@ validation.validateEmail = (email) => {
  * @returns true if valid, false otherwise
  */
 validation.validateContactMessageTitle = (title) => {
-    if (!title) return false;
+    if (!title) {
+        return false;
+    }
     return title.length > 0 && title.length < 25;
 };
 
@@ -34,7 +37,9 @@ validation.validateContactMessageTitle = (title) => {
  * @returns true if valid, false otherwise
  */
 validation.validateContactMessageBody = (body) => {
-    if (!body) return false;
+    if (!body) {
+        return false;
+    }
     return body.length > 0 && body.length < 300;
 };
 
@@ -60,7 +65,6 @@ validation.validateJobTitle = (title) => {
     if (!title) {
         return false;
     }
-
     title = title.trim();
     return title.length > 0 && title.length < titleMax;
 };
@@ -74,7 +78,6 @@ validation.validateJobLocation = (location) => {
     if (!location) {
         return false;
     }
-
     location = location.trim();
     return location.length > 0 && location.length < locMax;
 };
@@ -88,7 +91,6 @@ validation.validateJobDescription = (description) => {
     if (!description) {
         return false;
     }
-
     description = description.trim();
     return description.length > 0 && description.length < descMax;
 };
@@ -100,7 +102,7 @@ validation.validateJobDescription = (description) => {
  */
 validation.validateID = (id) => {
     // validates that id contains only an integer
-   return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && Number.isInteger(parseFloat(id));
+    return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && Number.isInteger(parseFloat(id));
 };
 
 module.exports = validation;

@@ -10,7 +10,7 @@ describe('validation.service.js', () => {
             let validEmail = 'dima.mukhin@gmail.com';
             expect(validation.validateEmail(validEmail)).to.be.true;
         });
-        
+
         it('should return false for an invalid email address', () => {
             let invalidEmail = 'dima.mukhingmail.com';
             expect(validation.validateEmail(invalidEmail)).to.be.false;
@@ -30,9 +30,8 @@ describe('validation.service.js', () => {
             let invalidEmail = '';
             expect(validation.validateEmail(invalidEmail)).to.be.false;
         });
-
     });
-    
+
     describe('validateContactMessageTitle', () => {
 
         it('should return true for a valid contact-us message title', () => {
@@ -54,11 +53,10 @@ describe('validation.service.js', () => {
             let invalidTitle = undefined;
             expect(validation.validateContactMessageTitle(invalidTitle)).to.be.false;
         });
-
     });
 
     describe('validateContactMessageBody', () => {
-        
+
         it('should return true for a valid contact-us message body', () => {
             let validBody = 'hello world';
             expect(validation.validateContactMessageBody(validBody)).to.be.true;
@@ -81,7 +79,7 @@ describe('validation.service.js', () => {
     });
 
     describe('validateID', () => {
-        
+
         it('should return true for a valid id', () => {
             let validID = 7357;
             expect(validation.validateID(validID)).to.be.true;
@@ -99,7 +97,7 @@ describe('validation.service.js', () => {
     });
 
     describe('validateJobOrganization', () => {
-        
+
         it('should return true for a valid job organization', () => {
             let validOrg = 'I am a valid organization';
             expect(validation.validateContactMessageBody(validOrg)).to.be.true;
@@ -117,7 +115,7 @@ describe('validation.service.js', () => {
     });
 
     describe('validateJobTitle', () => {
-        
+
         it('should return true for a valid job title', () => {
             let validTitle = 'I am a valid title';
             expect(validation.validateContactMessageBody(validTitle)).to.be.true;
@@ -135,7 +133,7 @@ describe('validation.service.js', () => {
     });
 
     describe('validateJobLocation', () => {
-        
+
         it('should return true for a valid job location', () => {
             let validLoc = 'I am a valid location';
             expect(validation.validateContactMessageBody(validLoc)).to.be.true;
@@ -153,7 +151,7 @@ describe('validation.service.js', () => {
     });
 
     describe('validateJobDescription', () => {
-        
+
         it('should return true for a valid job description', () => {
             let validDesc = 'I am a valid description';
             expect(validation.validateContactMessageBody(validDesc)).to.be.true;
@@ -169,5 +167,4 @@ describe('validation.service.js', () => {
             expect(validation.validateContactMessageBody(emptyDesc)).to.be.false;
         });
     });
-    
 });

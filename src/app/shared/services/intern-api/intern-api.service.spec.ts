@@ -7,7 +7,7 @@ describe('InternApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [InternApiService],
-      imports: [ HttpModule ]
+      imports: [HttpModule]
     });
   });
 

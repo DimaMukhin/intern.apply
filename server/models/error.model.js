@@ -20,7 +20,6 @@ const codes = {
 };
 
 class Error {
-
     constructor(code) {
         this.code = code;
         this.message = codes[code];
