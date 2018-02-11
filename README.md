@@ -18,7 +18,7 @@ https://intern-apply.herokuapp.com
 
 ## running tests
 
-run `npm test` to run backend tests
+run `npm test` to run backend tests  
 run `ng test` to run front end tests
 
 ## implemented features for snapshot 1
