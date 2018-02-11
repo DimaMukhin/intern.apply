@@ -2,11 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpModule} from '@angular/http';
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
+import {Observable} from 'rxjs';
+import {de} from "ngx-bootstrap";
 
 import {ViewJobComponent} from './view-job.component';
 import {InternApiService} from '../shared/services/intern-api/intern-api.service';
-import {Observable} from 'rxjs';
-import {de} from "ngx-bootstrap";
 
 describe('ViewJobComponent', () => {
     let component: ViewJobComponent;
@@ -19,7 +19,7 @@ describe('ViewJobComponent', () => {
             declarations: [ViewJobComponent],
             providers: [InternApiService]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {
@@ -38,45 +38,56 @@ describe('ViewJobComponent', () => {
             id: 1,
             organization: 'Microsoft',
             title: 'Co-op Developer',
-            locaction: 'Winnipeg, MB',
+            location: 'Winnipeg, MB',
             description: 'good position'
         }]));
 
+        component.getJob(0);
         fixture.detectChanges();
 
-        let deOrganization = fixture.debugElement.query(By.css('.view_organization'));
+        let deOrganization = fixture.debugElement.query(By.css('.view-organization'));
         let elOrganization: HTMLElement = deOrganization.nativeElement;
-        let deTitle = fixture.debugElement.query(By.css('.view_title'));
+        let deTitle = fixture.debugElement.query(By.css('.view-title'));
         let elTitle: HTMLElement = deTitle.nativeElement;
-        let deLocation = fixture.debugElement.query(By.css('.view_location'));
+        let deLocation = fixture.debugElement.query(By.css('.view-location'));
         let elLocation: HTMLElement = deLocation.nativeElement;
-        let deDescription = fixture.debugElement.query(By.css('.view_description'));
+        let deDescription = fixture.debugElement.query(By.css('.view-description'));
         let elDescription: HTMLElement = deDescription.nativeElement;
 
+        expect(component.valid).toBe(true);
         expect(elOrganization.innerText).toBe('Microsoft');
         expect(elTitle.innerText).toBe('Co-op Developer');
         expect(elLocation.innerText).toBe('Winnipeg, MB');
         expect(elDescription.innerText).toBe('good position');
     }));
 
-    // it('should get a job from a server by id', async(() => {
-    //   spyOn(service, 'getJob').and.callFake((param) => {
-    //     param.returnValue(Observable.from([[{
-    //         id: 'test id',
-    //         organization: 'test organization',
-    //         title: 'test title',
-    //         location: 'test location',
-    //         description: 'test description'
-    //     }]]));
-    //   });
-    //
-    //   fixture.detectChanges();
-    //
-    //   //expect(component.job).toBeDefined();
-    //   expect(component.job.id).toBe('test id');
-    //   expect(component.job.organization).toBe('test organization');
-    //   expect(component.job.title).toBe('test title');
-    //   expect(component.job.location).toBe('test location');
-    //   expect(component.job.description).toBe('test description');
-    // }));
+    it('should display invalid job message on invalid job id', async(() => {
+        spyOn(service, 'getJob').and.returnValue(Observable.throw({}));
+
+        component.getJob(undefined);
+        fixture.detectChanges();
+
+        let de = fixture.debugElement.query(By.css('.view-response'));
+        let el: HTMLElement = de.nativeElement;
+
+        expect(component.valid).toBe(false);
+        expect(component.job).toEqual({});
+        expect(component.response).toBe('job id is not valid');
+        expect(el.innerText).toBe('job id is not valid');
+    }));
+
+    it('should display no job message on empty job request', async(() => {
+        spyOn(service, 'getJob').and.returnValue(Observable.of([]));
+
+        component.getJob(undefined);
+        fixture.detectChanges();
+
+        let de = fixture.debugElement.query(By.css('.view-response'));
+        let el: HTMLElement = de.nativeElement;
+
+        expect(component.valid).toBe(false);
+        expect(component.job).toBe(undefined);
+        expect(component.response).toBe('No such job');
+        expect(el.innerText).toBe('No such job');
+    }));
 });
