@@ -2,6 +2,7 @@ import { Job } from './../shared/models/job.model';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { InternApiService } from './../shared/services/intern-api/intern-api.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-job',
@@ -42,10 +43,14 @@ export class AddJobComponent implements OnInit {
         this.jobForm.reset();
       },
       error => {
-        let serverErrors = error.json();
+        if (error.json) {
+          let serverErrors = error.json();
 
-        if (serverErrors.length > 0) {
-          this.handleErrors(serverErrors);
+          if (serverErrors.length > 0) {
+            this.handleErrors(serverErrors);
+          } else {
+            this.displayAlert(false);
+          }
         } else {
           this.displayAlert(false);
         }
