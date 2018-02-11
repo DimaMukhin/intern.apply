@@ -20,56 +20,52 @@ describe('db.service.js', () => {
             (1, 'dima@gmail.com', 'test title', 'test body'),
             (2, 'ben@gmail.com', 'second title', 'second body'),
             (3, 'what@is.this', 'third title', 'third body')`);
-<<<<<<< HEAD
-    });
-=======
->>>>>>> 832f4fc5c315638a797ce9bb8e4e62f43ce77c95
+        });
 
-            describe('getAllContactMessages', () => {
+        describe('getAllContactMessages', () => {
 
-                it('should return 3 contact message records', (done) => {
-                    db.getAllContactMessages((err, res, fields) => {
-                        expect(res).to.have.lengthOf(3);
-                        done();
-                    });
-                });
-
-                it('should return the correct first record', (done) => {
-                    db.getAllContactMessages((err, res, fields) => {
-                        let firstRecord = res[0];
-                        expect(firstRecord.id).to.equal(1);
-                        expect(firstRecord.email).to.equal('dima@gmail.com');
-                        expect(firstRecord.title).to.equal('test title');
-                        expect(firstRecord.message).to.equal('test body');
-                        done();
-                    });
+            it('should return 3 contact message records', (done) => {
+                db.getAllContactMessages((err, res, fields) => {
+                    expect(res).to.have.lengthOf(3);
+                    done();
                 });
             });
 
-            describe('addNewContactMessage', () => {
-
-                it('should create a new contact message', (done) => {
-                    db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                    db.getAllContactMessages((err, res, fields) => {
-                        expect(res).to.have.lengthOf(4);
-                        done();
-                    });
+            it('should return the correct first record', (done) => {
+                db.getAllContactMessages((err, res, fields) => {
+                    let firstRecord = res[0];
+                    expect(firstRecord.id).to.equal(1);
+                    expect(firstRecord.email).to.equal('dima@gmail.com');
+                    expect(firstRecord.title).to.equal('test title');
+                    expect(firstRecord.message).to.equal('test body');
+                    done();
                 });
+            });
+        });
 
-                it('should not create a new contact message with an undefined email', (done) => {
-                    db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                    db.getAllContactMessages((err, res, fields) => {
-                        expect(res).to.have.lengthOf(3);
-                        done();
-                    });
+        describe('addNewContactMessage', () => {
+
+            it('should create a new contact message', (done) => {
+                db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
+                db.getAllContactMessages((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
                 });
+            });
 
-                it('should not create a new contact message with an already existing id', (done) => {
-                    db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                    db.getAllContactMessages((err, res, fields) => {
-                        expect(res).to.have.lengthOf(3);
-                        done();
-                    });
+            it('should not create a new contact message with an undefined email', (done) => {
+                db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
+                db.getAllContactMessages((err, res, fields) => {
+                    expect(res).to.have.lengthOf(3);
+                    done();
+                });
+            });
+
+            it('should not create a new contact message with an already existing id', (done) => {
+                db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
+                db.getAllContactMessages((err, res, fields) => {
+                    expect(res).to.have.lengthOf(3);
+                    done();
                 });
             });
         });
@@ -95,15 +91,15 @@ describe('db.service.js', () => {
         describe('getJob', () => {
 
             it('it should get one job with the id 2', (done) => {
-                db.getJob( 2, (err, res, fields) => {
+                db.getJob(2, (err, res, fields) => {
                     expect(res).to.have.lengthOf(1);
                     let job = res[0];
-    
+
                     expect(job.id).to.equal(2);
                     done();
                 });
             });
-    
+
             it('it should not get a job with a non existent id', (done) => {
                 db.getJob({ id: 999 }, (err, res, fields) => {
                     expect(res).to.have.lengthOf(0);
