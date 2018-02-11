@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 
 import { JobListComponent } from './job-list.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { RouterLinkStubDirective } from '../shared/directives/router-link-stub.directive';
 
 describe('JobListComponent', () => {
   let component: JobListComponent;
@@ -19,10 +20,9 @@ describe('JobListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule, RouterModule],
-      declarations: [JobListComponent],
-      providers: [InternApiService, { provide: ActivatedRoute, useValue: fakeActivatedRoute }],
-
+      imports: [ HttpModule ],
+      declarations: [ JobListComponent, RouterLinkStubDirective ],
+      providers: [ InternApiService ]
     })
       .compileComponents();
   }));
