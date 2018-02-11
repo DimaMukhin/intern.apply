@@ -19,3 +19,5 @@ before(() => {
 after(() => {
     db.conn.end();
 });
+
+module.exports = db;

@@ -1,9 +1,9 @@
-import { JobListComponent } from './../job-list/job-list.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { HomeComponent } from './home.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { JobListComponent } from '../job-list/job-list.component';
 import { RouterLinkStubDirective } from '../shared/directives/router-link-stub.directive';
 
 describe('HomeComponent', () => {
