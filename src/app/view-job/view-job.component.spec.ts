@@ -3,7 +3,6 @@ import {HttpModule} from '@angular/http';
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
-import {de} from "ngx-bootstrap";
 
 import {ViewJobComponent} from './view-job.component';
 import {InternApiService} from '../shared/services/intern-api/intern-api.service';
