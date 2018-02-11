@@ -80,4 +80,77 @@ describe('validation.service.js', () => {
         });
 
     });
+
+    describe('validateJobOrganization', () => {
+        
+        it('should return true for a valid job organization', () => {
+            let validOrg = 'I am a valid organization';
+            expect(validation.validateContactMessageBody(validOrg)).to.be.true;
+        });
+
+        it('should return false for a job organization that is too long', () => {
+            let invalidOrg = 'I am an extremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremely long job organization ';
+            expect(validation.validateContactMessageBody(invalidOrg)).to.be.false;
+        });
+
+        it('should return false for an empty job organization', () => {
+            let emptyOrg = '';
+            expect(validation.validateContactMessageBody(emptyOrg)).to.be.false;
+        });
+    });
+
+    describe('validateJobTitle', () => {
+        
+        it('should return true for a valid job title', () => {
+            let validTitle = 'I am a valid title';
+            expect(validation.validateContactMessageBody(validTitle)).to.be.true;
+        });
+
+        it('should return false for a job title that is too long', () => {
+            let invalidTitle = 'I am an extremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremely long job title ';
+            expect(validation.validateContactMessageBody(invalidTitle)).to.be.false;
+        });
+
+        it('should return false for an empty job title', () => {
+            let emptyTitle = '';
+            expect(validation.validateContactMessageBody(emptyTitle)).to.be.false;
+        });
+    });
+
+    describe('validateJobLocation', () => {
+        
+        it('should return true for a valid job location', () => {
+            let validLoc = 'I am a valid location';
+            expect(validation.validateContactMessageBody(validLoc)).to.be.true;
+        });
+
+        it('should return false for a job location that is too long', () => {
+            let invalidLoc = 'I am an extremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremely long job location ';
+            expect(validation.validateContactMessageBody(invalidLoc)).to.be.false;
+        });
+
+        it('should return false for an empty job location', () => {
+            let emptyLoc = '';
+            expect(validation.validateContactMessageBody(emptyLoc)).to.be.false;
+        });
+    });
+
+    describe('validateJobDescription', () => {
+        
+        it('should return true for a valid job description', () => {
+            let validDesc = 'I am a valid description';
+            expect(validation.validateContactMessageBody(validDesc)).to.be.true;
+        });
+
+        it('should return false for a job description that is too long', () => {
+            let invalidDesc = 'I am an extremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremelyextremely long job description ';
+            expect(validation.validateContactMessageBody(invalidDesc)).to.be.false;
+        });
+
+        it('should return false for an empty job description', () => {
+            let emptyDesc = '';
+            expect(validation.validateContactMessageBody(emptyDesc)).to.be.false;
+        });
+    });
+    
 });
