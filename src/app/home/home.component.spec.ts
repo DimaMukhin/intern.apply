@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { HomeComponent } from './home.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { RouterLinkStubDirective } from '../shared/directives/router-link-stub.directive';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,10 +12,13 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [
+        HttpModule
+      ],
       declarations: [
         HomeComponent,
-        JobListComponent
+        JobListComponent,
+        RouterLinkStubDirective
       ],
       providers: [
         InternApiService
