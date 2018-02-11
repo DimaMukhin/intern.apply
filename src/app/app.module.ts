@@ -16,6 +16,7 @@ import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { FooterComponent } from './footer/footer.component';
 import { ViewJobComponent } from './view-job/view-job.component';
+import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 
 
 
@@ -30,7 +31,8 @@ import { ViewJobComponent } from './view-job/view-job.component';
     ContactUsComponent,
     FooterComponent,
     PageNotFoundComponent,
-    ViewJobComponent
+    ViewJobComponent,
+    RouterLinkStubDirective
   ],
   imports: [
     BrowserModule,

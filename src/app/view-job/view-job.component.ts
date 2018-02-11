@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./view-job.component.css']
 })
 export class ViewJobComponent implements OnInit {
-    job: object;
+    job;
     valid: boolean;
     response: string;
 
@@ -27,7 +27,7 @@ export class ViewJobComponent implements OnInit {
             if (data.length > 0) {
                 this.job = data[0];
                 this.valid = true;
-            }else{
+            }else {
                 this.valid = false;
                 this.response = 'No such job';
             }
@@ -36,5 +36,4 @@ export class ViewJobComponent implements OnInit {
             this.response = 'job id is not valid';
         });
     }
-
 }

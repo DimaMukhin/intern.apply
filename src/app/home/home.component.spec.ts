@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { Observable } from 'rxjs';
 
 import { HomeComponent } from './home.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { JobListComponent } from '../job-list/job-list.component';
+import { RouterLinkStubDirective } from '../shared/directives/router-link-stub.directive';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,9 +12,19 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [
+        HttpModule
+      ],
+      declarations: [
+        HomeComponent,
+        JobListComponent,
+        RouterLinkStubDirective
+      ],
+      providers: [
+        InternApiService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

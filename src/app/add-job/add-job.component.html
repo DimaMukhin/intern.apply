@@ -6,7 +6,7 @@
     <input formControlName="organization" type="text" class="form-control" id="organization" placeholder="Enter organization name">
 
     <div *ngIf="errors.organization" class="text-danger">
-      Please enter a valid job organization
+      Please enter a valid job organization (max 45 characters allowed)
     </div>
 
   </div>
@@ -17,7 +17,7 @@
     <input formControlName="title" type="text" class="form-control" id="title" placeholder="Enter job title">
 
     <div *ngIf="errors.title" class="text-danger">
-      Please enter a valid job title
+      Please enter a valid job title (max 100 characters allowed)
     </div>
 
   </div>
@@ -28,7 +28,7 @@
     <input formControlName="location" type="text" class="form-control" id="location" placeholder="Enter job location">
 
     <div *ngIf="errors.location" class="text-danger">
-      Please enter a valid job location
+      Please enter a valid job location (max 45 characters allowed)
     </div>
 
   </div>
@@ -39,7 +39,7 @@
     <textarea formControlName="description" rows="10" class="form-control" id="description" placeholder="Enter job description"></textarea>
 
     <div *ngIf="errors.description" class="text-danger">
-      Please enter a valid job description
+      Please enter a valid job description (max 2000 characters allowed)
     </div>
 
   </div>
