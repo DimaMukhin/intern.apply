@@ -30,6 +30,7 @@ describe('contact-message.route.js', () => {
             (1, 'dima@gmail.com', 'test title', 'test body'),
             (2, 'ben@gmail.com', 'second title', 'second body'),
             (3, 'what@is.this', 'third title', 'third body')`);
+        
     });
 
     describe('GET /contactMessage', () => {

@@ -78,6 +78,23 @@ describe('validation.service.js', () => {
             let invalidBody = undefined;
             expect(validation.validateContactMessageBody(invalidBody)).to.be.false;
         });
+    });
 
+    describe('validateID', () => {
+        
+        it('should return true for a valid id', () => {
+            let validID = 7357;
+            expect(validation.validateContactMessageBody(validID)).to.be.true;
+        });
+
+        it('should return false for a decimal id', () => {
+            let decimalID = 3.14159265
+            expect(validation.validateContactMessageBody(decimal)).to.be.false;
+        });
+
+        it('should return false for a non number id', () => {
+            let wordID = 'Testing'
+            expect(validation.validateContactMessageBody(wordID)).to.be.false;
+        });
     });
 });
