@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {InternApiService} from '../shared/services/intern-api/intern-api.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-view-job',
@@ -27,7 +27,7 @@ export class ViewJobComponent implements OnInit {
             if (data.length > 0) {
                 this.job = data[0];
                 this.valid = true;
-            }else {
+            } else {
                 this.valid = false;
                 this.response = 'No such job';
             }

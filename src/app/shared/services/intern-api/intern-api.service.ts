@@ -24,15 +24,15 @@ export class InternApiService {
     });
   }
 
-    /**
-     * get a specific job from the db
-     * @returns Observable holding job details
-     */
-    public getJob(id: number): Observable<any> {
-        return this.http.get(BASE_URL + '/api/job/' + id).map((res: Response) => {
-            return res.json();
-        });
-    }
+  /**
+   * get a specific job from the db
+   * @returns Observable holding job details
+   */
+  public getJob(id: number): Observable<any> {
+    return this.http.get(BASE_URL + '/api/job/' + id).map((res: Response) => {
+      return res.json();
+    });
+  }
 
   /**
    * add job to the database

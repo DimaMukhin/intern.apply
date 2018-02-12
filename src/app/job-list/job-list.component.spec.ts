@@ -13,11 +13,11 @@ describe('JobListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule ],
-      declarations: [ JobListComponent, RouterLinkStubDirective ],
-      providers: [ InternApiService ]
+      imports: [HttpModule],
+      declarations: [JobListComponent, RouterLinkStubDirective],
+      providers: [InternApiService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,9 +32,9 @@ describe('JobListComponent', () => {
   it('should get all jobs from the server', async(() => {
     let service = TestBed.get(InternApiService);
     spyOn(service, 'getAllJobs').and.returnValue(Observable.from([[
-      {title: 'test title 1', organization: 'C1'},
-      {title: 'test title 2', organization: 'C2'},
-      {title: 'test title 3', organization: 'C3'}
+      { title: 'test title 1', organization: 'C1' },
+      { title: 'test title 2', organization: 'C2' },
+      { title: 'test title 3', organization: 'C3' }
     ]]));
 
     fixture.detectChanges();

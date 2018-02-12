@@ -15,7 +15,6 @@ export class AddJobComponent implements OnInit {
   errors: any = {};
   jobAdded: boolean = undefined;
 
-
   constructor(private service: InternApiService) { }
 
   ngOnInit() {
@@ -27,7 +26,6 @@ export class AddJobComponent implements OnInit {
       location: new FormControl(null),
       description: new FormControl(null)
     });
-
   }
 
   /**
@@ -84,5 +82,4 @@ export class AddJobComponent implements OnInit {
       this.jobAdded = undefined;
     }, 3000);
   }
-
 }

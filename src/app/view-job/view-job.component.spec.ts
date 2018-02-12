@@ -4,8 +4,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
 
-import {ViewJobComponent} from './view-job.component';
-import {InternApiService} from '../shared/services/intern-api/intern-api.service';
+import { ViewJobComponent } from './view-job.component';
+import { InternApiService } from '../shared/services/intern-api/intern-api.service';
 
 describe('ViewJobComponent', () => {
     let component: ViewJobComponent;
@@ -18,7 +18,7 @@ describe('ViewJobComponent', () => {
             declarations: [ViewJobComponent],
             providers: [InternApiService]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

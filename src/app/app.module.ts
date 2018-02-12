@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -17,7 +16,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { FooterComponent } from './footer/footer.component';
 import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
-
 
 
 @NgModule({
