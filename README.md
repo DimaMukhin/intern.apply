@@ -12,8 +12,8 @@ https://intern-apply.herokuapp.com
 1. clone the project
 2. navigate to the project directory on your terminal
 3. in the terminal, run `npm install` to install all project dependencies
-4. in the terminal, run `node server` to start the server on localhost:3000
-5. in the terminal, run `ng build` to build the web front end
+4. in the terminal, run `ng build` to build the web front end
+5. in the terminal, run `node server` to start the server on localhost:3000
 6. use browser to navigate to localhost:3000
 
 ## running tests
