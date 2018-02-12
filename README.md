@@ -4,7 +4,7 @@ https://intern-apply.herokuapp.com
 
 ## requirements
 
-1. [NPM and Node.js](https://www.npmjs.com/)
+1. [Node.js and NPM](https://nodejs.org/en/)
 2. [Angular CLI](https://cli.angular.io/)
 
 ## getting started
