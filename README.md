@@ -18,7 +18,7 @@ https://intern-apply.herokuapp.com
 
 ## Running tests
 
-run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)
+run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
 run `ng test` to run front end tests
 
 ## Implemented features for Snapshot 1
