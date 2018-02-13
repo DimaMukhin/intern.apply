@@ -55,4 +55,16 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+   * post a new comment to a job
+   * @param jobID   the id of the job to send the comment to
+   * @param message the body of the comment
+   * @param author  the name of the author
+   */
+  public addComment(jobID: number, message: string, author: string): Observable<any> {
+    return this.http.post(BASE_URL + '/api/comment', { jobID, message, author }).map((res: Response) => {
+      return res.json();
+    });
+  }
 }
