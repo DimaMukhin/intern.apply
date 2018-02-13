@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { InternApiService } from '../../shared/services/intern-api/intern-api.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { InternApiService } from '../../shared/services/intern-api/intern-api.service';
 
 @Component({
   selector: 'app-add-comment',

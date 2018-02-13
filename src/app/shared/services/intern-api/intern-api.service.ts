@@ -67,4 +67,14 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+   * get all the comments posted for a job
+   * @param jobID the id of the job
+   */
+  public getAllCommentsOfJob(jobID: number): Observable<any> {
+    return this.http.get(BASE_URL + `/api/job/${jobID}/comments`).map((res: Response) => {
+      return res.json();
+    });
+  }
 }

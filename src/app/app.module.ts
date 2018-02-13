@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
+import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AddCommentComponent } from './view-job/add-comment/add-comment.componen
     PageNotFoundComponent,
     ViewJobComponent,
     RouterLinkStubDirective,
-    AddCommentComponent
+    AddCommentComponent,
+    JobCommentsComponent
   ],
   imports: [
     BrowserModule,
