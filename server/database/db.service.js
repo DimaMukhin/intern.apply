@@ -103,4 +103,15 @@ db.addNewComment = (comment, callback) => {
   });
 };
 
+/**
+ * get all comments of a job by its id
+ * @param {number}  jobID     the id of the job 
+ * @param {any}     callback  callback function (err, res, fields)
+ */
+db.getAllCommentsOfJob = (jobID, callback) => {
+  db.conn.query('SELECT * FROM comment WHERE jobID = ?', jobID, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
 module.exports = db;
