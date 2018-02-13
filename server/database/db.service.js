@@ -52,7 +52,7 @@ db.addJob = (job, callback) => {
 
 /**
  * get all contact-us messages from the db
- * @param {*} callback 
+ * @param {Function} callback callback function (err, res, fields)
  */
 db.getAllContactMessages = (callback) => {
   db.conn.query('SELECT * FROM contactMessage', (err, res, fields) => {
@@ -60,6 +60,11 @@ db.getAllContactMessages = (callback) => {
   });
 };
 
+/**
+ * add a new contact message to the database
+ * @param {any}       message   the message to add  
+ * @param {Function}  callback  callback function (err, res, fields)
+ */
 db.addNewContactMessage = (message, callback) => {
   db.conn.query('INSERT INTO contactMessage SET ?', message, (err, res, fields) => {
     callback(err, res, fields);
@@ -75,6 +80,27 @@ db.getJob = (id, callback) => {
   db.conn.query('SELECT * FROM job where id = ?', id, (err, res, fields) => {
     callback(err, res, fields);
   })
+};
+
+/**
+ * get allcomments from the db
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllComments = (callback) => {
+  db.conn.query('SELECT * FROM comment', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add a new comment to the database
+ * @param {any}       comment   the comment to add  
+ * @param {Function}  callback  callback function (err, res, fields)
+ */
+db.addNewComment = (comment, callback) => {
+  db.conn.query('INSERT INTO comment SET ?', comment, (err, res, fields) => {
+    callback(err, res, fields);
+  });
 };
 
 module.exports = db;

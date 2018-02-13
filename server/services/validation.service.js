@@ -28,6 +28,7 @@ validation.validateContactMessageTitle = (title) => {
     if (!title) {
         return false;
     }
+    title = title.trim();
     return title.length > 0 && title.length < 25;
 };
 
@@ -40,6 +41,7 @@ validation.validateContactMessageBody = (body) => {
     if (!body) {
         return false;
     }
+    body = body.trim();
     return body.length > 0 && body.length < 300;
 };
 
@@ -103,6 +105,44 @@ validation.validateJobDescription = (description) => {
 validation.validateID = (id) => {
     // validates that id contains only an integer
     return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && Number.isInteger(parseFloat(id));
+};
+
+/**
+ * validate that the job ID is possible number
+ * @param {number} id   the id to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateJobID = (id) => {
+    return !isNaN(id) && 
+        parseInt(Number(id), 10) == id && 
+        !isNaN(parseInt(id, 10)) &&
+        id > 0;
+};
+
+/**
+ * validate the message of a comment
+ * @param {string} message  the message to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateCommentMessage = (message) => {
+    if (!message) {
+        return false;
+    }
+    message = message.trim();
+    return message.length > 0 && message.length < 300;
+};
+
+/**
+ * validate the name of the comment author
+ * @param {string} author   the name to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateCommentAuthor = (author) => {
+    if (!author) {
+        return false;
+    }
+    author = author.trim();
+    return author.length > 0 && author.length < 25;
 };
 
 module.exports = validation;
