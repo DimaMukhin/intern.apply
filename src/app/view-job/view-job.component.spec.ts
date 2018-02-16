@@ -1,10 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpModule} from '@angular/http';
-import {RouterTestingModule} from '@angular/router/testing';
-import {By} from '@angular/platform-browser';
-import {Observable} from 'rxjs';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 import { ViewJobComponent } from './view-job.component';
+import { JobCommentsComponent } from './job-comments/job-comments.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
 
 describe('ViewJobComponent', () => {
@@ -14,8 +17,8 @@ describe('ViewJobComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule, RouterTestingModule],
-            declarations: [ViewJobComponent],
+            imports: [HttpModule, RouterTestingModule, ReactiveFormsModule],
+            declarations: [ViewJobComponent, JobCommentsComponent, AddCommentComponent],
             providers: [InternApiService]
         })
             .compileComponents();
