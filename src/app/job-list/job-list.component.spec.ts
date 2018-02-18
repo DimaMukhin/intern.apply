@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
+import {RouterTestingModule} from '@angular/router/testing';
 import { Observable } from 'rxjs';
 
 import { JobListComponent } from './job-list.component';
@@ -13,7 +14,7 @@ describe('JobListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, RouterTestingModule],
       declarations: [JobListComponent, RouterLinkStubDirective],
       providers: [InternApiService]
     })
@@ -54,4 +55,24 @@ describe('JobListComponent', () => {
 
     expect(component.jobs.length).toBe(0);
   });
+
+
+  it('should return filtered job list from the server', () => {
+    let service = TestBed.get(InternApiService);
+    spyOn(service, 'getAllJobs').and.callFake(function(soft){
+      return Observable.from([[
+          { title: 'Software Devloper', organization: 'C1' },
+          { title: 'Software Engineer', organization: 'C2' },
+          { title: 'Soft Dev', organization: 'C3' }
+        ]])
+    });
+    
+    fixture.detectChanges();
+
+    expect(component.jobs.length).toBe(3);
+    expect(component.jobs[2].title.indexOf('Soft')).toBeGreaterThan(-1);
+    expect(component.jobs[2].organization).toBe('C3');
+
+  });
+  
 });

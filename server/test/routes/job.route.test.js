@@ -41,6 +41,60 @@ describe('job.route.js', () => {
         })
     });
 
+    /**
+   * Gets a job based on the filter
+   */
+    describe('GET /job/filter', () => {
+        it('should return filtered jobs based on the filter', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: 'test' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(1);
+                    expect(res.body[0].organization).to.equal('Test Org');
+                    expect(res.body[0].title).to.equal('test title');
+                    expect(res.body[0].location).to.equal('123 test st');
+                })
+                .end(done);
+        });
+    });
+
+    /**
+    * Gets all jobs when the filter is empty
+    */
+    describe('GET /job/filter', () => {
+        it('should return all the jobs with empty filter', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: '' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(4);
+                    expect(res.body[3].organization).to.equal('Together We Test');
+                    expect(res.body[3].title).to.equal('fourth title');
+                    expect(res.body[3].location).to.equal('789 test blvd');
+                })
+                .end(done);
+        });
+    });
+
+    /**
+    * Gets no jobs when there are no jobs based on the filter/search query
+    */
+    describe('GET /job/filter', () => {
+        it('should return no jobs with random query for which no job exists', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: 'Random job' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(0);
+                })
+                .end(done);
+        });
+    });
+
     describe('POST /job', () => {
 
         it('should create a new job as specified', (done) => {
