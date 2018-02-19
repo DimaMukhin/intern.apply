@@ -1,3 +1,4 @@
+<script src="../view-job/view-job.component.ts"></script>
 <div class="row">
   <div class="col" align="center">
     <h1>Address</h1>
@@ -15,7 +16,7 @@
 
 <h1>Send us a message</h1>
 
-<form [formGroup]="contactMessageForm" (submit)="onMessageSubmit">
+<form [formGroup]="contactMessageForm" (submit)="onMessageSubmit()">
   <div class="form-group">
     <label for="emailInput">Email address</label>
     <input 
