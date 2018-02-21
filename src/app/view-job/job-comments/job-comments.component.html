@@ -1,0 +1,9 @@
+<h1>Comments</h1>
+
+<hr>
+
+<div *ngFor="let comment of comments">
+  <h3 class="cm-author">{{ comment.author }}</h3>
+  <p class="cm-message">{{ comment.message }}</p>
+  <hr>
+</div>

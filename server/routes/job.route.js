@@ -42,6 +42,17 @@ module.exports = (router) => {
   });
 
   /**
+   * GET all comments of a job
+   */
+  router.get('/job/:id/comments', (req, res) => {
+    let id = req.params.id;
+    db.getAllCommentsOfJob(id, (err, response, fields) => {
+      if (err) res.status(400).send(err);
+      else res.send(response);
+    });
+  });
+
+  /**
    * POST job to the database
    */
   router.post('/job', (req, res) => {

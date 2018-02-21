@@ -7,18 +7,24 @@ const db = require('../db.connection.test');
 
 describe('contact-message.route.js', () => {
 
-    beforeEach(() => {
-        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { });
-        db.conn.query(`CREATE TABLE contactMessage (
-            id INT NOT NULL AUTO_INCREMENT,
-            email VARCHAR(45) NOT NULL,
-            title VARCHAR(45) NOT NULL,
-            message VARCHAR(300) NOT NULL,
-            PRIMARY KEY (id))`);
-        db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
-            (1, 'dima@gmail.com', 'test title', 'test body'),
-            (2, 'ben@gmail.com', 'second title', 'second body'),
-            (3, 'what@is.this', 'third title', 'third body')`);
+    beforeEach((done) => {
+        db.conn.query('DROP TABLE contactMessage', (err, res) => { 
+            db.conn.query(`CREATE TABLE contactMessage (
+                id INT NOT NULL AUTO_INCREMENT,
+                email VARCHAR(45) NOT NULL,
+                title VARCHAR(45) NOT NULL,
+                message VARCHAR(300) NOT NULL,
+                PRIMARY KEY (id))`,
+            (err, res) => {
+                db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
+                    (1, 'dima@gmail.com', 'test title', 'test body'),
+                    (2, 'ben@gmail.com', 'second title', 'second body'),
+                    (3, 'what@is.this', 'third title', 'third body')`,
+                (err, res) => {
+                    done();
+                });
+            });
+        });
     });
 
     describe('GET /contactMessage', () => {

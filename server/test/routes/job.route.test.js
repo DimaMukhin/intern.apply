@@ -7,21 +7,52 @@ const db = require('../db.connection.test');
 
 describe('job.route.js', () => {
 
-    beforeEach(() => {
-        db.conn.query('DROP TABLE IF EXISTS job', (err, res) => { });
-        db.conn.query(`CREATE TABLE job (
-            id INT NOT NULL AUTO_INCREMENT,
-            organization VARCHAR(45) NOT NULL,
-            title VARCHAR(100) NOT NULL,
-            location VARCHAR(45),
-            description VARCHAR(2000),
-            PRIMARY KEY (id))`
-        );
-        db.conn.query(`INSERT INTO job (id, organization, title, location, description) VALUES 
-            (1, 'Test Org', 'test title', '123 test st', 'test description'),
-            (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test'),
-            (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
-            (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`);
+    beforeEach((done) => {
+        db.conn.query('DROP TABLE job', (err, res) => { 
+            db.conn.query(`CREATE TABLE job (
+                id INT NOT NULL AUTO_INCREMENT,
+                organization VARCHAR(45) NOT NULL,
+                title VARCHAR(100) NOT NULL,
+                location VARCHAR(45),
+                description VARCHAR(2000),
+                PRIMARY KEY (id))`
+            , (err, res) => {
+                db.conn.query(`INSERT INTO job (id, organization, title, location, description) VALUES 
+                    (1, 'Test Org', 'test title', '123 test st', 'test description'),
+                    (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test'),
+                    (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
+                    (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`,
+                (err, res) => {
+                    db.conn.query('DROP TABLE comment', (err, res) => {
+                        db.conn.query(`CREATE TABLE comment (
+                            id INT NOT NULL AUTO_INCREMENT,
+                            jobID INT NOT NULL,
+                            message VARCHAR(300) NOT NULL,
+                            author VARCHAR(45) NOT NULL,
+                            ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            PRIMARY KEY (id),
+                            FOREIGN KEY (jobID) REFERENCES job (id))`,
+                        (err, res) => {
+                            db.conn.query(`INSERT INTO comment (id, jobID, message, author) VALUES 
+                                (1, 1, 'this is a nice comment body', 'dima'),
+                                (2, 1, 'another comment for the same job', 'ben'),
+                                (3, 2, 'this last comment is for job 2', 'rick')`,
+                            (err, res) => {
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    afterEach((done) => {
+        db.conn.query('DROP TABLE comment', (err, res) => {
+            db.conn.query('DROP TABLE job', (err, res) => {
+                done();
+            });
+        });
     });
 
     describe('GET /job', () => {
@@ -158,6 +189,38 @@ describe('job.route.js', () => {
                 .expect(err => {
                     expect(err.body).to.have.lengthOf(1);
                     expect(err.body[0].code).to.equal(31);
+                })
+                .end(done);
+        });
+    });
+
+    describe('GET /job/:id/comments', () => {
+        it('should get all the comments of job 1', (done) => {
+            request(app)
+                .get('/api/job/1/comments')
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(2);
+                })
+                .end(done);
+        });
+
+        it('should return no comments for job 3', (done) => {
+            request(app)
+                .get('/api/job/3/comments')
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(0);
+                })
+                .end(done);
+        });
+
+        it('should return no comments for an unexisting job', (done) => {
+            request(app)
+                .get('/api/job/997/comments')
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(0);
                 })
                 .end(done);
         });
