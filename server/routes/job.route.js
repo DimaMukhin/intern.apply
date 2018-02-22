@@ -89,5 +89,23 @@ module.exports = (router) => {
     }
   });
 
-  router.post('/job/:id/rating')
+  /*
+    GET a of a specific job
+   */
+  router.get('/job/:id/rating', (req, res) => {
+    db.getJobRating(req.params.id, (err, response, fields) => {
+      if(err) res.status(400).send(err);
+      else res.send(response);
+    })
+  });
+
+  /*
+   POST for rating a job
+   */
+  router.post('/job/:id/rating', (req, res) => {
+    db.rateJob(req.params.id, req.params.score, (err, response, fields) => {
+      if(err) res.status(400).send();
+      else res.send(response);
+    })
+  })
 };

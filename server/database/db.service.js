@@ -94,14 +94,21 @@ db.getJobRating = (jobId, callback) => {
 };
 
 /**
- * get job rating
+ * rate a job
  * @param {number} jobId
  * @param {number} score job's score from 1-5
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.rateJob = (jobId, score, callback) => {
-   db.getJobRating(jobId, (err, response, fields) => {
+   db.getJobRating(jobId, (err, res, fields) => {
+        const ratingRes = res.body.json();
+        const rating = new JobRating(ratingRes.score, ratingRes.votes);
+        rating.addVote(score);
 
+       db.conn.query('INSERT INTO jobRating(score, votes, jobId) values(?, ?, ?)', rating.getScore(), rating.getVotes(), jobId,
+           (error, response, fields) => {
+           callback(error, response, fields);
+       });
    })
 };
 
