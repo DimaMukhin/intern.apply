@@ -88,4 +88,6 @@ module.exports = (router) => {
       });
     }
   });
+
+  router.post('/job/:id/rating')
 };
