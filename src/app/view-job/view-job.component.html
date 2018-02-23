@@ -10,3 +10,7 @@
 <ng-template #noJob>
     <h1 class="view-response">{{response}}</h1>
 </ng-template>
+
+<app-job-comments *ngIf="job" [jobID]="job.id"></app-job-comments>
+
+<app-add-comment *ngIf="job" [jobID]="job.id"></app-add-comment>
