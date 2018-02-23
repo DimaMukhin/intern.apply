@@ -6,6 +6,7 @@
 
 const mysql = require('mysql2');
 const config = require('../config');
+const JobRating = require('../models/jobRating.model');
 
 let db = {};
 
@@ -88,7 +89,7 @@ db.getJob = (id, callback) => {
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getJobRating = (jobId, callback) => {
-    db.conn.query('SELECT * FROM jobRating where jobId___fk = ?', jobId, (err, res, fields) => {
+    db.conn.query('SELECT * FROM jobRating where jobId = ?', jobId, (err, res, fields) => {
         callback(err, res, fields);
     })
 };
@@ -101,14 +102,25 @@ db.getJobRating = (jobId, callback) => {
  */
 db.rateJob = (jobId, score, callback) => {
    db.getJobRating(jobId, (err, res, fields) => {
-        const ratingRes = res.body.json();
-        const rating = new JobRating(ratingRes.score, ratingRes.votes);
-        rating.addVote(score);
+       let rating;
 
-       db.conn.query('INSERT INTO jobRating(score, votes, jobId) values(?, ?, ?)', rating.getScore(), rating.getVotes(), jobId,
-           (error, response, fields) => {
-           callback(error, response, fields);
-       });
+       if (res.length === 0) {
+           rating = new JobRating(0, 0);
+           rating.addVote(score);
+
+           db.conn.query('INSERT INTO jobRating(score, votes, jobId) values(?, ?, ?)', [rating.getScore(), rating.getVotes(), jobId] ,
+               (error, response, fields) => {
+                   callback(error, response, fields);
+               });
+       }else{
+           rating = new JobRating(res[0].score, res[0].votes);
+           rating.addVote(score);
+
+           db.conn.query('UPDATE jobRating SET score = ?, votes = ? WHERE jobId = ?', [rating.getScore(), rating.getVotes(), jobId],
+               (error, response, fields) => {
+                   callback(error, response, fields);
+               });
+       }
    })
 };
 

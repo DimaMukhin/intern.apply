@@ -16,7 +16,7 @@ class JobRating{
     addVote(addedScore){
         const scoreSum = this.score * this.votes;
         this.votes++;
-        this.score = (scoreSum + addedScore)/this.votes;
+        this.score = (scoreSum + parseFloat(addedScore))/this.votes;
     }
 
     getScore(){

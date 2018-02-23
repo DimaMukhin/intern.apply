@@ -102,8 +102,9 @@ module.exports = (router) => {
   /*
    POST for rating a job
    */
-  router.post('/job/:id/rating', (req, res) => {
-    db.rateJob(req.params.id, req.params.score, (err, response, fields) => {
+  router.post('/job/rate', (req, res) => {
+    let rating = req.body;
+    db.rateJob(rating.id, rating.score, (err, response, fields) => {
       if(err) res.status(400).send();
       else res.send(response);
     })
