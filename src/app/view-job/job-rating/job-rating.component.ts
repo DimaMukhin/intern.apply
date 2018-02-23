@@ -29,11 +29,12 @@ export class JobRatingComponent implements OnInit {
             .subscribe((rating) => {
                 // only display rating when there is one
                 if (rating.length > 0) {
-                    this.score = rating[0].score;
+                    this.score = Math.round(rating[0].score);
                     this.votes = rating[0].votes;
                 } else {
                     this.noRating();
                 }
+
             }, (error) => {
                 this.noRating();
             });
@@ -41,10 +42,9 @@ export class JobRatingComponent implements OnInit {
 
     /**
      * rating a job
-     * @param {number} score the score of the new vote
      */
-    rate(score: number): void {
-        this.internApi.rateJob(this.jobID, score)
+    rate(): void {
+        this.internApi.rateJob(this.jobID, this.score)
             .subscribe((res) => {
                 // once submitted a vote, we want to see the most up to do date rating
                 this.getRating();

@@ -145,4 +145,12 @@ validation.validateCommentAuthor = (author) => {
     return author.length > 0 && author.length < 25;
 };
 
+/**
+ * validate job score
+ * @param score
+ */
+validation.validateJobScore = (score) => {
+    return validation.validateJobID(score);
+};
+
 module.exports = validation;

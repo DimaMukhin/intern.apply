@@ -104,11 +104,12 @@ db.rateJob = (jobId, score, callback) => {
    db.getJobRating(jobId, (err, res, fields) => {
        let rating;
 
+       // lets see if there's already a rating for this job or do we need to create a new rating
        if (res.length === 0) {
            rating = new JobRating(0, 0);
            rating.addVote(score);
 
-           db.conn.query('INSERT INTO jobRating(score, votes, jobId) values(?, ?, ?)', [rating.getScore(), rating.getVotes(), jobId] ,
+           db.conn.query('INSERT INTO jobRating(score, votes, jobId) values(?, ?, ?)', [rating.getScore(), rating.getVotes(), jobId],
                (error, response, fields) => {
                    callback(error, response, fields);
                });
