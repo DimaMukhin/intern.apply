@@ -238,4 +238,68 @@ describe('validation.service.js', () => {
             expect(validation.validateCommentAuthor(invalidAuthorName)).to.be.false;
         });
     });
+
+    describe('validateSalary', () => {
+        it('should return true for a valid salary', () => {
+            let validSalary = 1;
+            expect(validation.validateSalary(validSalary)).to.be.true;
+        });
+
+        it('should return false for a salary that is not a number', () => {
+            let invalidSalary = 'this is not a number';
+            expect(validation.validateSalary(invalidSalary)).to.be.false;
+        });
+
+        it('should return false for a salary that is undefined', () => {
+            let invalidSalary = undefined;
+            expect(validation.validateSalary(invalidSalary)).to.be.false;
+        });
+
+        it('should return false for a salary that is a floating number', () => {
+            let invalidSalary = 4.4;
+            expect(validation.validateSalary(invalidSalary)).to.be.false;
+        });
+
+        it('should return false for a salary that is negative', () => {
+            let invalidSalary = -5;
+            expect(validation.validateSalary(invalidSalary)).to.be.false;
+        });
+    });
+
+    describe('validateSalaryType', () => {
+        it('should return true for a valid salaryType', () => {
+            let validSalaryType = 0;
+            expect(validation.validateSalaryType(validSalaryType)).to.be.true;
+        });
+
+        it('should return true for a valid salaryType', () => {
+            let validSalaryType = 3;
+            expect(validation.validateSalaryType(validSalaryType)).to.be.true;
+        });
+
+        it('should return false for a salaryType that is not a number', () => {
+            let invalidSalaryType = 'this is not a number';
+            expect(validation.validateSalaryType(invalidSalaryType)).to.be.false;
+        });
+
+        it('should return false for a salaryType that is undefined', () => {
+            let invalidSalaryType = undefined;
+            expect(validation.validateSalaryType(invalidSalaryType)).to.be.false;
+        });
+
+        it('should return false for a salaryType that is a floating number', () => {
+            let invalidSalaryType = 4.4;
+            expect(validation.validateSalaryType(invalidSalaryType)).to.be.false;
+        });
+
+        it('should return false for a salaryType that is negative', () => {
+            let invalidSalaryType = -5;
+            expect(validation.validateSalaryType(invalidSalaryType)).to.be.false;
+        });
+
+        it('should return false for a salaryType that is greater than 3', () => {
+            let invalidSalaryType = 4;
+            expect(validation.validateSalaryType(invalidSalaryType)).to.be.false;
+        });
+    });    
 });

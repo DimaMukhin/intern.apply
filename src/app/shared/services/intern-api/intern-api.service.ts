@@ -77,4 +77,16 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+ * post a new comment to a job
+ * @param jobID   the id of the job to send the comment to
+ * @param message the body of the comment
+ * @param author  the name of the author
+ */
+  public addSalary(jobID: number, salary: number, salaryType: number): Observable<any> {
+    return this.http.post(BASE_URL + '/api/salary', { jobID, salary, salaryType }).map((res: Response) => {
+      return res.json();
+    });
+  }
 }

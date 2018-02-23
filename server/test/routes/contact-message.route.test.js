@@ -8,7 +8,7 @@ const db = require('../db.connection.test');
 describe('contact-message.route.js', () => {
 
     beforeEach((done) => {
-        db.conn.query('DROP TABLE contactMessage', (err, res) => { 
+        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { 
             db.conn.query(`CREATE TABLE contactMessage (
                 id INT NOT NULL AUTO_INCREMENT,
                 email VARCHAR(45) NOT NULL,

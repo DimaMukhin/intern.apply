@@ -145,4 +145,28 @@ validation.validateCommentAuthor = (author) => {
     return author.length > 0 && author.length < 25;
 };
 
+/**
+ * validate a job salary
+ * @param {string} salary the salary to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSalary = (salary) => {
+    return !isNaN(salary) && 
+        parseInt(Number(salary), 10) == salary && 
+        !isNaN(parseInt(salary, 10)) &&
+        salary > 0;
+};
+
+/**
+ * validate a job salary type
+ * @param {string} salaryType the salary type to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSalaryType = (salaryType) => {
+    return !isNaN(salaryType) && 
+        parseInt(Number(salaryType), 10) == salaryType && 
+        !isNaN(parseInt(salaryType, 10)) &&
+        salaryType >= 0 && salaryType <= 3;
+};
+
 module.exports = validation;

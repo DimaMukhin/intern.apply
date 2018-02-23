@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -18,6 +19,7 @@ import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
+import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { JobCommentsComponent } from './view-job/job-comments/job-comments.compo
     ViewJobComponent,
     RouterLinkStubDirective,
     AddCommentComponent,
-    JobCommentsComponent
+    JobCommentsComponent,
+    AddSalaryComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { JobCommentsComponent } from './view-job/job-comments/job-comments.compo
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
+    NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule
   ],

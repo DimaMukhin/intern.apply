@@ -1,0 +1,56 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Enter your salary</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addSalaryForm" (submit)="onSalarySubmit">
+      <div class="form-group">
+        <label for="salaryInput">Salary</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="salaryInput"
+          formControlName="salary"
+          placeholder="$$">
+          <span 
+          class="text-danger name-danger" 
+          *ngIf="formValidation.salary">
+          Please enter a valid salary (greater than 0)
+        </span>
+  
+     </div>
+     <div class="form-group">
+      <label for="salaryType">Pay duration</label>
+      <select formControlName="stype" [(ngModel)]="selectedValue" class="form-control" id="salaryType">
+        <option [ngValue]="0">Yearly</option>
+        <option [ngValue]="1">Monthly</option>
+        <option [ngValue]="2">Biweekly</option>
+        <option [ngValue]="3">Hourly</option>
+      </select>
+      <span 
+      class="text-danger message-danger" 
+      *ngIf="formValidation.stype">
+      Please select a pay duration
+    </span>
+
+    </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" [disabled]="!addSalaryForm.valid" class="btn btn-outline-dark" (click)="onSalarySubmit()">Submit</button>
+  </div>
+</ng-template>
+
+<p>
+  
+</p>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Enter your salary</button>
+<p>
+
+</p>
+<p class="text-success" *ngIf="salarySent">Salary was sent successfully</p>
+<p class="text-warning" *ngIf="salarySent == false">An error occured while sending your salary, please try again later</p>
