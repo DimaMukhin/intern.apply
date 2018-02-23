@@ -259,11 +259,11 @@ describe('db.service.js', () => {
                 location: '101 Test Disco',
                 description: 'I am not a description'
             }, (err, res, fields) => {
-                    db.getAllJobs((err, res, fields) => {
-                        expect(res).to.have.lengthOf(4);
-                        done();
-                    });
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
                 });
+            });
         });
     });
 
