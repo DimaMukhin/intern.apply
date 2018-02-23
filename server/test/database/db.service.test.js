@@ -52,26 +52,29 @@ describe('db.service.js', () => {
         describe('addNewContactMessage', () => {
 
             it('should create a new contact message', (done) => {
-                db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                db.getAllContactMessages((err, res, fields) => {
-                    expect(res).to.have.lengthOf(4);
-                    done();
+                db.addNewContactMessage({ id: 4, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => {
+                    db.getAllContactMessages((err, res, fields) => {
+                        expect(res).to.have.lengthOf(4);
+                        done();
+                    });
                 });
             });
 
             it('should not create a new contact message with an undefined email', (done) => {
-                db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                db.getAllContactMessages((err, res, fields) => {
-                    expect(res).to.have.lengthOf(3);
-                    done();
+                db.addNewContactMessage({ id: 4, email: undefined, title: 'test title 4', message: 'test body 4' }, (err, res, fields) => {
+                    db.getAllContactMessages((err, res, fields) => {
+                        expect(res).to.have.lengthOf(3);
+                        done();
+                    });
                 });
             });
 
             it('should not create a new contact message with an already existing id', (done) => {
-                db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => { });
-                db.getAllContactMessages((err, res, fields) => {
-                    expect(res).to.have.lengthOf(3);
-                    done();
+                db.addNewContactMessage({ id: 3, email: 'test@email.com', title: 'test title 4', message: 'test body 4' }, (err, res, fields) => {
+                    db.getAllContactMessages((err, res, fields) => {
+                        expect(res).to.have.lengthOf(3);
+                        done();
+                    });
                 });
             });
         });
@@ -173,18 +176,18 @@ describe('db.service.js', () => {
                 title: 'i am a test for add job',
                 location: '10 Test Square',
                 description: 'I am a description'
-            },
-                (err, res, fields) => { });
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(5);
-                let addedJob = res[4];
+            }, (err, res, fields) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(5);
+                    let addedJob = res[4];
 
-                expect(addedJob.id).to.equal(5);
-                expect(addedJob.organization).to.equal('Test Syndicate');
-                expect(addedJob.title).to.equal('i am a test for add job');
-                expect(addedJob.location).to.equal('10 Test Square');
-                expect(addedJob.description).to.equal('I am a description');
-                done();
+                    expect(addedJob.id).to.equal(5);
+                    expect(addedJob.organization).to.equal('Test Syndicate');
+                    expect(addedJob.title).to.equal('i am a test for add job');
+                    expect(addedJob.location).to.equal('10 Test Square');
+                    expect(addedJob.description).to.equal('I am a description');
+                    done();
+                });
             });
         });
 
@@ -195,11 +198,11 @@ describe('db.service.js', () => {
                 title: 'i am a test for add job',
                 location: '10 Test Square',
                 description: 'I am a description'
-            }, (err, res, fields) => { });
-
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
+            }, (err, res, fields) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
+                });
             });
         });
 
@@ -210,11 +213,11 @@ describe('db.service.js', () => {
                 title: undefined,
                 location: '10 Test House',
                 description: 'I am a description'
-            }, (err, res, fields) => { });
-
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
+            }, (err, res, fields) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
+                });
             });
         });
 
@@ -225,11 +228,11 @@ describe('db.service.js', () => {
                 title: 'cool title',
                 location: undefined,
                 description: 'I am a description'
-            }, (err, res, fields) => { });
-
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
+            }, (err, res, fields) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
+                });
             });
         });
 
@@ -240,11 +243,11 @@ describe('db.service.js', () => {
                 title: 'sick title',
                 location: '20 Test Mansion',
                 description: undefined
-            }, (err, res, fields) => { });
-
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
+            }, (err, res, fields) => {
+                db.getAllJobs((err, res, fields) => {
+                    expect(res).to.have.lengthOf(4);
+                    done();
+                });
             });
         });
 
@@ -255,12 +258,12 @@ describe('db.service.js', () => {
                 title: 'Test Test Test',
                 location: '101 Test Disco',
                 description: 'I am not a description'
-            }, (err, res, fields) => { });
-
-            db.getAllJobs((err, res, fields) => {
-                expect(res).to.have.lengthOf(4);
-                done();
-            });
+            }, (err, res, fields) => {
+                    db.getAllJobs((err, res, fields) => {
+                        expect(res).to.have.lengthOf(4);
+                        done();
+                    });
+                });
         });
     });
 
