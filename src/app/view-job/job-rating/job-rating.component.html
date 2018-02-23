@@ -1,2 +1,2 @@
-<rating [(ngModel)]="score"></rating>
+<rating #rating [(ngModel)]="score" (click)="rate(rating.value)"></rating>
 <label>({{score}} with {{votes}} votes)</label>

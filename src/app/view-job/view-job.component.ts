@@ -22,6 +22,10 @@ export class ViewJobComponent implements OnInit {
         this.valid = false;
     }
 
+    /**
+     * getting a job from the server
+     * @param {number} id
+     */
     getJob(id: number): void {
         this.internAPI.getJob(id).subscribe((data) => {
             if (data.length > 0) {

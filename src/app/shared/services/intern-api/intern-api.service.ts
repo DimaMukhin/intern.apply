@@ -77,4 +77,25 @@ export class InternApiService {
       return res.json();
     });
   }
+
+    /**
+     * getting a rating of a job
+     * @param {number} jobId
+     */
+  public getJobRating(jobId: number): Observable<any> {
+    return this.http.get(`${BASE_URL}/api/job/${jobId}/rating`).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+    /**
+     * rate a job
+     * @param {number} jobId
+     * @param {number} score
+     */
+    public rateJob(jobId: number, score: number): Observable<any> {
+        return this.http.post(`${BASE_URL}/api/job/${jobId}/rate`, {score}).map((res: Response) => {
+            return res.json();
+        });
+    }
 }
