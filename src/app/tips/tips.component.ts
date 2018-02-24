@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InternApiService } from '../shared/services/intern-api/intern-api.service';
 
 @Component({
   selector: 'app-tips',
@@ -11,5 +12,4 @@ export class TipsComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
