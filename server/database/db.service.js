@@ -111,9 +111,12 @@ db.addNewComment = (comment, callback) => {
  */
 db.addSalaryToJob = (id, salary, callback) => {
   db.conn.query('Select salary, numSalaries From job where id = ?', id, (err, res, fields) => {
+    newNumOfSalaries = res[0]["numSalaries"] + 1;
+    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"]))/(newNumOfSalaries); 
+    newSalary = newSalary.toFixed(1);
     db.conn.query('Update job SET salary = ?, numSalaries = ? where id = ?',
-      [ (salary + (res[0]["salary"] * res[0]["numSalaries"]))/(res[0]["numSalaries"] + 1), res[0]["numSalaries"] + 1, id], (err, res, fields) => {
-        callback(err, res, fields);
+      [ newSalary, newNumOfSalaries, id], (err, res, fields) => {
+        callback(err, res, fields, newSalary, newNumOfSalaries);
       });
   });
 };

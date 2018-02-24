@@ -36,10 +36,11 @@ module.exports = (router) => {
         if (errors.length > 0) {
             res.status(400).send(errors);
         } else {
-            db.addSalaryToJob(request.jobID, salary, (err, response, fields) => {
+            db.addSalaryToJob(request.jobID, salary, (err, response, fields, newSalary, newNumofSalry) => {
                 if (err) res.status(400).send([new Error(0)]);
                 else {
-                    request.salary = salary;
+                    request.salary = newSalary;
+                    request.salaryType = newNumofSalry;
                     res.status(200).send(request);
                 }
             });

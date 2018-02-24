@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewJobComponent implements OnInit {
     job;
     valid: boolean;
-    hasSalary: boolean;
     response: string;
 
     constructor(private internAPI: InternApiService, private route: ActivatedRoute) {
@@ -21,7 +20,6 @@ export class ViewJobComponent implements OnInit {
 
     ngOnInit() {
         this.valid = false;
-        this.hasSalary = false;
     }
 
     getJob(id: number): void {
@@ -29,7 +27,6 @@ export class ViewJobComponent implements OnInit {
             if (data.length > 0) {
                 this.job = data[0];
                 this.valid = true;
-                this.hasSalary = this.job.numSalaries > 0;
             } else {
                 this.valid = false;
                 this.response = 'No such job';

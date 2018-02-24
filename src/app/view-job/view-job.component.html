@@ -4,8 +4,7 @@
     <h1 class="view-title">{{job.title}}</h1>
     <h5 class="view-organization">{{job.organization}}</h5>
     <h5 class="view-location">{{job.location}}</h5>
-    <h5 *ngIf="hasSalary" class="view-avgSalary">Average Salary: {{job.salary}}k per year ({{job.numSalaries}} submits)</h5>
-    <app-add-salary *ngIf="job" [jobID]="job.id"></app-add-salary>
+    <app-add-salary *ngIf="job" [jobID]="job.id" [jobSalary]="job.salary" [numSalary]="job.numSalaries"></app-add-salary>
     <p class="view-description">{{job.description}}</p>
 </ng-template>
 

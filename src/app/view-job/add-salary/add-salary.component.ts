@@ -13,6 +13,11 @@ export class AddSalaryComponent implements OnInit {
 
   @Input()
   jobID: number;
+  @Input()
+  numSalary: number;
+  @Input()
+  jobSalary: number;
+
   salarySent: boolean;
   addSalaryForm: FormGroup;
   popup: NgbModalRef;
@@ -49,6 +54,8 @@ export class AddSalaryComponent implements OnInit {
       this.addSalaryForm.value.stype)
       .subscribe((response) => {
         this.setSalaryStatus(true);
+        this.jobSalary = response.salary;
+        this.numSalary = response.salaryType;
         this.popup.close();
       }, (error) => {
         if (error.json) {

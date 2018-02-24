@@ -427,7 +427,9 @@ describe('db.service.js', () => {
         describe('addSalary', () => {
 
             it('should add salary to job with proper average', (done) => {
-                db.addSalaryToJob(1, 6.6, (err, res, fields) => {
+                db.addSalaryToJob(1, 6.6, (err, res, fields, newSalary, newNumOfSalary) => {
+                    expect(newSalary).to.equal('5.3');
+                    expect(newNumOfSalary).to.equal(2);
                     db.getJob(1, (err, res, fields) => {
                         expect(res).to.have.lengthOf(1);
                         expect(res[0].numSalaries).to.equal(2);
@@ -438,7 +440,9 @@ describe('db.service.js', () => {
             });
 
             it('should add first salary properly to the job', (done) => {
-                db.addSalaryToJob(3, 6, (err, res, fields) => {
+                db.addSalaryToJob(3, 6, (err, res, fields, newSalary, newNumOfSalary) => {
+                    expect(newSalary).to.be.equal('6.0');
+                    expect(newNumOfSalary).to.be.equal(1);
                     db.getJob(3, (err, res, fields) => {
                         expect(res).to.have.lengthOf(1);
                         expect(res[0].salary).to.be.equal('6.0');

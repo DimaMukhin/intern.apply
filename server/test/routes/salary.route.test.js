@@ -34,12 +34,12 @@ describe('salary.route.js', () => {
         it('should add year salary properly to the average', (done) => {
             request(app)
                 .post('/api/salary')
-                .send({ jobID: 1, salary: 5, salaryType: 0 })
+                .send({ jobID: 1, salary: 6000, salaryType: 0 })
                 .expect(200)
                 .expect(res => {
                     let job = res.body;
-                    expect(job.salary).to.equal(0.005);
-                    expect(job.salaryType).to.equal(0);
+                    expect(job.salary).to.equal('5.0');
+                    expect(job.salaryType).to.equal(2);
                 })
                 .end(done);
         })
@@ -47,12 +47,12 @@ describe('salary.route.js', () => {
         it('should add monthly salary properly to the average', (done) => {
             request(app)
                 .post('/api/salary')
-                .send({ jobID: 1, salary: 5, salaryType: 1 })
+                .send({ jobID: 1, salary: 500, salaryType: 1 })
                 .expect(200)
                 .expect(res => {
                     let job = res.body;
-                    expect(job.salary).to.equal(.06);
-                    expect(job.salaryType).to.equal(1);
+                    expect(job.salary).to.equal('5.0');
+                    expect(job.salaryType).to.equal(2);
                 })
                 .end(done);
         })
@@ -60,11 +60,11 @@ describe('salary.route.js', () => {
         it('should add biweekly salary properly to the average', (done) => {
             request(app)
                 .post('/api/salary')
-                .send({ jobID: 1, salary: 5, salaryType: 2 })
+                .send({ jobID: 1, salary: 250, salaryType: 2 })
                 .expect(200)
                 .expect(res => {
                     let job = res.body;
-                    expect(job.salary).to.equal(0.12);
+                    expect(job.salary).to.equal('5.0');
                     expect(job.salaryType).to.equal(2);
                 })
                 .end(done);
@@ -73,12 +73,12 @@ describe('salary.route.js', () => {
         it('should add hourly salary properly to the average', (done) => {
             request(app)
                 .post('/api/salary')
-                .send({ jobID: 1, salary: 5, salaryType: 3 })
+                .send({ jobID: 3, salary: 25, salaryType: 3 })
                 .expect(200)
                 .expect(res => {
                     let job = res.body;
-                    expect(job.salary).to.equal(11.04);
-                    expect(job.salaryType).to.equal(3);
+                    expect(job.salary).to.equal('55.2');
+                    expect(job.salaryType).to.equal(1);
                 })
                 .end(done);
         })
@@ -119,7 +119,6 @@ describe('salary.route.js', () => {
                 })
                 .end(done);
         })
-
 
     });
 });
