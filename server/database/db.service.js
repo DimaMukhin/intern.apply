@@ -114,4 +114,36 @@ db.getAllCommentsOfJob = (jobID, callback) => {
   });
 };
 
+/**
+ * get all Q&A questions asked from the database
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllQuestions = (callback) => {
+  db.conn.query('SELECT * FROM question', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add a new question to the database
+ * @param {any}       question  the question to add  
+ * @param {Function}  callback  callback function (err, res, fields)
+ */
+db.addNewQuestion = (question, callback) => {
+  db.conn.query('INSERT INTO question SET ?', question, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get a Q&A question by id
+ * @param   {number}    question  the id of the question
+ * @param   {Function}  callback  callback function (err, res, fields)
+ */
+db.getQuestionById = (question, callback) => {
+  db.conn.query('SELECT * FROM question where id = ?', question, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
 module.exports = db;

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 require('./routes/job.route')(router);
 require('./routes/contact-message.route')(router);
 require('./routes/comment.route')(router);
+require('./routes/question.route')(router);
 
 // development playground
 // require('./playground');
