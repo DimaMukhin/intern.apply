@@ -120,26 +120,26 @@ describe('survey.route.js', () => {
                 .end(done);
         });
 
-        it('should return an error message with code 41 for empty survey', (done) => {
+        it('should return an error message with code 51 for empty survey', (done) => {
             request(app)
                 .post('/api/survey')
                 .send( {answers: []} )
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(41);
+                    expect(res.body[0].code).to.equal(51);
                 })
                 .end(done);
         });
 
-        it('should return an error message with code 41 for survey with a non selection', (done) => {
+        it('should return an error message with code 51 for survey with a non selection', (done) => {
             request(app)
                 .post('/api/survey')
                 .send( {answers: ['True', -1]} )
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].code).to.equal(41);
+                    expect(res.body[0].code).to.equal(51);
                 })
                 .end(done);
         });

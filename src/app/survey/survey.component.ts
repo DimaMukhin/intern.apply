@@ -62,7 +62,7 @@ export class SurveyComponent implements OnInit {
           if (error.length) {
             for (let err of error) {
               if (err.code == 0) this.setMessageStatus(false);
-              if (err.code == 41) this.formValidation.missing = true;
+              if (err.code == 51) this.formValidation.missing = true;
             }
           } else
             this.setMessageStatus(false);

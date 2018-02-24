@@ -30,7 +30,7 @@ module.exports = (router) => {
         let errors = [];
 
         if (!validate.validateSurvey(survey.answers)) {
-            errors.push(new Error(41));
+            errors.push(new Error(51));
         }
 
         //make a new completed survey
