@@ -1,3 +1,4 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -13,9 +14,17 @@ describe('JobListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      declarations: [JobListComponent, RouterLinkStubDirective],
-      providers: [InternApiService]
+      imports: [
+        HttpModule,
+        NgxPaginationModule
+      ],
+      declarations: [
+        JobListComponent, 
+        RouterLinkStubDirective
+      ],
+      providers: [
+        InternApiService
+      ]
     })
       .compileComponents();
   }));

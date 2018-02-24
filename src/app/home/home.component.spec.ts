@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
 import { JobListComponent } from '../job-list/job-list.component';
 import { RouterLinkStubDirective } from '../shared/directives/router-link-stub.directive';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,7 +14,8 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule
+        HttpModule,
+        NgxPaginationModule
       ],
       declarations: [
         HomeComponent,
