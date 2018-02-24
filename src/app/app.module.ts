@@ -18,6 +18,7 @@ import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
+import { TipsComponent } from './tips/tips.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { JobCommentsComponent } from './view-job/job-comments/job-comments.compo
     ViewJobComponent,
     RouterLinkStubDirective,
     AddCommentComponent,
-    JobCommentsComponent
+    JobCommentsComponent,
+    TipsComponent
   ],
   imports: [
     BrowserModule,
