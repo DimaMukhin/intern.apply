@@ -573,7 +573,7 @@ describe('db.service.js', () => {
                     "False" //response
                 , (err, res, fields) => { });
 
-                db.getCompleteSurveyRes(2, (err, res, fields) => {
+                db.getCompleteSurveyRes(999999, (err, res, fields) => {
                     expect(res).to.have.lengthOf(0);
                     done();
                 });
