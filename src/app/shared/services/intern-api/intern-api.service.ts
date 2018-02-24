@@ -77,4 +77,14 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+   * get all the Q&A questions from internAPI
+   * @returns Observable holding list of questions
+   */
+  public getAllQuestions(): Observable<any> {
+    return this.http.get(BASE_URL + '/api/question').map((res: Response) => {
+      return res.json();
+    });
+  }
 }

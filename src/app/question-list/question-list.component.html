@@ -1,0 +1,18 @@
+<div class="m-3">
+  <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+          <tr>
+              <th>Author</th>
+              <th>Title</th>
+              <th>Time Posted</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let question of questions" routerLink="/question/{{question.id}}" id="clickableRow">
+              <td>{{ question.author }}</td>
+              <td>{{ question.title }}</td>
+              <td>{{ question.creationTime | date }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
