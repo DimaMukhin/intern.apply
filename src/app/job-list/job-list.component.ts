@@ -9,11 +9,13 @@ import { InternApiService } from '../shared/services/intern-api/intern-api.servi
 
 export class JobListComponent implements OnInit {
   jobs: any[];
+  jobsPerPage:number;
 
   constructor(private internAPI: InternApiService) { }
 
   ngOnInit() {
     this.jobs = [];
+    this.jobsPerPage = 10;
     this.getAllJobs();
   }
 

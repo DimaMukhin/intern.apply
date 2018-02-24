@@ -1,7 +1,7 @@
 <div class="m-3">
     <div class="list-group">
 
-        <a *ngFor="let job of jobs" routerLink="/job/{{job.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a *ngFor="let job of jobs | paginate: { itemsPerPage: jobsPerPage, currentPage: p }" routerLink="/job/{{job.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div>
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="job-title mb-0">{{job.title}}</h5>
@@ -11,5 +11,9 @@
             </div>
         </a>
 
+    </div>
+
+    <div class="text-center">
+        <pagination-controls class="jobs-pagination" (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>
