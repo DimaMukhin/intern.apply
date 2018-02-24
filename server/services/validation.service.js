@@ -154,8 +154,8 @@ validation.validateSurvey = (survey) => {
     if (!survey) {
         return false;
     }
-    // return true if no -1 is found in the survey responses
-    return survey.findIndex(k => k == -1) == -1
+    // return true if no -1 is found in the survey responses and non empty
+    return survey.length > 0 && survey.findIndex(k => k == -1) == -1
 };
 
 module.exports = validation;

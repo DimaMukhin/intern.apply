@@ -238,4 +238,21 @@ describe('validation.service.js', () => {
             expect(validation.validateCommentAuthor(invalidAuthorName)).to.be.false;
         });
     });
+
+    describe('validateSurvey', () => {
+        it('should return true for a valid survey', () => {
+            let validSurvey = ['True', 'Agree'];
+            expect(validation.validateSurvey(validSurvey)).to.be.true;
+        });
+
+        it('should return false for an empty survey', () => {
+            let invalidSurvey = [];
+            expect(validation.validateSurvey(invalidSurvey)).to.be.false;
+        });
+
+        it('should return false for a survey that has a -1 in it', () => {
+            let invalidSurvey = ['True', -1];
+            expect(validation.validateSurvey(invalidSurvey)).to.be.false;
+        });
+    });
 });

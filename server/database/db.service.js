@@ -119,13 +119,34 @@ db.getAllCommentsOfJob = (jobID, callback) => {
  * @param {Function} callback callback function (err, res, fields)
  */
 db.getAllSurveyQuestions = (callback) => {
-  conn.query("SELECT q.question, " +
+  db.conn.query("SELECT *, " +
     "GROUP_CONCAT(r.response ORDER BY r.id SEPARATOR ';') AS responses FROM surveyResponse r " +
     "JOIN surveyQuestion q ON q.questionType = r.questionType " +
     "GROUP BY q.question " +
-    "ORDER BY q.id", (err, res, fields) => {
+    "ORDER BY q.questionIndex", (err, res, fields) => {
       callback(err, res, fields);
     });
+};
+
+/**
+ * get all completed surveys from the db
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllCompleteSurvey = (callback) => {
+  db.conn.query('SELECT * FROM completedSurvey', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get the responses for a completed survey from the db
+ * @param {number}  surveyID  the id of the completed survey 
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getCompleteSurveyRes = (surveyID, callback) => {
+  db.conn.query('SELECT * FROM completedSurveyRes WHERE surveyID = ?', surveyID, (err, res, fields) => {
+    callback(err, res, fields);
+  });
 };
 
 /**
@@ -133,7 +154,7 @@ db.getAllSurveyQuestions = (callback) => {
  * @param {any} callback  callback function (err, res, fields)
  */
 db.addCompleteSurvey = (callback) => {
-  conn.query('INSERT INTO completedSurvey SET completionTime = CURDATE()', (err, res, fields) => {
+  db.conn.query('INSERT INTO completedSurvey SET completionTime = CURDATE()', (err, res, fields) => {
     callback(err, res, fields);
   });
 };
@@ -141,10 +162,12 @@ db.addCompleteSurvey = (callback) => {
 /**
  * record the actual responses to a completed survey to the database
  * @param {number}  surveyID  the id of the completed survey 
+ * @param {number}  index  the index of the question responded to
+ * @param {any}     response  the text of the response
  * @param {any}     callback  callback function (err, res, fields)
  */
 db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
-  conn.query('INSERT INTO completedSurveyRes SET surveyID = ?, questionIndex = ?, response = ?', [surveyID, index, response], (err, res, fields) => {
+  db.conn.query('INSERT INTO completedSurveyRes SET surveyID = ?, questionIndex = ?, response = ?', [surveyID, index, response], (err, res, fields) => {
     callback(err, res, fields);
   });
 };
