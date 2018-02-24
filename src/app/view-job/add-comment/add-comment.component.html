@@ -1,0 +1,36 @@
+<h1>Add a comment</h1>
+
+<form [formGroup]="addCommentForm" (submit)="onCommentSubmit">
+  <div class="form-group">
+    <label for="nameInput">Name</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="nameInput" 
+      formControlName="name"
+      placeholder="John Doe">
+      <span 
+        class="text-danger name-danger" 
+        *ngIf="formValidation.name">
+        Please enter a valid name (max 25 characters)
+      </span>
+  </div>
+  <div class="form-group">
+    <label for="messageBody">Message body</label>
+    <textarea 
+      class="form-control" 
+      id="messageBody" 
+      formControlName="messageBody"
+      rows="3">
+    </textarea>
+    <span 
+      class="text-danger message-danger" 
+      *ngIf="formValidation.message">
+      Please enter a valid message (max 300 characters)
+    </span>
+  </div>
+  <button type="submit" [disabled]="!addCommentForm.valid" class="btn btn-primary" (click)="onCommentSubmit()">Submit</button>
+</form>
+
+<p class="text-success" *ngIf="commentSent">Comment was sent successfully</p>
+<p class="text-warning" *ngIf="commentSent == false">An error occured while sending your comment, please try again later</p>

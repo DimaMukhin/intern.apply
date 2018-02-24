@@ -5,6 +5,7 @@
  */
 
 const mysql = require('mysql2');
+const config = require('../config');
 
 let db = {};
 
@@ -12,10 +13,10 @@ let db = {};
  * Setting up database connection
  */
 let conn = mysql.createConnection({
-  host: "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "ysl7tl8kom3eqlm6",
-  password: "h9ax1h8bkk9v8qog",
-  database : 'wq87o6l37jigk9p5'
+  host: config.prod_db.host,
+  user: config.prod_db.user,
+  password: config.prod_db.password,
+  database: config.prod_db.database
 });
 
 /**
@@ -26,19 +27,90 @@ conn.connect((err) => {
   console.log("Connected!");
 });
 
+db.conn = conn;
+
 /**
  * get all the jobs from db
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getAllJobs = (callback) => {
-  conn.query('SELECT * FROM job', (err, res, fields) => {
-    callback(err,res,fields);
+  db.conn.query('SELECT * FROM job', (err, res, fields) => {
+    callback(err, res, fields);
   });
 };
 
-db.getFilteredJobs = (filter, callback) => {
-  conn.query(`SELECT * FROM job where title LIKE '${filter.filterToApply}%'`, (err, res, fields) => {
-    callback(err,res,fields);
+/**
+ * add job to db
+ * @param {Job} job to be added to the database 
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.addJob = (job, callback) => {
+  db.conn.query('INSERT INTO job SET ?', job, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get all contact-us messages from the db
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllContactMessages = (callback) => {
+  db.conn.query('SELECT * FROM contactMessage', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add a new contact message to the database
+ * @param {any}       message   the message to add  
+ * @param {Function}  callback  callback function (err, res, fields)
+ */
+db.addNewContactMessage = (message, callback) => {
+  db.conn.query('INSERT INTO contactMessage SET ?', message, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get a job by id
+ * @param {id} job id
+ * @param  {Function} callback callback function (err, res, fields)
+ */
+db.getJob = (id, callback) => {
+  db.conn.query('SELECT * FROM job where id = ?', id, (err, res, fields) => {
+    callback(err, res, fields);
+  })
+};
+
+/**
+ * get allcomments from the db
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllComments = (callback) => {
+  db.conn.query('SELECT * FROM comment', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add a new comment to the database
+ * @param {any}       comment   the comment to add  
+ * @param {Function}  callback  callback function (err, res, fields)
+ */
+db.addNewComment = (comment, callback) => {
+  db.conn.query('INSERT INTO comment SET ?', comment, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get all comments of a job by its id
+ * @param {number}  jobID     the id of the job 
+ * @param {any}     callback  callback function (err, res, fields)
+ */
+db.getAllCommentsOfJob = (jobID, callback) => {
+  db.conn.query('SELECT * FROM comment WHERE jobID = ?', jobID, (err, res, fields) => {
+    callback(err, res, fields);
   });
 };
 

@@ -1,27 +1,34 @@
 # Intern.Apply
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+https://intern-apply.herokuapp.com
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. [Node.js and NPM](https://nodejs.org/en/)
+2. [Angular CLI](https://cli.angular.io/)
 
-## Code scaffolding
+## Getting started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone the project
+2. Navigate to the project directory on your terminal
+3. In the terminal, run `npm install` to install all project dependencies
+4. In the terminal, run `ng build` to build the web front end
+5. In the terminal, run `node server` to start the server on localhost:3000
+6. Use browser to navigate to localhost:3000
 
-## Build
+## Running tests
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
+run `ng test` to run front end tests
 
-## Running unit tests
+## Implemented features for Snapshot 1
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Job-list. 
+    * A display of all available jobs. 
+    * Can be found on the home page.
+2. Add-job
+    * Can be found after clicking on the "Add Job" link on the nav-bar
+3. Job-details
+    * Can be found after clicking on any of the jobs on the home page
+4. Contact-us
+    * can be found after clicking on the "Contact" link in the footer

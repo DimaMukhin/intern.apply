@@ -13,7 +13,5 @@ describe('api.js', () => {
                 .expect('ok')
                 .end(done);
         });
-        
     });
-    
 });
