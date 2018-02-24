@@ -26,7 +26,7 @@ describe('AddJobComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddJobComponent);
     component = fixture.componentInstance;
-    service = TestBed.get(InternApiService)
+    service = TestBed.get(InternApiService);
     fixture.detectChanges();
   });
 

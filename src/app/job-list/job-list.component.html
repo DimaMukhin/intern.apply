@@ -1,18 +1,19 @@
 <div class="m-3">
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>Job Title</th>
-                <th>Organization</th>
-                <th>Location</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let job of jobs" routerLink="/job/{{job.id}}" id="clickableRow">
-                <td>{{job.title }}</td>
-                <td>{{ job.organization }}</td>
-                <td>{{ job.location }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="list-group">
+
+        <a *ngFor="let job of jobs | paginate: { itemsPerPage: jobsPerPage, currentPage: p }" routerLink="/job/{{job.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="job-title mb-0">{{job.title}}</h5>
+                </div>
+                <p class="job-org mb-1">{{job.organization}} - {{job.location}}</p>
+                <p class="job-desc mb-1">{{job.description}}</p>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="text-center">
+        <pagination-controls class="jobs-pagination" (pageChange)="p = $event"></pagination-controls>
+    </div>
 </div>

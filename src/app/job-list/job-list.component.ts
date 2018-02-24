@@ -9,6 +9,7 @@ import { InternApiService } from '../shared/services/intern-api/intern-api.servi
 
 export class JobListComponent implements OnInit {
   jobs: any[];
+  jobsPerPage:number = 10;
 
   constructor(private internAPI: InternApiService) { }
 

@@ -1,3 +1,18 @@
-#clickableRow{
-    cursor: pointer;
+.jobs-pagination /deep/ .ngx-pagination .current {
+    margin: 10px;
+    background: #2780E3;
+}
+
+.job-title{
+    color:black;
+}
+
+.job-org{
+    color:gray;
+}
+
+.job-desc{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
