@@ -144,7 +144,7 @@ describe('db.service.js', () => {
 
     describe('GetFilteredJobs', () => {
 
-        beforeEach(() => {
+        beforeEach((done) => {
             db.conn.query('DROP TABLE IF EXISTS job', (err, res) => { 
                 db.conn.query(`CREATE TABLE job (
                     id INT NOT NULL AUTO_INCREMENT,
@@ -167,7 +167,7 @@ describe('db.service.js', () => {
             });
         });
 
-        
+
         it('should return 3 jobs records', (done) => {
             db.getFilteredJobs("Soft", (err, res, fields) => {
 
@@ -193,7 +193,7 @@ describe('db.service.js', () => {
                 done();
             });
         });
-    
+
     });
 
     describe('addJob', () => {
