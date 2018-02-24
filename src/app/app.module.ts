@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -38,6 +39,7 @@ import { JobCommentsComponent } from './view-job/job-comments/job-comments.compo
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
