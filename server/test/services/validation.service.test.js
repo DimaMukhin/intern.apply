@@ -250,8 +250,8 @@ describe('validation.service.js', () => {
             expect(validation.validateSurvey(invalidSurvey)).to.be.false;
         });
 
-        it('should return false for a survey that has a -1 in it', () => {
-            let invalidSurvey = ['True', -1];
+        it('should return false for a survey that has a null in it', () => {
+            let invalidSurvey = ['True', null];
             expect(validation.validateSurvey(invalidSurvey)).to.be.false;
         });
     });

@@ -8,7 +8,7 @@ import { InternApiService } from '../shared/services/intern-api/intern-api.servi
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent implements OnInit {
-  readonly defaultVal = -1;
+  readonly defaultVal = null;
 
   questions: any[]
   userAnswers: any[]

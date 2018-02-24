@@ -135,7 +135,7 @@ describe('survey.route.js', () => {
         it('should return an error message with code 51 for survey with a non selection', (done) => {
             request(app)
                 .post('/api/survey')
-                .send( {answers: ['True', -1]} )
+                .send( {answers: ['True', null]} )
                 .expect(400)
                 .expect(res => {
                     expect(res.body).to.have.lengthOf(1);
