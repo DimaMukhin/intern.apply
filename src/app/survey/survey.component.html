@@ -14,8 +14,11 @@
     </div>
 
     <button type="submit" class="btn btn-primary" (click)="onSurveySubmit()">Submit</button>
-  </form>
+    <span class="text-danger survey-danger" *ngIf="formValidation.missing">
+      Please answer every question
+    </span>
 
-  <p class="text-success" *ngIf="messageSent">Survey was submitted successfully</p>
-  <p class="text-warning" *ngIf="messageSent == false">An error occured while submitting your survey, please try again later</p>
+    <p class="text-success" *ngIf="messageSent">Survey was submitted successfully</p>
+    <p class="text-warning" *ngIf="messageSent == false">An error occured while submitting your survey, please try again later</p>
+  </form>
 </div>

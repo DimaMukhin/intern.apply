@@ -1,4 +1,6 @@
 const db = require('../database/db.service');
+const validate = require('../services/validation.service');
+const Error = require('../models/error.model');
 
 module.exports = (router) => {
 
@@ -6,23 +8,14 @@ module.exports = (router) => {
      * GET all survey questions and the responses allowed for each question
      */
     router.get('/survey', (req, res) => {
-        let errors = [];
-
-        db.getAllSurveyResponses((err, surveyRes, fields) => {
-            if (err) errors.push(err);
+        db.getAllSurveyQuestions((err, response, fields) => {
+            if (err) res.status(400).send(err);
             else {
-                db.getAllSurveyQuestions((err, questions, fields) => {
-                    if (err) errors.push(err);
-                    else {
-                        questions.forEach(question => {
-                            //for each question in the survey, add the responses associated with its question type
-                            question["responses"] = surveyRes.filter(r => r["questionType"] == question["questionType"]).map(r => r["response"]);
-                        });
-
-                        if (errors.length > 0) res.status(400).send(errors);
-                        else res.send(questions);
-                    }
+                response.forEach(question => {
+                    //the responses are returned db as a string separated by ';'
+                    question["responses"] = question["responses"].split(";");
                 });
+                res.send(response);
             }
         });
     });
@@ -33,24 +26,32 @@ module.exports = (router) => {
      * body format: { answers: array<String> }
      */
     router.post('/survey', (req, res) => {
-        let message = req.body;
+        let survey = req.body;
         let errors = [];
 
-        //make a new completed survey
-        db.addCompleteSurvey((err, surveyRes, fields) => {
-            if (err) errors.push(err);
-            else {
-                //save the response to each completed survey question
-                message["answers"].forEach((answer, index) => {
-                    db.addCompleteSurveyRes(surveyRes.insertId, index, answer, (err, response, fields) => {
-                        if (err) errors.push(err);
-                    });
-                });
+        if (!validate.validateSurvey(survey.answers)) {
+            errors.push(new Error(41));
+        }
 
-                if (errors.length > 0) res.status(400).send(errors);
-                else res.send(message);
-            }
-        });
+        //make a new completed survey
+        if (errors.length > 0) 
+            res.status(400).send(errors);
+        else {
+            db.addCompleteSurvey((err, surveyRes, fields) => {
+                if (err) res.status(400).send([new Error(0)]);
+                else {
+                    //save the response to each completed survey question
+                    survey["answers"].forEach((answer, index) => {
+                        db.addCompleteSurveyRes(surveyRes.insertId, index, answer, (err, response, fields) => {
+                            if (err) errors.push(err);
+                        });
+                    });
+
+                    if (errors.length > 0) res.status(400).send([new Error(0)]);
+                    else res.send(survey);
+                }
+            });
+        }
     });
 
 };

@@ -145,4 +145,17 @@ validation.validateCommentAuthor = (author) => {
     return author.length > 0 && author.length < 25;
 };
 
+/**
+ * validate a survey's selected responses, where -1 is used to denote a non selection
+ * @param {array} survey the survey to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSurvey = (survey) => {
+    if (!survey) {
+        return false;
+    }
+    // return true if no -1 is found in the survey responses
+    return survey.findIndex(k => k == -1) == -1
+};
+
 module.exports = validation;

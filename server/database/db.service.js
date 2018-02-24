@@ -114,24 +114,35 @@ db.getAllCommentsOfJob = (jobID, callback) => {
   });
 };
 
+/**
+ * get all questions and allowed responses of the survey, the responses are appended together, seperated by ; character
+ * @param {Function} callback callback function (err, res, fields)
+ */
 db.getAllSurveyQuestions = (callback) => {
-  conn.query('SELECT * FROM surveyQuestion ORDER BY questionIndex', (err, res, fields) => {
-    callback(err, res, fields);
-  });
+  conn.query("SELECT q.question, " +
+    "GROUP_CONCAT(r.response ORDER BY r.id SEPARATOR ';') AS responses FROM surveyResponse r " +
+    "JOIN surveyQuestion q ON q.questionType = r.questionType " +
+    "GROUP BY q.question " +
+    "ORDER BY q.id", (err, res, fields) => {
+      callback(err, res, fields);
+    });
 };
 
-db.getAllSurveyResponses = (callback) => {
-  conn.query('SELECT * FROM surveyResponse', (err, res, fields) => {
-    callback(err, res, fields);
-  });
-};
-
+/**
+ * add a new completed survey to the database
+ * @param {any} callback  callback function (err, res, fields)
+ */
 db.addCompleteSurvey = (callback) => {
   conn.query('INSERT INTO completedSurvey SET completionTime = CURDATE()', (err, res, fields) => {
     callback(err, res, fields);
   });
 };
 
+/**
+ * record the actual responses to a completed survey to the database
+ * @param {number}  surveyID  the id of the completed survey 
+ * @param {any}     callback  callback function (err, res, fields)
+ */
 db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
   conn.query('INSERT INTO completedSurveyRes SET surveyID = ?, questionIndex = ?, response = ?', [surveyID, index, response], (err, res, fields) => {
     callback(err, res, fields);
