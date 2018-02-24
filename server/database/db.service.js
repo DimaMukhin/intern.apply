@@ -45,7 +45,7 @@ db.getAllJobs = (callback) => {
  * @param  {Function} filter query to filter the jobs 
  */
 db.getFilteredJobs = (filter, callback) => {
-  db.conn.query('SELECT * FROM job WHERE title LIKE ?', ["%" + filter + "%"], (err, res, fields) => {
+  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"],["%" + filter + "%"]], (err, res, fields) => {
     callback(err, res, fields);
   });
 };

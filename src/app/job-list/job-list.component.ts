@@ -14,6 +14,7 @@ export class JobListComponent implements OnInit {
   filteredJobs: any[];
 
   searchText: string;
+  
 
   constructor(private internAPI: InternApiService, private route: ActivatedRoute) { }
 
@@ -43,7 +44,7 @@ export class JobListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     this.jobs = [];
     this.filteredJobs = [];
 
