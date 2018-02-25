@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 import { InternApiService } from '../../shared/services/intern-api/intern-api.service';
 
@@ -9,6 +9,7 @@ import { InternApiService } from '../../shared/services/intern-api/intern-api.se
   templateUrl: './add-salary.component.html',
   styleUrls: ['./add-salary.component.css']
 })
+
 export class AddSalaryComponent implements OnInit {
 
   @Input()
@@ -23,7 +24,7 @@ export class AddSalaryComponent implements OnInit {
   popup: NgbModalRef;
   formValidation: any = {};
 
-  constructor(private modalService: NgbModal, private internApi: InternApiService) { }
+  constructor(public modalService: NgbModal, private internApi: InternApiService) { }
 
   ngOnInit() {
     this.addSalaryForm = new FormGroup({
@@ -81,7 +82,7 @@ export class AddSalaryComponent implements OnInit {
     this.salarySent = flag;
     setTimeout(() => {
       this.salarySent = undefined;
-    }, 4000);
+    }, 3000);
   }
 
 }

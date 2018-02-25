@@ -16,7 +16,7 @@
           formControlName="salary"
           placeholder="$$">
           <span 
-          class="text-danger name-danger" 
+          class="text-danger salary-danger" 
           *ngIf="formValidation.salary">
           Please enter a valid salary (greater than 0)
         </span>
@@ -31,7 +31,7 @@
         <option [ngValue]="3">Hourly</option>
       </select>
       <span 
-      class="text-danger message-danger" 
+      class="text-danger salaryType-danger" 
       *ngIf="formValidation.stype">
       Please select a pay duration
     </span>
