@@ -395,4 +395,189 @@ describe('db.service.js', () => {
             });
         });
     });
+
+    describe('Survey', () => {
+
+        beforeEach((done) => {
+            db.conn.query('DROP TABLE surveyQuestion', (err, res) => {
+                db.conn.query(`CREATE TABLE surveyQuestion (
+                    id INT NOT NULL AUTO_INCREMENT,
+                    question VARCHAR(300) NOT NULL,
+                    questionType VARCHAR(300) NOT NULL,
+                    questionIndex INT NOT NULL,
+                    PRIMARY KEY (id))`
+                , (err, res) => {
+                    db.conn.query(`INSERT INTO surveyQuestion (id, question, questionType, questionIndex) VALUES 
+                        (1, 'Is this a test?', 'boolean', 1),
+                        (2, '?', 'scale', 2)`
+                    , (err, res) => { });
+                });
+            });
+
+            db.conn.query('DROP TABLE surveyResponse', (err, res) => {
+                db.conn.query(`CREATE TABLE surveyResponse (
+                    id INT NOT NULL AUTO_INCREMENT,
+                    response VARCHAR(300) NOT NULL,
+                    questionType VARCHAR(300) NOT NULL,
+                    PRIMARY KEY (id))`
+                , (err, res) => {
+                    db.conn.query(`INSERT INTO surveyResponse (id, response, questionType) VALUES 
+                        (1, 'True', 'boolean'),
+                        (2, 'False', 'boolean'),
+
+                        (3, 'Disagree', 'scale'),
+                        (4, 'No Opinion', 'scale'),
+                        (5, 'Agree', 'scale')`
+                    , (err, res) => { });
+                });
+            });
+
+            db.conn.query('SET FOREIGN_KEY_CHECKS = 0', (err, res) => {
+                db.conn.query('DROP TABLE completedSurvey', (err, res) => {
+                    db.conn.query(`CREATE TABLE completedSurvey (
+                        id INT NOT NULL AUTO_INCREMENT,
+                        completionTime date NOT NULL,
+                        PRIMARY KEY (id))`
+                    , (err, res) => {
+                        db.conn.query(`INSERT INTO completedSurvey (id, completionTime) VALUES 
+                            (1, '2018-02-24'),
+                            (2, '1100-01-01')`
+                        , (err, res) => {
+                            db.conn.query('DROP TABLE completedSurveyRes', (err, res) => {
+                                db.conn.query(`CREATE TABLE completedSurveyRes (
+                                    id INT NOT NULL AUTO_INCREMENT,
+                                    surveyID INT NOT NULL,
+                                    response VARCHAR(300) NOT NULL,
+                                    questionIndex INT NOT NULL,
+                                    PRIMARY KEY (id),
+                                    INDEX (surveyID),
+                                    FOREIGN KEY (surveyID) REFERENCES completedSurvey(id) ON DELETE CASCADE)`
+                                , (err, res) => {
+                                    db.conn.query(`INSERT INTO completedSurveyRes (id, surveyID, response, questionIndex) VALUES 
+                                        (1, 1, 'True', 1),
+                                        (2, 1, 'No Opinion', 2)`
+                                    , (err, res) => {
+                                        db.conn.query('SET FOREIGN_KEY_CHECKS = 1', (err, res) => {
+                                            done();
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
+        describe('getAllSurveyQuestions', () => {
+            it('should get 2 questions', (done) => {
+                db.getAllSurveyQuestions( (err, res, fields) => {
+                    expect(res).to.have.lengthOf(2);
+                    done();
+                });
+            });
+
+            it('should get the correct first question', (done) => {
+                db.getAllSurveyQuestions( (err, res, fields) => {
+                    let firstQuestion = res[0];
+                    expect(firstQuestion.id).to.equal(1);
+                    expect(firstQuestion.question).to.equal('Is this a test?');
+                    expect(firstQuestion.questionType).to.equal('boolean');
+                    expect(firstQuestion.questionIndex).to.equal(1);
+                    expect(firstQuestion.responses).to.equal('True;False');
+                    done();
+                });
+            });
+        });
+
+        describe('getAllCompleteSurvey', () => {
+            it('should get 2 completed surveys', (done) => {
+                db.getAllCompleteSurvey( (err, res, fields) => {
+                    expect(res).to.have.lengthOf(2);
+                    done();
+                });
+            });
+
+            it('should get the correct first completed survey', (done) => {
+                db.getAllCompleteSurvey( (err, res, fields) => {
+                    let firstSurvey = res[0];
+                    expect(firstSurvey.id).to.equal(1);
+                    done();
+                });
+            });
+        });
+
+        describe('getCompleteSurveyRes', () => {
+            it('should get the correct responses in the completed survey', (done) => {
+                db.getCompleteSurveyRes( 1, (err, res, fields) => {
+                    expect(res).to.have.lengthOf(2);
+                    let firstRes = res[0];
+                    let secondRes = res[1];
+
+                    expect(firstRes.id).to.equal(1);
+                    expect(firstRes.response).to.equal('True');
+                    expect(firstRes.questionIndex).to.equal(1);
+
+                    expect(secondRes.id).to.equal(2);
+                    expect(secondRes.response).to.equal('No Opinion');
+                    expect(secondRes.questionIndex).to.equal(2);
+                    done();
+                });
+            });
+
+            it('should get no responses for a non existent completed survey', (done) => {
+                db.getCompleteSurveyRes( 1337, (err, res, fields) => {
+                    expect(res).to.have.lengthOf(0);
+                    done();
+                });
+            });
+        });
+
+        describe('addCompleteSurvey', () => {
+            it('should add a new completed survey record', (done) => {
+                db.addCompleteSurvey((err, res, fields) => { });
+
+                db.getAllCompleteSurvey((err, res, fields) => {
+                    expect(res).to.have.lengthOf(3);
+                    let addedSurvey = res[2];
+    
+                    expect(addedSurvey.id).to.equal(3);
+                    done();
+                });
+            });
+        });
+
+        describe('addCompleteSurveyRes', () => {
+            it('should add a new completed survey record response', (done) => {
+                db.addCompleteSurveyRes(
+                    2, //surveyID
+                    1, //questionIndex
+                    "False" //response
+                , (err, res, fields) => { });
+
+                db.getCompleteSurveyRes(2, (err, res, fields) => {
+                    expect(res).to.have.lengthOf(1);
+                    let addedRes = res[0];
+    
+                    expect(addedRes.surveyID).to.equal(2);
+                    expect(addedRes.questionIndex).to.equal(1);
+                    expect(addedRes.response).to.equal("False");
+                    done();
+                });
+            });
+
+            it('should not add a response for a non existent completed survey', (done) => {
+                db.addCompleteSurveyRes(
+                    999999, //surveyID
+                    1, //questionIndex
+                    "False" //response
+                , (err, res, fields) => { });
+
+                db.getCompleteSurveyRes(999999, (err, res, fields) => {
+                    expect(res).to.have.lengthOf(0);
+                    done();
+                });
+            });
+        });
+    });
 });
