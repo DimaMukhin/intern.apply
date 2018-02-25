@@ -64,16 +64,26 @@ describe('AddSalaryComponent', () => {
       return [{ code: 41 }];
     }}));
     
-    console.log("");
-    
+    component.open("content")
     fixture.detectChanges();
     component.onSalarySubmit();
     fixture.detectChanges();
         
-
-    let de = fixture.debugElement.query(By.css('.salary-danger'));
-    let el: HTMLElement = de.nativeElement;
-    // expect(el.hidden).toBe(false);
-    // expect(component.formValidation.salary).toBe(true);
+    expect(component.formValidation.salary).toBe(true);
   }));
+
+  it('should render invalid salaryType message when adding invalid salaryType', async(() => {
+    let service = TestBed.get(InternApiService);
+    spyOn(service, 'addSalary').and.returnValue(Observable.throw({ json: () => {
+      return [{ code: 42 }];
+    }}));
+    
+    component.open("content")
+    fixture.detectChanges();
+    component.onSalarySubmit();
+    fixture.detectChanges();
+        
+    expect(component.formValidation.stype).toBe(true);
+  }));
+
 });
