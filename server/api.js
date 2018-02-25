@@ -10,8 +10,10 @@ router.get('/', (req, res) => {
 
 // setting up all api routes
 require('./routes/job.route')(router);
+require('./routes/survey.route')(router);
 require('./routes/contact-message.route')(router);
 require('./routes/comment.route')(router);
+require('./routes/salary.route')(router);
 
 // development playground
 // require('./playground');

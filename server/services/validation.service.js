@@ -1,11 +1,14 @@
 let validation = {};
 
 // Maximum values of the job form input fields 
-const orgMax = 45, titleMax = 100, locMax = 45, descMax = 2000;
+const orgMax = 45,
+    titleMax = 100,
+    locMax = 45,
+    descMax = 2000;
 
 /**
  * validate an email address string
- * @param {string} email email address string to validate
+ * @param {string} email email address string to validate 
  * @returns true if valid, false otherwise
  */
 validation.validateEmail = (email) => {
@@ -137,6 +140,43 @@ validation.validateCommentAuthor = (author) => {
   }
   author = author.trim();
   return author.length > 0 && author.length < 25;
+};
+
+/**
+ * validate a job salary
+ * @param {string} salary the salary to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSalary = (salary) => {
+    return !isNaN(salary) &&
+        parseInt(Number(salary), 10) == salary &&
+        !isNaN(parseInt(salary, 10)) &&
+        salary > 0;
+};
+
+/**
+ * validate a job salary type
+ * @param {string} salaryType the salary type to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSalaryType = (salaryType) => {
+    return !isNaN(salaryType) &&
+        parseInt(Number(salaryType), 10) == salaryType &&
+        !isNaN(parseInt(salaryType, 10)) &&
+        salaryType >= 0 && salaryType <= 3;
+}
+
+/**
+* validate a survey's selected responses, where null is used to denote a non selection
+* @param {array} survey the survey to validate
+* @returns true if valid, false otherwise
+*/
+validation.validateSurvey = (survey) => {
+    if (!survey) {
+        return false;
+    }
+    // return true if no null is found in the survey responses and non empty
+    return survey.length > 0 && survey.findIndex(k => k == null) == -1
 };
 
 /**

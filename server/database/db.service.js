@@ -41,6 +41,17 @@ db.getAllJobs = (callback) => {
 };
 
 /**
+ * get filtered jobs from db
+ * @param  {Function} callback callback function (err, res, fields)
+ * @param  {Function} filter query to filter the jobs 
+ */
+db.getFilteredJobs = (filter, callback) => {
+  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"],["%" + filter + "%"]], (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
  * add job to db
  * @param {any} job to be added to the database
  * @param {Function} callback callback function (err, res, fields)
@@ -130,12 +141,88 @@ db.addNewComment = (comment, callback) => {
 };
 
 /**
+ * add salary to a job by its id
+ * @param {number}  jobID     the id of the job
+ * @param {number}  salary    the salary of the job
+ * @param {any}     callback  callback function (err, res, fields)
+ */
+db.addSalaryToJob = (id, salary, callback) => {
+  db.conn.query('Select salary, numSalaries From job where id = ?', id, (err, res, fields) => {
+    newNumOfSalaries = res[0]["numSalaries"] + 1;
+    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"]))/(newNumOfSalaries); 
+    newSalary = newSalary.toFixed(1);
+    db.conn.query('Update job SET salary = ?, numSalaries = ? where id = ?',
+      [ newSalary, newNumOfSalaries, id], (err, res, fields) => {
+        callback(err, res, fields, newSalary, newNumOfSalaries);
+      });
+  });
+};
+
+/**
  * get all comments of a job by its id
  * @param {number}  jobID     the id of the job
  * @param {any}     callback  callback function (err, res, fields)
  */
 db.getAllCommentsOfJob = (jobID, callback) => {
   db.conn.query('SELECT * FROM comment WHERE jobID = ?', jobID, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get all questions and allowed responses of the survey, the responses are appended together, seperated by ; character
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllSurveyQuestions = (callback) => {
+  db.conn.query("SELECT *, " +
+    "GROUP_CONCAT(r.response ORDER BY r.id SEPARATOR ';') AS responses FROM surveyResponse r " +
+    "JOIN surveyQuestion q ON q.questionType = r.questionType " +
+    "GROUP BY q.question " +
+    "ORDER BY q.questionIndex", (err, res, fields) => {
+      callback(err, res, fields);
+    });
+};
+
+/**
+ * get all completed surveys from the db
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getAllCompleteSurvey = (callback) => {
+  db.conn.query('SELECT * FROM completedSurvey', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * get the responses for a completed survey from the db
+ * @param {number}  surveyID  the id of the completed survey 
+ * @param {Function} callback callback function (err, res, fields)
+ */
+db.getCompleteSurveyRes = (surveyID, callback) => {
+  db.conn.query('SELECT * FROM completedSurveyRes WHERE surveyID = ?', surveyID, (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * add a new completed survey to the database
+ * @param {any} callback  callback function (err, res, fields)
+ */
+db.addCompleteSurvey = (callback) => {
+  db.conn.query('INSERT INTO completedSurvey SET completionTime = CURDATE()', (err, res, fields) => {
+    callback(err, res, fields);
+  });
+};
+
+/**
+ * record the actual responses to a completed survey to the database
+ * @param {number}  surveyID  the id of the completed survey 
+ * @param {number}  index  the index of the question responded to
+ * @param {any}     response  the text of the response
+ * @param {any}     callback  callback function (err, res, fields)
+ */
+db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
+  db.conn.query('INSERT INTO completedSurveyRes SET surveyID = ?, questionIndex = ?, response = ?', [surveyID, index, response], (err, res, fields) => {
     callback(err, res, fields);
   });
 };

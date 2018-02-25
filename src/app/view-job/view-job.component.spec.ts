@@ -4,11 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ViewJobComponent } from './view-job.component';
 import { JobCommentsComponent } from './job-comments/job-comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import { AddSalaryComponent } from './add-salary/add-salary.component';
 
 describe('ViewJobComponent', () => {
     let component: ViewJobComponent;
@@ -17,8 +19,8 @@ describe('ViewJobComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule, RouterTestingModule, ReactiveFormsModule],
-            declarations: [ViewJobComponent, JobCommentsComponent, AddCommentComponent],
+            imports: [HttpModule, RouterTestingModule, ReactiveFormsModule, NgbModalModule.forRoot()],
+            declarations: [ViewJobComponent, JobCommentsComponent, AddCommentComponent, AddSalaryComponent],
             providers: [InternApiService]
         })
             .compileComponents();

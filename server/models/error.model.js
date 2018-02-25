@@ -21,6 +21,9 @@ const codes = {
     14: 'invalid job description',
     31: 'invalid id',
     32: 'invalid job score'
+    41: 'invalid salary',
+    42: 'unknown salary type',
+    51: 'invalid survey'
 };
 
 class Error {
