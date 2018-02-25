@@ -107,4 +107,16 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+   * Add a new question to the Q&A board
+   * @param title   the title of the question
+   * @param body    the question itslef
+   * @param author  the author of the question
+   */
+  public addQuestion(title: string, body: string, author: string): Observable<any> {
+    return this.http.post(BASE_URL + '/api/question', { title, body, author }).map((res: Response) => {
+      return res.json();
+    });
+  }
 }

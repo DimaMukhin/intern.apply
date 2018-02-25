@@ -1,18 +1,74 @@
 <div class="m-3">
-  <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
-          <tr>
-              <th>Author</th>
-              <th>Title</th>
-              <th>Time Posted</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let question of questions" routerLink="/question/{{question.id}}" id="clickableRow">
-              <td>{{ question.author }}</td>
-              <td>{{ question.title }}</td>
-              <td>{{ question.creationTime | date }}</td>
-          </tr>
-      </tbody>
-  </table>
+    <button type="button" class="btn btn-primary">Ask</button>
+    
+    <!-- Add a new question -->
+    
+    <div>
+        <form [formGroup]="addQuestionForm" (submit)="onQuestionSubmit">
+            <div class="form-group">
+                <label for="nameInput">Name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="nameInput" 
+                    formControlName="name"
+                    placeholder="John Doe">
+                <span 
+                    class="text-danger name-danger" 
+                    *ngIf="formValidation.name">
+                    Please enter a valid name (max 25 characters)
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="titleInput">Title</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="titleInput" 
+                    formControlName="title">
+                <span 
+                    class="text-danger title-danger" 
+                    *ngIf="formValidation.title">
+                    Please enter a valid title (max 25 characters)
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="questionBody">Question</label>
+                <textarea 
+                    class="form-control" 
+                    id="questionBody" 
+                    formControlName="questionBody"
+                    rows="3">
+                </textarea>
+                <span 
+                    class="text-danger question-danger" 
+                    *ngIf="formValidation.question">
+                    Please enter a valid question (max 1000 characters)
+                </span>
+            </div>
+            <button type="submit" [disabled]="!addQuestionForm.valid" class="btn btn-primary" (click)="onQuestionSubmit()">Submit</button>
+        </form>
+
+        <p class="text-success" *ngIf="questionSent">question was sent successfully</p>
+        <p class="text-warning" *ngIf="questionSent == false">An error occured while sending your question, please try again later</p>
+    </div>
+
+    <!-- all questions -->
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Time Posted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions" routerLink="/question/{{question.id}}" id="clickableRow">
+                <td>{{ question.author }}</td>
+                <td>{{ question.title }}</td>
+                <td>{{ question.creationTime | date }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
