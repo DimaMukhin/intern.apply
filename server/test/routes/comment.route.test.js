@@ -7,7 +7,7 @@ const db = require('../db.connection.test');
 
 describe('comment.route.js', () => {
     beforeEach((done) => {
-        db.conn.query('DROP TABLE job', (err, res, fields) => { 
+        db.conn.query('DROP TABLE IF EXISTS job', (err, res, fields) => { 
             db.conn.query(`CREATE TABLE job (
                 id INT NOT NULL AUTO_INCREMENT,
                 organization VARCHAR(45) NOT NULL,
@@ -21,7 +21,7 @@ describe('comment.route.js', () => {
                     (2, 'google', 'second title', 'vancouver'),
                     (3, 'CityOFWinnipeg', 'third title', 'location')`,
                 (err, res) => {
-                    db.conn.query('DROP TABLE comment', (err, res) => {
+                    db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
                         db.conn.query(`CREATE TABLE comment (
                             id INT NOT NULL AUTO_INCREMENT,
                             jobID INT NOT NULL,
@@ -46,8 +46,8 @@ describe('comment.route.js', () => {
     });
 
     afterEach((done) => {
-        db.conn.query('DROP TABLE comment', (err, res) => {
-            db.conn.query('DROP TABLE job', (err, res) => {
+        db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
+            db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
                 done();
             });
         });
