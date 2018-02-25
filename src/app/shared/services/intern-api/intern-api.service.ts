@@ -79,6 +79,18 @@ export class InternApiService {
   }
 
   /**
+   * post a new comment to a job
+   * @param jobID   the id of the job to send the comment to
+   * @param message the body of the comment
+   * @param author  the name of the author
+   */
+  public addSalary(jobID: number, salary: number, salaryType: number): Observable<any> {
+    return this.http.post(BASE_URL + '/api/salary', { jobID, salary, salaryType }).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
    * get the survey questions and allowed responses from internAPI
    * @returns Observable holding list of questions with a list of their allowed responses
    */

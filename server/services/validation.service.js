@@ -113,8 +113,8 @@ validation.validateID = (id) => {
  * @returns true if valid, false otherwise
  */
 validation.validateJobID = (id) => {
-    return !isNaN(id) && 
-        parseInt(Number(id), 10) == id && 
+    return !isNaN(id) &&
+        parseInt(Number(id), 10) == id &&
         !isNaN(parseInt(id, 10)) &&
         id > 0;
 };
@@ -146,10 +146,34 @@ validation.validateCommentAuthor = (author) => {
 };
 
 /**
- * validate a survey's selected responses, where null is used to denote a non selection
- * @param {array} survey the survey to validate
+ * validate a job salary
+ * @param {string} salary the salary to validate
  * @returns true if valid, false otherwise
  */
+validation.validateSalary = (salary) => {
+    return !isNaN(salary) &&
+        parseInt(Number(salary), 10) == salary &&
+        !isNaN(parseInt(salary, 10)) &&
+        salary > 0;
+};
+
+/**
+ * validate a job salary type
+ * @param {string} salaryType the salary type to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSalaryType = (salaryType) => {
+    return !isNaN(salaryType) &&
+        parseInt(Number(salaryType), 10) == salaryType &&
+        !isNaN(parseInt(salaryType, 10)) &&
+        salaryType >= 0 && salaryType <= 3;
+}
+
+/**
+* validate a survey's selected responses, where null is used to denote a non selection
+* @param {array} survey the survey to validate
+* @returns true if valid, false otherwise
+*/
 validation.validateSurvey = (survey) => {
     if (!survey) {
         return false;
