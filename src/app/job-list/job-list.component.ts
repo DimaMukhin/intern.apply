@@ -14,7 +14,9 @@ export class JobListComponent implements OnInit {
   filteredJobs: any[];
 
   searchText: string;
-  
+
+  searchTooLong: boolean;
+
 
   constructor(private internAPI: InternApiService, private route: ActivatedRoute) { }
 
@@ -28,6 +30,7 @@ export class JobListComponent implements OnInit {
       this.filteredJobs = data;
 
       if (this.searchText != null) {
+
         this.jobs = this.filteredJobs;
       }
     }, (error) => {
@@ -35,16 +38,25 @@ export class JobListComponent implements OnInit {
     });
   }
 
-  private filterJobs(searchText) {
+  public filterJobs(searchText) {
     this.internAPI.getAllJobs(searchText).subscribe(
       response => {
         this.jobs = response;
       });
-    return this.jobs;
+
+    if (searchText!=null && searchText.length>100){
+      this.searchTooLong = true;
+      return undefined;
+    }
+    else{
+      this.searchTooLong = false;
+      return this.jobs;
+    }
+
   }
 
   ngOnInit() {
-    
+
     this.jobs = [];
     this.filteredJobs = [];
 
