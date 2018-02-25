@@ -22,6 +22,7 @@ import { AddCommentComponent } from './view-job/add-comment/add-comment.componen
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
 import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
 import {JobRatingComponent} from './view-job/job-rating/job-rating.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

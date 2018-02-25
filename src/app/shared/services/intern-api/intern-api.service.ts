@@ -18,8 +18,8 @@ export class InternApiService {
    * get all the jobs from internAPI
    * @returns Observable holding list of jobs
    */
-  public getAllJobs(filterText?:string): Observable<any> {
-    return this.http.get(BASE_URL + '/api/job',{params:{filter: filterText}}).map((res: Response) => {
+  public getAllJobs(filterText?: string): Observable<any> {
+    return this.http.get(BASE_URL + '/api/job', {params: {filter: filterText}}).map((res: Response) => {
       return res.json();
     });
   }
@@ -126,7 +126,7 @@ export class InternApiService {
      * @param {number} score
      */
     public rateJob(jobId: number, score: number): Observable<any> {
-        return this.http.post(`${BASE_URL}/api/job/${jobId}/rate`, {score}).map((res: Response) => {
+        return this.http.post(`${BASE_URL}/api/job/${jobId}/rating`, {score}).map((res: Response) => {
             return res.json();
         });
     }

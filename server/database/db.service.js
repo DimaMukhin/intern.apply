@@ -6,7 +6,6 @@
 
 const mysql = require('mysql2');
 const config = require('../config');
-const JobRating = require('../models/jobRating.model');
 
 let db = {};
 

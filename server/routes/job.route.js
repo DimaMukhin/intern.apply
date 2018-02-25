@@ -1,6 +1,7 @@
 const db = require('../database/db.service');
 const validate = require('../services/validation.service');
 const Error = require('../models/error.model');
+const JobRating = require('../models/jobRating.model');
 
 module.exports = (router) => {
 
