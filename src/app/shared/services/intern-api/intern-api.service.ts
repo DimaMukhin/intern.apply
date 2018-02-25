@@ -14,12 +14,12 @@ export class InternApiService {
 
   constructor(private http: Http) { }
 
-  /**
+/**
    * get all the jobs from internAPI
    * @returns Observable holding list of jobs
    */
-  public getAllJobs(): Observable<any> {
-    return this.http.get(BASE_URL + '/api/job').map((res: Response) => {
+  public getAllJobs(filterText?:string): Observable<any> {
+    return this.http.get(BASE_URL + '/api/job',{params:{filter: filterText}}).map((res: Response) => {
       return res.json();
     });
   }
