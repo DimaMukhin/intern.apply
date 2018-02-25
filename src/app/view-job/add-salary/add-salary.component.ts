@@ -46,7 +46,6 @@ export class AddSalaryComponent implements OnInit {
   public onSalarySubmit(): void {
 
     this.salarySent = undefined;
-
     this.formValidation = {};
 
     this.internApi.addSalary(
