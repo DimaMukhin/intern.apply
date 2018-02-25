@@ -1,17 +1,23 @@
 <div class="m-3">
     <table class="table table-bordered table-striped table-hover">
-        <thead class="thead-dark">
+        <thead *ngIf="jobs.length > 0" class="thead-dark">
             <tr>
                 <th>Job Title</th>
                 <th>Organization</th>
                 <th>Location</th>
             </tr>
         </thead>
+        <h1 *ngIf="jobs.length == 0 && !searchTooLong" class = "no-job">
+            No Jobs Found!
+        </h1>
+        <h1 *ngIf="searchTooLong" class="long-query">
+            Search query too long! (Max characters allowed 100)
+        </h1>
         <tbody>
-            <tr *ngFor="let job of jobs" routerLink="/job/{{job.id}}" id="clickableRow">
-                <td>{{job.title }}</td>
-                <td>{{ job.organization }}</td>
-                <td>{{ job.location }}</td>
+            <tr *ngFor="let job of jobs" routerLink="/job/{{job.id}}" id="clickableRow" >
+                <td class = "job-title">{{job.title }}</td>
+                <td class = "job-org">{{ job.organization }}</td>
+                <td class = "job-loc">{{ job.location }}</td>
             </tr>
         </tbody>
     </table>
