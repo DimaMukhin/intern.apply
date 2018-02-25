@@ -82,10 +82,10 @@ describe('job.route.js', () => {
                 .query({ filter: 'test' })
                 .expect(200)
                 .expect(res => {
-                    expect(res.body).to.have.lengthOf(1);
-                    expect(res.body[0].organization).to.equal('Test Org');
-                    expect(res.body[0].title).to.equal('test title');
-                    expect(res.body[0].location).to.equal('123 test st');
+                    expect(res.body).to.have.lengthOf(4);
+                    expect(res.body[3].organization).to.equal('Together We Test');
+                    expect(res.body[3].title).to.equal('fourth title');
+                    expect(res.body[3].location).to.equal('789 test blvd');
                 })
                 .end(done);
         });
