@@ -146,6 +146,19 @@ validation.validateCommentAuthor = (author) => {
 };
 
 /**
+ * validate a survey's selected responses, where null is used to denote a non selection
+ * @param {array} survey the survey to validate
+ * @returns true if valid, false otherwise
+ */
+validation.validateSurvey = (survey) => {
+    if (!survey) {
+        return false;
+    }
+    // return true if no null is found in the survey responses and non empty
+    return survey.length > 0 && survey.findIndex(k => k == null) == -1
+};
+
+/**
  * validate the title of a Q&A question
  * @param {string} title   the title to validate
  * @returns true if valid, false otherwise

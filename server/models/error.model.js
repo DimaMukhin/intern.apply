@@ -23,6 +23,7 @@ const codes = {
     13: 'invalid job location',
     14: 'invalid job description',
     31: 'invalid id',
+    51: 'invalid survey'
 };
 
 class Error {

@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InternApiService } from './shared/services/intern-api/intern-api.service';
+import { SurveyComponent } from './survey/survey.component';
 import { AddJobComponent } from './add-job/add-job.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -27,6 +28,7 @@ import { QuestionListComponent } from './question-list/question-list.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
+    SurveyComponent,
     AddJobComponent,
     JobListComponent,
     ContactUsComponent,
