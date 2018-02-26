@@ -206,7 +206,7 @@ db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
  * @param {Function} callback callback function (err, res, fields)
  */
 db.getAllQuestions = (callback) => {
-  db.conn.query('SELECT * FROM question', (err, res, fields) => {
+  db.conn.query('SELECT * FROM question ORDER BY creationTime DESC', (err, res, fields) => {
     callback(err, res, fields);
   });
 };

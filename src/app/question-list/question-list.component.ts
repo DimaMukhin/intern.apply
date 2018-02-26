@@ -12,6 +12,7 @@ import { InternApiService } from '../shared/services/intern-api/intern-api.servi
 export class QuestionListComponent implements OnInit {
 
   questions: any[];
+  showQuestionForm: boolean;
   questionSent: boolean;
   addQuestionForm: FormGroup;
   formValidation: any = {};
@@ -26,6 +27,7 @@ export class QuestionListComponent implements OnInit {
     });
 
     this.questions = [];
+    this.showQuestionForm = false;
     this.getAllQuestions();
   }
 
@@ -56,6 +58,7 @@ export class QuestionListComponent implements OnInit {
       this.addQuestionForm.value.name)
       .subscribe((response) => {
         this.setQuestionStatus(true);
+        this.getAllQuestions();
       }, (error) => {
         if (error.json) {
           error = error.json();
@@ -77,11 +80,15 @@ export class QuestionListComponent implements OnInit {
    * set "question sent" status for display
    * @param flag true if question was sent successfuly, false otherwise
    */
-  setQuestionStatus(flag: boolean): void {
+  public setQuestionStatus(flag: boolean): void {
     this.questionSent = flag;
     setTimeout(() => {
       this.questionSent = undefined;
     }, 3000);
+  }
+
+  public onAskButtonClick(): void {
+    this.showQuestionForm = !this.showQuestionForm;
   }
 
 }

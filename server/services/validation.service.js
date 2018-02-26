@@ -192,7 +192,7 @@ validation.validateQuestionTitle = (title) => {
         return false;
     }
     title = title.trim();
-    return title.length > 0 && title.length < 25;
+    return title.length > 0 && title.length < 45;
 };
 
 /**
