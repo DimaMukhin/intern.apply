@@ -162,7 +162,7 @@ module.exports = (router) => {
 
           db.rateJob(req.params.id, newRating.getScore(), newRating.getVotes(), (err, response, fields) => {
             if (err) res.status(400).send([new Error(0)]);
-            else res.send(response);
+            else res.send(newRating);
           });
         }
       });

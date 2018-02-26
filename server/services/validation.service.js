@@ -5,6 +5,8 @@ const orgMax = 45,
     titleMax = 100,
     locMax = 45,
     descMax = 2000;
+    jobScoreMax = 5;
+    jobScoreMin = 1;
 
 /**
  * validate an email address string
@@ -184,7 +186,7 @@ validation.validateSurvey = (survey) => {
  * @param score
  */
 validation.validateJobScore = (score) => {
-  return validation.validateJobID(score);
+  return validation.validateJobID(score) && score <= jobScoreMax && score >= jobScoreMin;
 };
 
 module.exports = validation;
