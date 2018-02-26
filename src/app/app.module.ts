@@ -4,12 +4,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InternApiService } from './shared/services/intern-api/intern-api.service';
+import { SurveyComponent } from './survey/survey.component';
 import { AddJobComponent } from './add-job/add-job.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -18,7 +20,9 @@ import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
+import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
 import { TipsComponent } from './tips/tips.component';
+
 
 
 @NgModule({
@@ -27,6 +31,7 @@ import { TipsComponent } from './tips/tips.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
+    SurveyComponent,
     AddJobComponent,
     JobListComponent,
     ContactUsComponent,
@@ -36,6 +41,7 @@ import { TipsComponent } from './tips/tips.component';
     RouterLinkStubDirective,
     AddCommentComponent,
     JobCommentsComponent,
+    AddSalaryComponent,
     TipsComponent
   ],
   imports: [
@@ -45,6 +51,7 @@ import { TipsComponent } from './tips/tips.component';
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
+    NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule
   ],

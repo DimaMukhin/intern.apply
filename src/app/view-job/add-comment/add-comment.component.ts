@@ -60,7 +60,7 @@ export class AddCommentComponent implements OnInit {
 
   /**
    * set "message sent" status for display
-   * @param flag true if message was sent successfuly, falst otherwise
+   * @param flag true if message was sent successfuly, false otherwise
    */
   setCommentStatus(flag: boolean): void {
     this.commentSent = flag;

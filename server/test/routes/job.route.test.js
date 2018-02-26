@@ -8,7 +8,7 @@ const db = require('../db.connection.test');
 describe('job.route.js', () => {
 
     beforeEach((done) => {
-        db.conn.query('DROP TABLE job', (err, res) => { 
+        db.conn.query('DROP TABLE IF EXISTS job', (err, res) => { 
             db.conn.query(`CREATE TABLE job (
                 id INT NOT NULL AUTO_INCREMENT,
                 organization VARCHAR(45) NOT NULL,
@@ -23,7 +23,7 @@ describe('job.route.js', () => {
                     (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
                     (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`,
                 (err, res) => {
-                    db.conn.query('DROP TABLE comment', (err, res) => {
+                    db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
                         db.conn.query(`CREATE TABLE comment (
                             id INT NOT NULL AUTO_INCREMENT,
                             jobID INT NOT NULL,
@@ -48,8 +48,8 @@ describe('job.route.js', () => {
     });
 
     afterEach((done) => {
-        db.conn.query('DROP TABLE comment', (err, res) => {
-            db.conn.query('DROP TABLE job', (err, res) => {
+        db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
+            db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
                 done();
             });
         });
@@ -70,6 +70,60 @@ describe('job.route.js', () => {
                 })
                 .end(done);
         })
+    });
+
+    /**
+   * Gets a job based on the filter
+   */
+    describe('GET /job/filter', () => {
+        it('should return filtered jobs based on the filter', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: 'test' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(4);
+                    expect(res.body[3].organization).to.equal('Together We Test');
+                    expect(res.body[3].title).to.equal('fourth title');
+                    expect(res.body[3].location).to.equal('789 test blvd');
+                })
+                .end(done);
+        });
+    });
+
+    /**
+    * Gets all jobs when the filter is empty
+    */
+    describe('GET /job/filter', () => {
+        it('should return all the jobs with empty filter', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: '' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(4);
+                    expect(res.body[3].organization).to.equal('Together We Test');
+                    expect(res.body[3].title).to.equal('fourth title');
+                    expect(res.body[3].location).to.equal('789 test blvd');
+                })
+                .end(done);
+        });
+    });
+
+    /**
+    * Gets no jobs when there are no jobs based on the filter/search query
+    */
+    describe('GET /job/filter', () => {
+        it('should return no jobs with random query for which no job exists', (done) => {
+            request(app)
+                .get('/api/job/')
+                .query({ filter: 'Random job' })
+                .expect(200)
+                .expect(res => {
+                    expect(res.body).to.have.lengthOf(0);
+                })
+                .end(done);
+        });
     });
 
     describe('POST /job', () => {
