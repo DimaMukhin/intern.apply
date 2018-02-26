@@ -9,6 +9,7 @@ import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ViewJobComponent } from "./view-job/view-job.component";
 import { QuestionListComponent } from './question-list/question-list.component';
+import { ViewQuestionComponent } from './view-question/view-question.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'search/:searchText', component: JobListComponent },
     { path: 'job/:id', component: ViewJobComponent },
     { path: 'questions', component: QuestionListComponent },
+    { path: 'questions/:id', component: ViewQuestionComponent },
     { path: 'survey', component: SurveyComponent },
     { path: '**', component: PageNotFoundComponent },
 ];

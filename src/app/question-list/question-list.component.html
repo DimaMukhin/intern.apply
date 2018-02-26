@@ -66,7 +66,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let question of questions" routerLink="/question/{{question.id}}" id="clickableRow">
+            <tr *ngFor="let question of questions" routerLink="/questions/{{question.id}}" id="clickableRow">
                 <td>{{ question.author }}</td>
                 <td>{{ question.title }}</td>
                 <td>{{ question.creationTime | date }}</td>

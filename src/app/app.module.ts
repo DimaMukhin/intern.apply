@@ -22,6 +22,7 @@ import { AddCommentComponent } from './view-job/add-comment/add-comment.componen
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
+import { ViewQuestionComponent } from './view-question/view-question.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
     AddCommentComponent,
     JobCommentsComponent,
     QuestionListComponent,
-    AddSalaryComponent
+    AddSalaryComponent,
+    ViewQuestionComponent
   ],
   imports: [
     BrowserModule,

@@ -131,4 +131,14 @@ export class InternApiService {
       return res.json();
     });
   }
+
+  /**
+   * get a question by id from the server
+   * @param id The id of the question
+   */
+  public getQuestionById(id: number): Observable<any> {
+    return this.http.get(BASE_URL + '/api/question/' + id).map((res: Response) => {
+      return res.json();
+    });
+  }
 }

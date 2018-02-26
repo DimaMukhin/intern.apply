@@ -1,0 +1,8 @@
+<div *ngIf="question && question.title; else noQuestion">
+  <h1>{{ question.title }}</h1>
+  <h5>Asked by: {{ question.author }}</h5>
+  <p>{{ question.body }}</p>
+</div>
+<ng-template #noQuestion>
+  <h1>Question not found</h1>
+</ng-template>
