@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModalModule, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { InternApiService } from '../../shared/services/intern-api/intern-api.service';
 
