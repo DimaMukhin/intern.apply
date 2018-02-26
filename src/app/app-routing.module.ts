@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ViewJobComponent } from "./view-job/view-job.component";
+import { TipsComponent } from './tips/tips.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'jobs', component: JobListComponent },
     { path: 'contact', component: ContactUsComponent },
     { path: 'job/:id', component: ViewJobComponent },
-    { path: '**', component: PageNotFoundComponent },
+    { path: 'tips', component: TipsComponent },
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
