@@ -16,6 +16,7 @@ const routes: Routes = [
     { path: 'jobs', component: JobListComponent },
     { path: 'contact', component: ContactUsComponent },
     { path: 'search/:searchText', component: JobListComponent },
+    { path: 'search', component: HomeComponent },
     { path: 'job/:id', component: ViewJobComponent },
     { path: 'survey', component: SurveyComponent },
     { path: '**', component: PageNotFoundComponent },
