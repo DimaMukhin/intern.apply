@@ -45,7 +45,7 @@ db.getAllJobs = (callback) => {
  * @param  {Function} filter query to filter the jobs 
  */
 db.getFilteredJobs = (filter, callback) => {
-  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"],["%" + filter + "%"]], (err, res, fields) => {
+  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"], ["%" + filter + "%"]], (err, res, fields) => {
     callback(err, res, fields);
   });
 };
@@ -83,7 +83,7 @@ db.addNewContactMessage = (message, callback) => {
 };
 
 /**
- * get a job by idjobRating
+ * get a job by id
  * @param {number} id job id
  * @param  {Function} callback callback function (err, res, fields)
  */
@@ -148,10 +148,10 @@ db.addNewComment = (comment, callback) => {
 db.addSalaryToJob = (id, salary, callback) => {
   db.conn.query('Select salary, numSalaries From job where id = ?', id, (err, res, fields) => {
     newNumOfSalaries = res[0]["numSalaries"] + 1;
-    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"]))/(newNumOfSalaries); 
+    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"])) / (newNumOfSalaries);
     newSalary = newSalary.toFixed(1);
     db.conn.query('Update job SET salary = ?, numSalaries = ? where id = ?',
-      [ newSalary, newNumOfSalaries, id], (err, res, fields) => {
+      [newSalary, newNumOfSalaries, id], (err, res, fields) => {
         callback(err, res, fields, newSalary, newNumOfSalaries);
       });
   });

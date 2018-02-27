@@ -39,15 +39,13 @@ module.exports = (router) => {
     // good to go if no errors found
     if (errors.length > 0) {
       res.status(400).send(errors);
-    }
-    else {
+    } else {
       db.getJob(req.params.id, (err, response, fields) => {
         if (err) {
           // unknown error
           errors.push(new Error(0));
           res.status(400).send(errors);
-        }
-        else {
+        } else {
           res.send(response);
         }
       })
@@ -90,8 +88,7 @@ module.exports = (router) => {
 
     if (errors.length > 0) {
       res.status(400).send(errors);
-    }
-    else {
+    } else {
       db.addJob(job, (err, response, fields) => {
         if (err) {
           res.status(400).send([new Error(0)]);
@@ -121,7 +118,7 @@ module.exports = (router) => {
       db.getJobRating(req.params.id, (err, response, fields) => {
         if (err) res.status(400).send([new Error(0)]);
         else res.send(response);
-      })
+      });
     }
   });
 
