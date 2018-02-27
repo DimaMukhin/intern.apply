@@ -83,7 +83,7 @@ db.addNewContactMessage = (message, callback) => {
 };
 
 /**
- * get a job by id
+ * get a job by idjobRating
  * @param {number} id job id
  * @param  {Function} callback callback function (err, res, fields)
  */

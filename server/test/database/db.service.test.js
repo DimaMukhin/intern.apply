@@ -736,8 +736,7 @@ describe('db.service.js', () => {
                     (err, res) => {
                       db.conn.query(`INSERT INTO jobRating(jobId, score, votes) VALUES 
                               (1, 1.0, 1),
-                              (2, 2.0, 2),
-                              (3, 3.0, 3)`, (err, res) => {
+                              (2, 2.0, 2)`, (err, res) => {
                         done();
                       });
                     });
@@ -761,6 +760,52 @@ describe('db.service.js', () => {
         expect(res[0].jobId).to.equal(1);
         expect(res[0].score).to.equal('1.00');
         expect(res[0].votes).to.equal(1);
+        done();
+      });
+    });
+
+    it('should not return the rating of a non-existent job', (done) => {
+      db.getJobRating(10, (err, res, fields) => {
+        expect(res).to.have.lengthOf(0);
+        done();
+      });
+    });
+
+    it('should not return the rating of a non-valid job id', (done) => {
+      db.getJobRating('a', (err, res, fields) => {
+        expect(res).to.have.lengthOf(0);
+        done();
+      });
+    });
+
+    it('should add a first rating to a job', (done) => {
+      db.rateJob(
+        3,  // job id
+        5,  // job score
+        1,  // number of votes
+        (err, res, fields) => {});
+
+      db.getJobRating(3, (err, res, fields) => {
+        expect(res).to.have.lengthOf(1);
+        expect(res[0].jobId).to.equal(3);
+        expect(res[0].score).to.equal('5.00');
+        expect(res[0].votes).to.equal(1);
+        done();
+      });
+    });
+
+    it('should add rating to a job that was rated before', (done) => {
+      db.rateJob(
+        2,  // job id
+        4,  // job score
+        3,  // number of votes
+        (err, res, fields) => {});
+
+      db.getJobRating(2, (err, res, fields) => {
+        expect(res).to.have.lengthOf(1);
+        expect(res[0].jobId).to.equal(2);
+        expect(res[0].score).to.equal('4.00');
+        expect(res[0].votes).to.equal(3);
         done();
       });
     });
