@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpModule} from '@angular/http';
+import {NgModule} from '@angular/core';
+import {AppRoutingModule} from './app-routing.module';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {RatingModule} from 'ngx-bootstrap/rating';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -21,6 +21,8 @@ import { RouterLinkStubDirective } from './shared/directives/router-link-stub.di
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
 import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
+import {JobRatingComponent} from './view-job/job-rating/job-rating.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
     RouterLinkStubDirective,
     AddCommentComponent,
     JobCommentsComponent,
-    AddSalaryComponent
+    AddSalaryComponent,
+    JobRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
+    RatingModule.forRoot(),
     NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule

@@ -45,14 +45,14 @@ db.getAllJobs = (callback) => {
  * @param  {Function} filter query to filter the jobs 
  */
 db.getFilteredJobs = (filter, callback) => {
-  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"],["%" + filter + "%"]], (err, res, fields) => {
+  db.conn.query('SELECT * FROM job WHERE title LIKE ? OR organization LIKE ? OR location LIKE?', [["%" + filter + "%"], ["%" + filter + "%"], ["%" + filter + "%"]], (err, res, fields) => {
     callback(err, res, fields);
   });
 };
 
 /**
  * add job to db
- * @param {Job} job to be added to the database 
+ * @param {any} job to be added to the database
  * @param {Function} callback callback function (err, res, fields)
  */
 db.addJob = (job, callback) => {
@@ -73,7 +73,7 @@ db.getAllContactMessages = (callback) => {
 
 /**
  * add a new contact message to the database
- * @param {any}       message   the message to add  
+ * @param {any}       message   the message to add
  * @param {Function}  callback  callback function (err, res, fields)
  */
 db.addNewContactMessage = (message, callback) => {
@@ -84,13 +84,38 @@ db.addNewContactMessage = (message, callback) => {
 
 /**
  * get a job by id
- * @param {id} job id
+ * @param {number} id job id
  * @param  {Function} callback callback function (err, res, fields)
  */
 db.getJob = (id, callback) => {
   db.conn.query('SELECT * FROM job where id = ?', id, (err, res, fields) => {
     callback(err, res, fields);
   })
+};
+
+/**
+ * get job rating
+ * @param {number} jobId
+ * @param  {Function} callback callback function (err, res, fields)
+ */
+db.getJobRating = (jobId, callback) => {
+  db.conn.query('SELECT * FROM jobRating where jobId = ?', jobId, (err, res, fields) => {
+    callback(err, res, fields);
+  })
+};
+
+/**
+ * rate a job
+ * @param {number} jobId
+ * @param {number} score job's score from 1-5
+ * @param {number} votes number of votes
+ * @param  {Function} callback callback function (err, res, fields)
+ */
+db.rateJob = (jobId, score, votes, callback) => {
+  db.conn.query('INSERT INTO jobRating VALUES(?) ON DUPLICATE KEY UPDATE score = ?, votes = ?', [[jobId, score, votes], score, votes],
+    (err, res, fields) => {
+      callback(err, res, fields);
+    });
 };
 
 /**
@@ -105,7 +130,7 @@ db.getAllComments = (callback) => {
 
 /**
  * add a new comment to the database
- * @param {any}       comment   the comment to add  
+ * @param {any}       comment   the comment to add
  * @param {Function}  callback  callback function (err, res, fields)
  */
 db.addNewComment = (comment, callback) => {
@@ -123,10 +148,10 @@ db.addNewComment = (comment, callback) => {
 db.addSalaryToJob = (id, salary, callback) => {
   db.conn.query('Select salary, numSalaries From job where id = ?', id, (err, res, fields) => {
     newNumOfSalaries = res[0]["numSalaries"] + 1;
-    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"]))/(newNumOfSalaries); 
+    newSalary = (salary + (res[0]["salary"] * res[0]["numSalaries"])) / (newNumOfSalaries);
     newSalary = newSalary.toFixed(1);
     db.conn.query('Update job SET salary = ?, numSalaries = ? where id = ?',
-      [ newSalary, newNumOfSalaries, id], (err, res, fields) => {
+      [newSalary, newNumOfSalaries, id], (err, res, fields) => {
         callback(err, res, fields, newSalary, newNumOfSalaries);
       });
   });
@@ -134,7 +159,7 @@ db.addSalaryToJob = (id, salary, callback) => {
 
 /**
  * get all comments of a job by its id
- * @param {number}  jobID     the id of the job 
+ * @param {number}  jobID     the id of the job
  * @param {any}     callback  callback function (err, res, fields)
  */
 db.getAllCommentsOfJob = (jobID, callback) => {

@@ -4,14 +4,14 @@
     <h1 class="view-title">{{job.title}}</h1>
     <h5 class="view-organization">{{job.organization}}</h5>
     <h5 class="view-location">{{job.location}}</h5>
+
+    <app-job-rating *ngIf="job" [jobID]="job.id"></app-job-rating>
     <app-add-salary *ngIf="job" [jobID]="job.id" [jobSalary]="job.salary" [numSalary]="job.numSalaries"></app-add-salary>
     <p class="view-description">{{job.description}}</p>
+    <app-job-comments *ngIf="job" [jobID]="job.id"></app-job-comments>
+    <app-add-comment *ngIf="job" [jobID]="job.id"></app-add-comment>
 </ng-template>
 
 <ng-template #noJob>
     <h1 class="view-response">{{response}}</h1>
 </ng-template>
-
-<app-job-comments *ngIf="job" [jobID]="job.id"></app-job-comments>
-
-<app-add-comment *ngIf="job" [jobID]="job.id"></app-add-comment>
