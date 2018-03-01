@@ -14,12 +14,12 @@ export class InternApiService {
 
   constructor(private http: Http) { }
 
-/**
+  /**
    * get all the jobs from internAPI
    * @returns Observable holding list of jobs
    */
-  public getAllJobs(filterText?:string): Observable<any> {
-    return this.http.get(BASE_URL + '/api/job',{params:{filter: filterText}}).map((res: Response) => {
+  public getAllJobs(filterText?: string): Observable<any> {
+    return this.http.get(BASE_URL + '/api/job', { params: { filter: filterText } }).map((res: Response) => {
       return res.json();
     });
   }
@@ -121,6 +121,16 @@ export class InternApiService {
   }
 
   /**
+   * getting a rating of a job
+   * @param {number} jobId
+   */
+  public getJobRating(jobId: number): Observable<any> {
+    return this.http.get(`${BASE_URL}/api/job/${jobId}/rating`).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
    * Add a new question to the Q&A board
    * @param title   the title of the question
    * @param body    the question itslef
@@ -138,6 +148,17 @@ export class InternApiService {
    */
   public getQuestionById(id: number): Observable<any> {
     return this.http.get(BASE_URL + '/api/question/' + id).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
+   * rate a job
+   * @param {number} jobId
+   * @param {number} score
+   */
+  public rateJob(jobId: number, score: number): Observable<any> {
+    return this.http.post(`${BASE_URL}/api/job/${jobId}/rating`, { score }).map((res: Response) => {
       return res.json();
     });
   }

@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -23,7 +24,7 @@ import { JobCommentsComponent } from './view-job/job-comments/job-comments.compo
 import { QuestionListComponent } from './question-list/question-list.component';
 import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
-
+import { JobRatingComponent } from './view-job/job-rating/job-rating.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ViewQuestionComponent } from './view-question/view-question.component';
     JobCommentsComponent,
     QuestionListComponent,
     AddSalaryComponent,
-    ViewQuestionComponent
+    ViewQuestionComponent,
+    JobRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { ViewQuestionComponent } from './view-question/view-question.component';
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
+    RatingModule.forRoot(),
     NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule

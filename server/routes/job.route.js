@@ -1,6 +1,7 @@
 const db = require('../database/db.service');
 const validate = require('../services/validation.service');
 const Error = require('../models/error.model');
+const JobRating = require('../models/jobRating.model');
 
 module.exports = (router) => {
 
@@ -98,4 +99,70 @@ module.exports = (router) => {
       });
     }
   });
+
+  /*
+   GET a specific job rating
+   */
+  router.get('/job/:id/rating', (req, res) => {
+    let errors = [];
+
+    //lets validate that id is an actual number first
+    if (!validate.validateJobID(req.params.id)) {
+      errors.push(new Error(31));
+    }
+
+    if (errors.length > 0) {
+      res.status(400).send(errors);
+    }
+    else {
+      db.getJobRating(req.params.id, (err, response, fields) => {
+        if (err) res.status(400).send([new Error(0)]);
+        else res.send(response);
+      });
+    }
+  });
+
+  /*
+   POST a job rating
+   */
+  router.post('/job/:id/rating', (req, res) => {
+    let errors = [];
+    let newRating;
+
+    //lets validate that id is an actual number first
+    if (!validate.validateJobID(req.params.id)) {
+      errors.push(new Error(31));
+    }
+
+    //lets validate that job score is an actual number
+    if (!validate.validateJobScore(req.body.score)) {
+      errors.push(new Error(32));
+    }
+
+    if (errors.length > 0) {
+      res.status(400).send(errors);
+    }
+    else {
+      //getting the job rating to calculate the new rating
+      db.getJobRating(req.params.id, (err, rating, fields) => {
+        if (err) {
+          res.status(400).send([new Error(0)]);
+        }
+        else {
+          //lets calculate the new average score
+          if (rating.length > 0)
+            newRating = new JobRating(rating[0].score, rating[0].votes);
+          else
+            newRating = new JobRating(0, 0);
+
+          newRating.addVote(req.body.score);
+
+          db.rateJob(req.params.id, newRating.getScore(), newRating.getVotes(), (err, response, fields) => {
+            if (err) res.status(400).send([new Error(0)]);
+            else res.send(newRating);
+          });
+        }
+      });
+    }
+  })
 };
