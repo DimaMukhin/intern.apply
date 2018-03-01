@@ -559,19 +559,18 @@ describe('db.service.js', () => {
           });
       });
 
-      db.conn.query('SET FOREIGN_KEY_CHECKS = 0', (err, res) => {
-        db.conn.query('DROP TABLE completedSurvey', (err, res) => {
-          db.conn.query(`CREATE TABLE completedSurvey (
+      db.conn.query('DROP TABLE completedSurvey', (err, res) => {
+        db.conn.query(`CREATE TABLE completedSurvey (
                         id INT NOT NULL AUTO_INCREMENT,
                         completionTime date NOT NULL,
                         PRIMARY KEY (id))`
-            , (err, res) => {
-              db.conn.query(`INSERT INTO completedSurvey (id, completionTime) VALUES 
+          , (err, res) => {
+            db.conn.query(`INSERT INTO completedSurvey (id, completionTime) VALUES 
                             (1, '2018-02-24'),
                             (2, '1100-01-01')`
-                , (err, res) => {
-                  db.conn.query('DROP TABLE completedSurveyRes', (err, res) => {
-                    db.conn.query(`CREATE TABLE completedSurveyRes (
+              , (err, res) => {
+                db.conn.query('DROP TABLE completedSurveyRes', (err, res) => {
+                  db.conn.query(`CREATE TABLE completedSurveyRes (
                                     id INT NOT NULL AUTO_INCREMENT,
                                     surveyID INT NOT NULL,
                                     response VARCHAR(300) NOT NULL,
@@ -579,19 +578,24 @@ describe('db.service.js', () => {
                                     PRIMARY KEY (id),
                                     INDEX (surveyID),
                                     FOREIGN KEY (surveyID) REFERENCES completedSurvey(id) ON DELETE CASCADE)`
-                      , (err, res) => {
-                        db.conn.query(`INSERT INTO completedSurveyRes (id, surveyID, response, questionIndex) VALUES 
+                    , (err, res) => {
+                      db.conn.query(`INSERT INTO completedSurveyRes (id, surveyID, response, questionIndex) VALUES 
                                         (1, 1, 'True', 1),
                                         (2, 1, 'No Opinion', 2)`
-                          , (err, res) => {
-                            db.conn.query('SET FOREIGN_KEY_CHECKS = 1', (err, res) => {
-                              done();
-                            });
-                          });
-                      });
-                  });
+                        , (err, res) => {
+                          done();
+                        });
+                    });
                 });
-            });
+              });
+          });
+      });
+    });
+
+    afterEach((done) => {
+      db.conn.query('DROP TABLE IF EXISTS completedSurveyRes', (err, res) => {
+        db.conn.query('DROP TABLE IF EXISTS completedSurvey', (err, res) => {
+          done();
         });
       });
     });
@@ -737,8 +741,8 @@ describe('db.service.js', () => {
                       db.conn.query(`INSERT INTO jobRating(jobId, score, votes) VALUES 
                               (1, 1.0, 1),
                               (2, 2.0, 2)`, (err, res) => {
-                        done();
-                      });
+                          done();
+                        });
                     });
                 });
               });
@@ -783,7 +787,7 @@ describe('db.service.js', () => {
         3,  // job id
         5,  // job score
         1,  // number of votes
-        (err, res, fields) => {});
+        (err, res, fields) => { });
 
       db.getJobRating(3, (err, res, fields) => {
         expect(res).to.have.lengthOf(1);
@@ -799,7 +803,7 @@ describe('db.service.js', () => {
         2,  // job id
         4,  // job score
         3,  // number of votes
-        (err, res, fields) => {});
+        (err, res, fields) => { });
 
       db.getJobRating(2, (err, res, fields) => {
         expect(res).to.have.lengthOf(1);
