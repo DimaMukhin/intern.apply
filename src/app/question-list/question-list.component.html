@@ -1,10 +1,19 @@
 <div class="m-3">
-    <button type="button" class="btn btn-primary" *ngIf="!showQuestionForm" (click)="onAskButtonClick()">Ask</button>
+    <button 
+        type="button" 
+        class="btn btn-primary ask-button" 
+        *ngIf="!showQuestionForm" 
+        (click)="onAskButtonClick()">
+        Ask
+    </button>
     
     <!-- Add a new question -->
     
     <div *ngIf="showQuestionForm">
-        <form [formGroup]="addQuestionForm" (submit)="onQuestionSubmit">
+        <form 
+            [formGroup]="addQuestionForm" 
+            (submit)="onQuestionSubmit" 
+            class="question-ask-form">
             <div class="form-group">
                 <label for="nameInput">Name</label>
                 <input 
@@ -67,14 +76,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let question of questions" routerLink="/questions/{{question.id}}" id="clickableRow">
-                <td>{{ question.author }}</td>
-                <td>{{ question.title }}</td>
-                <td>{{ question.creationTime | date }}</td>
+                <td class="question-author">{{ question.author }}</td>
+                <td class="question-title">{{ question.title }}</td>
+                <td class="question-time">{{ question.creationTime | date }}</td>
             </tr>
         </tbody>
     </table>
     <ng-template #no_questions>
-        <h1>No Questions Yet</h1>
+        <h1 class="no-questions">No Questions Yet</h1>
     </ng-template>
 </div>
 
