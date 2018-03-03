@@ -24,7 +24,7 @@ export class ViewQuestionComponent implements OnInit {
    * Get the question from internAPI by the question id
    * @param id the id of the question
    */
-  private getQuestion(id: number): void {
+  public getQuestion(id: number): void {
     this.internApi.getQuestionById(id).subscribe((data) => {
       this.question = data;
     }, (err) => {
