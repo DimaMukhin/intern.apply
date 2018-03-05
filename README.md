@@ -7,6 +7,11 @@ https://intern-apply.herokuapp.com
 1. [Node.js and NPM](https://nodejs.org/en/)
 2. [Angular CLI](https://cli.angular.io/)
 
+## When evaluating
+
+1. Please use a windows OS machine
+2. Please make sure that Chrome browser is installed (and please run the front end tests on Chrome and not in the background)
+
 ## Getting started
 
 1. Clone the project
