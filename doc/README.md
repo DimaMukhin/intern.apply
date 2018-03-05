@@ -38,5 +38,7 @@ Older sketches of the datamodel can be found in the same directory.
 ### Additional up-front design artifacts
 
 Initial big user stories [Big User Stories.jpeg](https://github.com/DimaMukhin/intern.apply/blob/master/doc/Big%20User%20Stories.jpeg)
+
 Initial features brainstorming [FeaturesBrainstorm.jpeg](https://github.com/DimaMukhin/intern.apply/blob/master/doc/FeaturesBrainstorm.jpeg)
+
 Initial MVC sketch [MVC Sketch.jpeg](https://github.com/DimaMukhin/intern.apply/blob/master/doc/MVC%20Sketch.jpeg)
