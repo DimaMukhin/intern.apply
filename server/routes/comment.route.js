@@ -1,5 +1,6 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
+const cmntValidate = require('../services/comment.validation.service');
+const jobValidate = require('../services/job.validation.service');
 const Error = require('../models/error.model');
 
 module.exports = (router) => {
@@ -22,15 +23,15 @@ module.exports = (router) => {
         let comment = req.body;
         let errors = [];
 
-        if (!validate.validateJobID(comment.jobID)) {
+        if (!jobValidate.validateJobID(comment.jobID)) {
             errors.push(new Error(4));
         }
 
-        if (!validate.validateCommentMessage(comment.message)) {
+        if (!cmntValidate.validateCommentMessage(comment.message)) {
             errors.push(new Error(5));
         }
 
-        if (!validate.validateCommentAuthor(comment.author)) {
+        if (!cmntValidate.validateCommentAuthor(comment.author)) {
             errors.push(new Error(6));
         }
 

@@ -1,5 +1,5 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
+const validate = require('../services/contact-message.validation.service');
 const Error = require('../models/error.model');
 
 module.exports = (router) => {
