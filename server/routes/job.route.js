@@ -1,5 +1,5 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
+const validate = require('../services/job.validation.service');
 const Error = require('../models/error.model');
 const JobRating = require('../models/jobRating.model');
 
@@ -32,7 +32,7 @@ module.exports = (router) => {
     let errors = [];
 
     //lets validate that id is an actual number first
-    if (!validate.validateID(req.params.id)) {
+    if (!validate.validateJobID(req.params.id)) {
       errors.push(new Error(31));
     }
 

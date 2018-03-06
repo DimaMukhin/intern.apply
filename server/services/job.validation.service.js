@@ -9,45 +9,6 @@ const orgMax = 45,
     jobScoreMin = 1;
 
 /**
- * validate an email address string
- * @param {string} email email address string to validate 
- * @returns true if valid, false otherwise
- */
-validation.validateEmail = (email) => {
-  if (!email) {
-    return false;
-  }
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase()) && email.length < 25;
-};
-
-/**
- * validate a contact-us message title
- * @param {string} title the title to validate
- * @returns true if valid, false otherwise
- */
-validation.validateContactMessageTitle = (title) => {
-  if (!title) {
-    return false;
-  }
-  title = title.trim();
-  return title.length > 0 && title.length < 25;
-};
-
-/**
- * validate the body of a contact-us message
- * @param {string} body the body to validate
- * @returns true if valid, false otherwise
- */
-validation.validateContactMessageBody = (body) => {
-  if (!body) {
-    return false;
-  }
-  body = body.trim();
-  return body.length > 0 && body.length < 300;
-};
-
-/**
  * Validate job organization
  * @param {string} organization the job organization to validate
  * @returns true if valid OR false if invalid
@@ -100,48 +61,12 @@ validation.validateJobDescription = (description) => {
 };
 
 /**
- * Validate that id is an actual number
- * @param {int} id
- * @returns true if valid OR false if invalid
- */
-validation.validateID = (id) => {
-  // validates that id contains only an integer
-  return !isNaN(parseInt(id)) && isFinite(id) && !(/^\s/.test(id)) && Number.isInteger(parseFloat(id));
-};
-
-/**
  * validate that the job ID is possible number
  * @param {number} id   the id to validate
  * @returns true if valid, false otherwise
  */
 validation.validateJobID = (id) => {
   return !isNaN(id) && parseInt(Number(id), 10) == id && !isNaN(parseInt(id, 10)) && id > 0;
-};
-
-/**
- * validate the message of a comment
- * @param {string} message  the message to validate
- * @returns true if valid, false otherwise
- */
-validation.validateCommentMessage = (message) => {
-  if (!message) {
-    return false;
-  }
-  message = message.trim();
-  return message.length > 0 && message.length < 300;
-};
-
-/**
- * validate the name of the comment author
- * @param {string} author   the name to validate
- * @returns true if valid, false otherwise
- */
-validation.validateCommentAuthor = (author) => {
-  if (!author) {
-    return false;
-  }
-  author = author.trim();
-  return author.length > 0 && author.length < 25;
 };
 
 /**
@@ -167,19 +92,6 @@ validation.validateSalaryType = (salaryType) => {
         !isNaN(parseInt(salaryType, 10)) &&
         salaryType >= 0 && salaryType <= 3;
 }
-
-/**
-* validate a survey's selected responses, where null is used to denote a non selection
-* @param {array} survey the survey to validate
-* @returns true if valid, false otherwise
-*/
-validation.validateSurvey = (survey) => {
-    if (!survey) {
-        return false;
-    }
-    // return true if no null is found in the survey responses and non empty
-    return survey.length > 0 && survey.findIndex(k => k == null) == -1
-};
 
 /**
  * validate job score
