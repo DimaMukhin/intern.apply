@@ -1,6 +1,7 @@
 const db = require('../database/db.service');
 const validate = require('../services/survey.validation.service');
-const Error = require('../models/error.model');
+const SurveyError = require('../models/error/survey/surveyError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -30,7 +31,7 @@ module.exports = (router) => {
         let errors = [];
 
         if (!validate.validateSurvey(survey.answers)) {
-            errors.push(new Error(51));
+            errors.push(new SurveyError());
         }
 
         //make a new completed survey
@@ -38,7 +39,7 @@ module.exports = (router) => {
             res.status(400).send(errors);
         else {
             db.addCompleteSurvey((err, surveyRes, fields) => {
-                if (err) res.status(400).send([new Error(0)]);
+                if (err) res.status(400).send([new UnknownError()]);
                 else {
                     //save the response to each completed survey question
                     survey["answers"].forEach((answer, index) => {
@@ -47,7 +48,7 @@ module.exports = (router) => {
                         });
                     });
 
-                    if (errors.length > 0) res.status(400).send([new Error(0)]);
+                    if (errors.length > 0) res.status(400).send([new UnknownError()]);
                     else res.send(survey);
                 }
             });
