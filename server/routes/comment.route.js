@@ -1,6 +1,10 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
-const Error = require('../models/error.model');
+const cmntValidate = require('../services/comment.validation.service');
+const jobValidate = require('../services/job.validation.service');
+const JobIdError = require('../models/error/job/jobIdError.model');
+const CommentMessageError = require('../models/error/comment/commentMessageError.model');
+const CommentAuthorError = require('../models/error/comment/commentAuthorError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -22,23 +26,23 @@ module.exports = (router) => {
         let comment = req.body;
         let errors = [];
 
-        if (!validate.validateJobID(comment.jobID)) {
-            errors.push(new Error(4));
+        if (!jobValidate.validateJobID(comment.jobID)) {
+            errors.push(new JobIdError());
         }
 
-        if (!validate.validateCommentMessage(comment.message)) {
-            errors.push(new Error(5));
+        if (!cmntValidate.validateCommentMessage(comment.message)) {
+            errors.push(new CommentMessageError());
         }
 
-        if (!validate.validateCommentAuthor(comment.author)) {
-            errors.push(new Error(6));
+        if (!cmntValidate.validateCommentAuthor(comment.author)) {
+            errors.push(new CommentAuthorError());
         }
 
         if (errors.length > 0) {
             res.status(400).send(errors);
         } else {
             db.addNewComment(comment, (err, response, fields) => {
-                if (err) res.status(400).send([new Error(0)]);
+                if (err) res.status(400).send([new UnknownError()]);
                 else res.send(comment);
             });
         }

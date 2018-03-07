@@ -1,6 +1,9 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
-const Error = require('../models/error.model');
+const validate = require('../services/contact-message.validation.service');
+const EmailError = require('../models/error/contact-us/emailError.model');
+const MessageTitleError = require('../models/error/contact-us/messageTitleError.model');
+const MessageBodyError = require('../models/error/contact-us/messageBodyError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -23,22 +26,22 @@ module.exports = (router) => {
     let errors = [];
 
     if (!validate.validateEmail(message.email)) {
-      errors.push(new Error(1));
+      errors.push(new EmailError());
     }
 
     if (!validate.validateContactMessageTitle(message.title)) {
-      errors.push(new Error(2));
+      errors.push(new MessageTitleError());
     }
 
     if (!validate.validateContactMessageBody(message.message)) {
-      errors.push(new Error(3));
+      errors.push(new MessageBodyError());
     }
 
     if (errors.length > 0) {
       res.status(400).send(errors);
     } else {
       db.addNewContactMessage(message, (err, response, fields) => {
-        if (err) res.status(400).send([new Error(0)]);
+        if (err) res.status(400).send([new UnknownError()]);
         else res.send(message);
       });
     }

@@ -1,7 +1,13 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
-const Error = require('../models/error.model');
+const validate = require('../services/job.validation.service');
 const JobRating = require('../models/jobRating.model');
+const IdError = require('../models/error/idError.model');
+const JobTitleError = require('../models/error/job/jobTitleError.model');
+const JobLocationError = require('../models/error/job/jobLocationError.model');
+const JobDescriptionError = require('../models/error/job/jobDescriptionError.model');
+const JobOrganizationError = require('../models/error/job/jobOrganizationError.model');
+const JobScoreError = require('../models/error/job/jobScoreError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -32,8 +38,8 @@ module.exports = (router) => {
     let errors = [];
 
     //lets validate that id is an actual number first
-    if (!validate.validateID(req.params.id)) {
-      errors.push(new Error(31));
+    if (!validate.validateJobID(req.params.id)) {
+      errors.push(new IdError());
     }
 
     // good to go if no errors found
@@ -43,7 +49,7 @@ module.exports = (router) => {
       db.getJob(req.params.id, (err, response, fields) => {
         if (err) {
           // unknown error
-          errors.push(new Error(0));
+          errors.push(new UnknownError());
           res.status(400).send(errors);
         } else {
           res.send(response);
@@ -71,19 +77,19 @@ module.exports = (router) => {
     let errors = [];
 
     if (!validate.validateJobOrganization(job.organization)) {
-      errors.push(new Error(11));
+      errors.push(new JobOrganizationError());
     }
 
     if (!validate.validateJobTitle(job.title)) {
-      errors.push(new Error(12));
+      errors.push(new JobTitleError());
     }
 
     if (!validate.validateJobLocation(job.location)) {
-      errors.push(new Error(13));
+      errors.push(new JobLocationError());
     }
 
     if (!validate.validateJobDescription(job.description)) {
-      errors.push(new Error(14));
+      errors.push(new JobDescriptionError());
     }
 
     if (errors.length > 0) {
@@ -91,7 +97,7 @@ module.exports = (router) => {
     } else {
       db.addJob(job, (err, response, fields) => {
         if (err) {
-          res.status(400).send([new Error(0)]);
+          res.status(400).send([new UnknownError()]);
         }
         else {
           res.send(job);
@@ -108,7 +114,7 @@ module.exports = (router) => {
 
     //lets validate that id is an actual number first
     if (!validate.validateJobID(req.params.id)) {
-      errors.push(new Error(31));
+      errors.push(new IdError());
     }
 
     if (errors.length > 0) {
@@ -116,7 +122,7 @@ module.exports = (router) => {
     }
     else {
       db.getJobRating(req.params.id, (err, response, fields) => {
-        if (err) res.status(400).send([new Error(0)]);
+        if (err) res.status(400).send([new UnknownError()]);
         else res.send(response);
       });
     }
@@ -131,12 +137,12 @@ module.exports = (router) => {
 
     //lets validate that id is an actual number first
     if (!validate.validateJobID(req.params.id)) {
-      errors.push(new Error(31));
+      errors.push(new IdError());
     }
 
     //lets validate that job score is an actual number
     if (!validate.validateJobScore(req.body.score)) {
-      errors.push(new Error(32));
+      errors.push(new JobScoreError());
     }
 
     if (errors.length > 0) {
@@ -146,7 +152,7 @@ module.exports = (router) => {
       //getting the job rating to calculate the new rating
       db.getJobRating(req.params.id, (err, rating, fields) => {
         if (err) {
-          res.status(400).send([new Error(0)]);
+          res.status(400).send([new UnknownError()]);
         }
         else {
           //lets calculate the new average score
@@ -158,7 +164,7 @@ module.exports = (router) => {
           newRating.addVote(req.body.score);
 
           db.rateJob(req.params.id, newRating.getScore(), newRating.getVotes(), (err, response, fields) => {
-            if (err) res.status(400).send([new Error(0)]);
+            if (err) res.status(400).send([new UnknownError()]);
             else res.send(newRating);
           });
         }

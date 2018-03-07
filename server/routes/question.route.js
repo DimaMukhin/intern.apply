@@ -1,6 +1,10 @@
 const db = require('../database/db.service');
-const validate = require('../services/validation.service');
-const Error = require('../models/error.model');
+const validate = require('../services/question.validation.service');
+const QuestionTitleError = require('../models/error/question/questionTitleError.model');
+const QuestionBodyError = require('../models/error/question/questionBodyError.model');
+const QuestionAuthorError = require('../models/error/question/questionAuthorError.model');
+const IdError = require('../models/error/idError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -22,14 +26,14 @@ module.exports = (router) => {
         let questionID = req.params.id;
 
         if (!validate.validateID(questionID)) {
-            errors.push(new Error(31));
+            errors.push(new IdError());
         }
 
         if (errors.length > 0) {
             res.status(400).send(errors);
         } else {
             db.getQuestionById(req.params.id, (err, response, fields) => {
-                if (err) res.status(400).send([new Error(0)]);
+                if (err) res.status(400).send([new UnknownError()]);
                 else res.send(response[0]);
             });
         }
@@ -44,22 +48,22 @@ module.exports = (router) => {
         let errors = [];
 
         if (!validate.validateQuestionTitle(question.title)) {
-            errors.push(new Error(7));
+            errors.push(new QuestionTitleError());
         }
 
         if (!validate.validateQuestionBody(question.body)) {
-            errors.push(new Error(8));
+            errors.push(new QuestionBodyError());
         }
 
         if (!validate.validateQuestionAuthor(question.author)) {
-            errors.push(new Error(9));
+            errors.push(new QuestionAuthorError());
         }
 
         if (errors.length > 0) {
             res.status(400).send(errors);
         } else {
             db.addNewQuestion(question, (err, response, fields) => {
-                if (err) res.status(400).send([new Error(0)]);
+                if (err) res.status(400).send([new UnknownError()]);
                 else res.send(question);
             });
         }

@@ -7,6 +7,11 @@ https://intern-apply.herokuapp.com
 1. [Node.js and NPM](https://nodejs.org/en/)
 2. [Angular CLI](https://cli.angular.io/)
 
+## When evaluating
+
+1. Please use a windows OS machine
+2. Please make sure that Chrome browser is installed (and please run the front end tests on Chrome and not in the background)
+
 ## Getting started
 
 1. Clone the project
@@ -19,9 +24,9 @@ https://intern-apply.herokuapp.com
 ## Running tests
 
 run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
-run `ng test` to run front end tests
+run `ng test` to run front end tests (please run the front end tests on Chrome and not in the background)
 
-## Implemented features for Snapshot 1
+## Implemented features
 
 1. Job-list. 
     * A display of all available jobs. 
@@ -31,4 +36,14 @@ run `ng test` to run front end tests
 3. Job-details
     * Can be found after clicking on any of the jobs on the home page
 4. Contact-us
-    * can be found after clicking on the "Contact" link in the footer
+    * Can be found after clicking on the "Contact" link in the footer
+5. Comments
+    * Can be found after clicking on any of the jobs
+6. Survey
+    * Can be found in the footer
+7. Rating
+    * Can be found after clicking on any of the jobs
+8. Salary
+    * Can be found after clicking on any of the jobs
+9. Search 
+    * Can be found in the navigation bar
