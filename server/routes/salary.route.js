@@ -1,6 +1,9 @@
 const db = require('../database/db.service');
 const validate = require('../services/job.validation.service');
-const Error = require('../models/error.model');
+const JobIdError = require('../models/error/job/jobIdError.model');
+const JobSalaryError = require('../models/error/salary/jobSalaryError.model');
+const JobSalaryTypeError = require('../models/error/salary/jobSalaryTypeError.model');
+const UnknownError = require('../models/error/unkownError.model');
 
 module.exports = (router) => {
 
@@ -13,16 +16,16 @@ module.exports = (router) => {
         let errors = [];
 
         if (!validate.validateJobID(request.jobID)) {
-            errors.push(new Error(4));
+            errors.push(new JobIdError());
         }
 
         salary = request.salary;
 
         if (!validate.validateSalary(salary)) 
-            errors.push(new Error(41));        
+            errors.push(new JobSalaryError());
 
         if (!validate.validateSalaryType(request.salaryType))
-            errors.push(new Error(42));
+            errors.push(new JobSalaryTypeError());
         
         if (request.salaryType == 0) //yearly
             salary = salary / 1000;
@@ -37,7 +40,7 @@ module.exports = (router) => {
             res.status(400).send(errors);
         } else {
             db.addSalaryToJob(request.jobID, salary, (err, response, fields, newSalary, newNumofSalry) => {
-                if (err) res.status(400).send([new Error(0)]);
+                if (err) res.status(400).send([new UnknownError()]);
                 else {
                     request.salary = newSalary;
                     request.salaryType = newNumofSalry;
