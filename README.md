@@ -1,6 +1,7 @@
 # Intern.Apply
 
 https://intern-apply.herokuapp.com
+For more informatino about the system see [/doc](https://github.com/DimaMukhin/intern.apply/tree/master/doc)
 
 ## Requirements
 
