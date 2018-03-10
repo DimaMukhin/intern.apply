@@ -6,6 +6,7 @@ const JobTitleError = require('../models/error/job/jobTitleError.model');
 const JobLocationError = require('../models/error/job/jobLocationError.model');
 const JobDescriptionError = require('../models/error/job/jobDescriptionError.model');
 const JobOrganizationError = require('../models/error/job/jobOrganizationError.model');
+const JobUrlError = require('../models/error/job/jobUrlError.model');
 const JobScoreError = require('../models/error/job/jobScoreError.model');
 const UnknownError = require('../models/error/unkownError.model');
 
@@ -90,6 +91,10 @@ module.exports = (router) => {
 
     if (!validate.validateJobDescription(job.description)) {
       errors.push(new JobDescriptionError());
+    }
+
+    if (!validate.validateJobUrl(job.url)) {
+      errors.push(new JobUrlError());
     }
 
     if (errors.length > 0) {
