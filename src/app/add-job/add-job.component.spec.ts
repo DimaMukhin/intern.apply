@@ -120,10 +120,10 @@ describe('AddJobComponent', () => {
     expect(component.errors.description).toBeTruthy();
   });
 
-  it('should render all error messages if every form field is invalid', () => {
+  it('should render invalid URL error message when adding a job with invalid URL', () => {
     spyOn(service, 'addJob').and.returnValue(Observable.throw({
       json: () => {
-        return [{ code: 11 }, { code: 12 }, { code: 13 }, { code: 14 }];
+        return [{ code: 15 }];
       }
     }));
 
@@ -132,10 +132,27 @@ describe('AddJobComponent', () => {
 
     let de = fixture.debugElement.queryAll(By.css('.text-danger'));
 
-    expect(de.length).toBe(4);
+    expect(de.length).toBe(1);
+    expect(component.errors.url).toBeTruthy();
+  });
+
+  it('should render all error messages if every form field is invalid', () => {
+    spyOn(service, 'addJob').and.returnValue(Observable.throw({
+      json: () => {
+        return [{ code: 11 }, { code: 12 }, { code: 13 }, { code: 14 }, { code: 15 }];
+      }
+    }));
+
+    component.addJob();
+    fixture.detectChanges();
+
+    let de = fixture.debugElement.queryAll(By.css('.text-danger'));
+
+    expect(de.length).toBe(5);
     expect(component.errors.organization).toBeTruthy();
     expect(component.errors.title).toBeTruthy();
     expect(component.errors.location).toBeTruthy();
     expect(component.errors.description).toBeTruthy();
+    expect(component.errors.url).toBeTruthy();
   });
 });
