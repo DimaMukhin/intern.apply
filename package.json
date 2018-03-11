@@ -45,6 +45,7 @@
     "@types/node": "~6.0.60",
     "chai": "^4.1.2",
     "codelyzer": "^4.0.1",
+    "concurrency": "^0.1.4",
     "expect": "^1.20.2",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",

@@ -226,4 +226,7 @@ db.addCompleteSurveyRes = (surveyID, index, response, callback) => {
   });
 };
 
+db.printSomething = () => {
+  console.log("hello how are you?");
+}
 module.exports = db;
