@@ -77,7 +77,12 @@ module.exports = (router) => {
    */
   router.post('/question/:id/answers', (req, res) => {
     let answer = req.body;
+    let questionID = req.params.id;
     let errors = [];
+
+    if (!validate.validateID(questionID)) {
+      errors.push(new IdError());
+    }
 
     if (!validate.validateQuestionBody(answer.body)) {
       errors.push(new QuestionBodyError());
@@ -91,7 +96,7 @@ module.exports = (router) => {
       res.status(400).send(errors);
     }
     else {
-      db.addNewAnswer(answer, req.params.id, (err, response, fields) => {
+      db.addNewAnswer(questionID, answer, (err, response, fields) => {
         if (err) res.status(400).send([new UnknownError()]);
         else res.send(answer);
       });

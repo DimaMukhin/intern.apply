@@ -264,8 +264,8 @@ db.getQuestionById = (question, callback) => {
  * @param questionId
  * @param callback
  */
-db.addNewAnswer = (answer, callback) => {
-  db.conn.query('INSERT INTO answers SET ?', answer, (err, res, fields) => {
+db.addNewAnswer = (questionId ,answer, callback) => {
+  db.conn.query('INSERT INTO answers SET questionId = ?, ?', [questionId, answer], (err, res, fields) => {
     callback(err, res, fields);
   })
 };
