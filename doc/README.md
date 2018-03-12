@@ -42,3 +42,9 @@ Initial big user stories [Big User Stories.jpeg](https://github.com/DimaMukhin/i
 Initial features brainstorming [FeaturesBrainstorm.jpeg](https://github.com/DimaMukhin/intern.apply/blob/master/doc/FeaturesBrainstorm.jpeg)
 
 Initial MVC sketch [MVC Sketch.jpeg](https://github.com/DimaMukhin/intern.apply/blob/master/doc/MVC%20Sketch.jpeg)
+
+### Version Control Workflow
+
+We are currently using GitHub flow.  
+Every feature has its own branch.  
+Features are pushed to Master with a code review.

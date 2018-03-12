@@ -1,6 +1,7 @@
 # Intern.Apply
 
-https://intern-apply.herokuapp.com
+https://intern-apply.herokuapp.com  
+For more informatino about the system see [/doc](https://github.com/DimaMukhin/intern.apply/tree/master/doc)
 
 ## Requirements
 
@@ -25,6 +26,11 @@ https://intern-apply.herokuapp.com
 
 run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
 run `ng test` to run front end tests (please run the front end tests on Chrome and not in the background)
+
+## Updates and Justifications
+
+* After some team discussion we decided to put the Registration feature on hold and focus on other more important aspects and features.
+* We decided that for simplicity and because of the size of our project, we would use a remote test DB for integration and acceptance tests, instead of using a local DB.
 
 ## Implemented features
 
