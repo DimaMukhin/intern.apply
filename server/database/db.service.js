@@ -258,4 +258,29 @@ db.getQuestionById = (question, callback) => {
   });
 };
 
+/**
+ * add a new answer to a question
+ * @param answer
+ * @param questionId
+ * @param callback
+ */
+db.addNewAnswer = (questionId ,answer, callback) => {
+  db.conn.query('INSERT INTO answers SET questionId = ?, ?', [questionId, answer], (err, res, fields) => {
+    callback(err, res, fields);
+  })
+};
+
+/**
+ * get answers for a specific question
+ * @param questionId
+ * @param callback
+ */
+db.getAnswersByQuestion = (questionId, callback) => {
+  db.conn.query('SELECT * FROM answers WHERE questionId = ?', questionId, (err, res, fields) => {
+    callback(err, res, fields);
+  })
+};
+
+
+
 module.exports = db;

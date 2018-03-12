@@ -1,0 +1,7 @@
+<h4>Answers</h4>
+
+<div *ngFor="let answer of answers">
+  <p class="answer-body">{{ answer.body }}</p>
+  <h6 class="small answer-author"><i>By <b>{{ answer.author }}</b> at <b>{{ answer.created | date }}</b></i></h6>
+  <hr />
+</div>
