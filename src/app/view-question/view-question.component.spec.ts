@@ -2,10 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+import {ReactiveFormsModule} from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ViewQuestionComponent } from './view-question.component';
 import { InternApiService } from '../shared/services/intern-api/intern-api.service';
+import {AddAnswerComponent} from './add-answer/add-answer.component';
+import {ViewAnswersComponent} from './view-answers/view-answers.component';
 
 describe('ViewQuestionComponent', () => {
   let component: ViewQuestionComponent;
@@ -16,9 +19,14 @@ describe('ViewQuestionComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule
       ],
-      declarations: [ ViewQuestionComponent ],
+      declarations: [
+          ViewQuestionComponent,
+          AddAnswerComponent,
+          ViewAnswersComponent
+      ],
       providers: [ InternApiService ]
     })
     .compileComponents();
@@ -45,7 +53,7 @@ describe('ViewQuestionComponent', () => {
 
     component.getQuestion(1);
     fixture.detectChanges();
-    
+
     const deTitle = fixture.debugElement.query(By.css('.question-title'));
     const elTitle: HTMLElement = deTitle.nativeElement;
     const deBody = fixture.debugElement.query(By.css('.question-body'));
@@ -65,8 +73,8 @@ describe('ViewQuestionComponent', () => {
     component.getQuestion(undefined);
     fixture.detectChanges();
 
-    let de = fixture.debugElement.query(By.css('.question-not-found'));
-    let el: HTMLElement = de.nativeElement;
+    const de = fixture.debugElement.query(By.css('.question-not-found'));
+    const el: HTMLElement = de.nativeElement;
 
     expect(el).toBeTruthy();
     expect(el.innerText).toBeTruthy();
@@ -79,8 +87,8 @@ describe('ViewQuestionComponent', () => {
     component.getQuestion(undefined);
     fixture.detectChanges();
 
-    let de = fixture.debugElement.query(By.css('.question-not-found'));
-    let el: HTMLElement = de.nativeElement;
+    const de = fixture.debugElement.query(By.css('.question-not-found'));
+    const el: HTMLElement = de.nativeElement;
 
     expect(el).toBeTruthy();
     expect(el.innerText).toBeTruthy();
