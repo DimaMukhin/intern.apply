@@ -8,6 +8,8 @@
     <app-job-rating *ngIf="job" [jobID]="job.id"></app-job-rating>
     <app-add-salary *ngIf="job" [jobID]="job.id" [jobSalary]="job.salary" [numSalary]="job.numSalaries"></app-add-salary>
     <p class="view-description">{{job.description}}</p>
+    <a *ngIf="job.url" class="btn btn-primary btn-lg" [attr.href]="job.url">Apply</a>
+
     <app-job-comments *ngIf="job" [jobID]="job.id"></app-job-comments>
     <app-add-comment *ngIf="job" [jobID]="job.id"></app-add-comment>
 </ng-template>

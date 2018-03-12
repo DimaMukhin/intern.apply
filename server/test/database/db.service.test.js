@@ -224,13 +224,14 @@ describe('db.service.js', () => {
                     title VARCHAR(100) NOT NULL,
                     location VARCHAR(45) NOT NULL,
                     description VARCHAR(2000) NOT NULL,
+                    url VARCHAR(1000) NOT NULL,
                     PRIMARY KEY (id))`,
           (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location, description) VALUES 
-                        (1, 'Test Org', 'test title', '123 test st', 'test description'),
-                        (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test'),
-                        (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
-                        (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`,
+            db.conn.query(`INSERT INTO job (id, organization, title, location, description, url) VALUES 
+                        (1, 'Test Org', 'test title', '123 test st', 'test description', 'https://www.testurl1.com'),
+                        (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test', 'https://www.testurl2.com'),
+                        (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description', 'https://www.testurl3.com'),
+                        (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description', 'https://www.testurl4.com')`,
               (err, res) => {
                 done();
               });
@@ -244,7 +245,8 @@ describe('db.service.js', () => {
         organization: 'Test Syndicate',
         title: 'i am a test for add job',
         location: '10 Test Square',
-        description: 'I am a description'
+        description: 'I am a description', 
+        url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(5);
@@ -255,6 +257,7 @@ describe('db.service.js', () => {
           expect(addedJob.title).to.equal('i am a test for add job');
           expect(addedJob.location).to.equal('10 Test Square');
           expect(addedJob.description).to.equal('I am a description');
+          expect(addedJob.url).to.equal('https://www.testUrl.com');
           done();
         });
       });
@@ -266,7 +269,8 @@ describe('db.service.js', () => {
         organization: undefined,
         title: 'i am a test for add job',
         location: '10 Test Square',
-        description: 'I am a description'
+        description: 'I am a description',
+        url: 'https://www.testUrl.com'        
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -281,7 +285,8 @@ describe('db.service.js', () => {
         organization: 'Super Test Squad',
         title: undefined,
         location: '10 Test House',
-        description: 'I am a description'
+        description: 'I am a description',
+        url: 'https://www.testUrl.com'        
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -296,7 +301,8 @@ describe('db.service.js', () => {
         organization: 'Super Test Squad',
         title: 'cool title',
         location: undefined,
-        description: 'I am a description'
+        description: 'I am a description',
+        url: 'https://www.testUrl.com'        
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -311,7 +317,24 @@ describe('db.service.js', () => {
         organization: 'Super Test Squad',
         title: 'sick title',
         location: '20 Test Mansion',
-        description: undefined
+        description: undefined,
+        url: 'https://www.testUrl.com'        
+      }, (err, res, fields) => {
+        db.getAllJobs((err, res, fields) => {
+          expect(res).to.have.lengthOf(4);
+          done();
+        });
+      });
+    });
+    
+    it('it should not add a job without a URL', (done) => {
+      db.addJob({
+        id: 5,
+        organization: 'Super Test Squad',
+        title: 'sick title',
+        location: '20 Test Mansion',
+        description: 'I am a description',
+        url: undefined        
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);

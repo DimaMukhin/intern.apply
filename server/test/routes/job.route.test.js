@@ -15,13 +15,14 @@ describe('job.route.js', () => {
                 title VARCHAR(100) NOT NULL,
                 location VARCHAR(45),
                 description VARCHAR(2000),
+                url VARCHAR(1000),
                 PRIMARY KEY (id))`
         , (err, res) => {
-          db.conn.query(`INSERT INTO job (id, organization, title, location, description) VALUES 
-                    (1, 'Test Org', 'test title', '123 test st', 'test description'),
-                    (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test'),
-                    (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description'),
-                    (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description')`,
+          db.conn.query(`INSERT INTO job (id, organization, title, location, description, url) VALUES 
+                    (1, 'Test Org', 'test title', '123 test st', 'test description', 'https://www.testurl1.com'),
+                    (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test', 'https://www.testurl2.com'),
+                    (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description', 'https://www.testurl3.com'),
+                    (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description', 'https://www.testurl4.com')`,
             (err, res) => {
               db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
                 db.conn.query(`CREATE TABLE comment (
@@ -78,12 +79,13 @@ describe('job.route.js', () => {
       .get('/api/job')
       .expect(200)
       .expect(res => {
-        let job = res.body;
+        let jobs = res.body;
 
-        expect(job).to.have.lengthOf(4);
-        expect(job[2].organization).to.equal('The Test Mafia');
-        expect(job[2].title).to.equal('second title');
-        expect(job[2].location).to.equal('456 test avenue');
+        expect(jobs).to.have.lengthOf(4);
+        expect(jobs[2].organization).to.equal('The Test Mafia');
+        expect(jobs[2].title).to.equal('second title');
+        expect(jobs[2].location).to.equal('456 test avenue');
+        expect(jobs[2].url).to.equal('https://www.testurl3.com');
       })
       .end(done);
     })
@@ -103,6 +105,7 @@ describe('job.route.js', () => {
         expect(res.body[3].organization).to.equal('Together We Test');
         expect(res.body[3].title).to.equal('fourth title');
         expect(res.body[3].location).to.equal('789 test blvd');
+        expect(res.body[3].url).to.equal('https://www.testurl4.com');        
       })
       .end(done);
     });
@@ -122,6 +125,7 @@ describe('job.route.js', () => {
         expect(res.body[3].organization).to.equal('Together We Test');
         expect(res.body[3].title).to.equal('fourth title');
         expect(res.body[3].location).to.equal('789 test blvd');
+        expect(res.body[3].url).to.equal('https://www.testurl4.com');
       })
       .end(done);
     });
@@ -148,7 +152,7 @@ describe('job.route.js', () => {
     it('should create a new job as specified', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: 'Blank' })
+      .send({ organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: 'Blank', url: 'https://www.testurl.com' })
       .expect(200)
       .expect(res => {
         let job = res.body
@@ -157,6 +161,7 @@ describe('job.route.js', () => {
         expect(job.title).to.equal('Title of Test');
         expect(job.location).to.equal('N/A');
         expect(job.description).to.equal('Blank');
+        expect(job.url).to.equal('https://www.testurl.com');
       })
       .end(done);
     });
@@ -165,7 +170,7 @@ describe('job.route.js', () => {
     it('should return an error message with code 11 for invalid organization', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: '', title: 'Title of Test', location: 'N/A', description: 'Blank' })
+      .send({ organization: '', title: 'Title of Test', location: 'N/A', description: 'Blank', url: 'https://www.testurl.com' })
       .expect(400)
       .expect(err => {
         expect(err.body).to.have.lengthOf(1);
@@ -177,7 +182,7 @@ describe('job.route.js', () => {
     it('should return an error message with code 12 for invalid title', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: 'Test X Team', title: '', location: 'N/A', description: 'Blank' })
+      .send({ organization: 'Test X Team', title: '', location: 'N/A', description: 'Blank', url: 'https://www.testurl.com' })
       .expect(400)
       .expect(err => {
         expect(err.body).to.have.lengthOf(1);
@@ -189,7 +194,7 @@ describe('job.route.js', () => {
     it('should return an error message with code 13 for invalid location', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: 'Test X Team', title: 'Title of Test', location: '', description: 'Blank' })
+      .send({ organization: 'Test X Team', title: 'Title of Test', location: '', description: 'Blank', url: 'https://www.testurl.com' })
       .expect(400)
       .expect(err => {
         expect(err.body).to.have.lengthOf(1);
@@ -201,7 +206,7 @@ describe('job.route.js', () => {
     it('should return an error message with code 14 for invalid description', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: '' })
+      .send({ organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: '', url: 'https://www.testurl.com' })
       .expect(400)
       .expect(err => {
         expect(err.body).to.have.lengthOf(1);
@@ -209,20 +214,33 @@ describe('job.route.js', () => {
       })
       .end(done);
     });
-
-    it('should return 3 error messages with 3 different codes for 3 different invalid fields', (done) => {
+    
+    it('should return an error message with code 15 for invalid job URL', (done) => {
       request(app)
       .post('/api/job')
-      .send({ organization: '', title: '', location: '', description: '' })
+      .send({ organization: 'Test X Team', title: 'Title of Test', location: 'N/A', description: 'Blank', url: '' })
+      .expect(400)
+      .expect(err => {
+        expect(err.body).to.have.lengthOf(1);
+        expect(err.body[0].code).to.equal(15);
+      })
+      .end(done);
+    });
+
+    it('should return 5 error messages with 5 different codes for 5 different invalid fields', (done) => {
+      request(app)
+      .post('/api/job')
+      .send({ organization: '', title: '', location: '', description: '', url: '' })
       .expect(400)
       .expect(err => {
         let errorContents = err.body;
 
-        expect(errorContents).to.have.lengthOf(4);
+        expect(errorContents).to.have.lengthOf(5);
         expect(errorContents[0].code).to.equal(11);
         expect(errorContents[1].code).to.equal(12);
         expect(errorContents[2].code).to.equal(13);
         expect(errorContents[3].code).to.equal(14);
+        expect(errorContents[4].code).to.equal(15);
       })
       .end(done);
     });
