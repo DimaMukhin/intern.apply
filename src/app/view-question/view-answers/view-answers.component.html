@@ -2,6 +2,6 @@
 
 <div *ngFor="let answer of answers">
   <p class="answer-body">{{ answer.body }}</p>
-  <h6 class="small answer-author"><i>By <b>{{ answer.author }}</b> at <b>{{ answer.created | date }}</b></i></h6>
+  <h6 class="small answer-author"><i>By <b class="answer-author-name">{{ answer.author }}</b> at <b class="answer-timestamp">{{ answer.created | date }}</b></i></h6>
   <hr />
 </div>
