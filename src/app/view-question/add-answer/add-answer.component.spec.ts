@@ -37,7 +37,7 @@ describe('AddAnswerComponent', () => {
         const service = TestBed.get(InternApiService);
         spyOn(service, 'addAnswer').and.returnValue(Observable.throw({
             json: () => {
-                return [{code: 9}];
+                return [{code: 33}];
             }
         }));
 
@@ -54,7 +54,7 @@ describe('AddAnswerComponent', () => {
         const service = TestBed.get(InternApiService);
         spyOn(service, 'addAnswer').and.returnValue(Observable.throw({
             json: () => {
-                return [{code: 8}];
+                return [{code: 34}];
             }
         }));
 
@@ -65,5 +65,33 @@ describe('AddAnswerComponent', () => {
         const de = fixture.debugElement.query(By.css('.body-danger'));
         const el: HTMLElement = de.nativeElement;
         expect(el.hidden).toBe(false);
+    }));
+
+    it('should render success message when answer was sent successfully', async(() => {
+        const service = TestBed.get(InternApiService);
+        spyOn(service, 'addAnswer').and.returnValue(Observable.of(true));
+
+        component.questionId = 1;
+        component.onAnswerSubmit();
+        fixture.detectChanges();
+
+        const de = fixture.debugElement.query(By.css('.text-success'));
+        const el: HTMLElement = de.nativeElement;
+        expect(el.hidden).toBe(false);
+        expect(component.answerSent).toBe(true);
+    }));
+
+    it('should render server error message when an internal error occurred', async(() => {
+        const service = TestBed.get(InternApiService);
+        spyOn(service, 'addAnswer').and.returnValue(Observable.throw([false]));
+
+        component.questionId = 1;
+        component.onAnswerSubmit();
+        fixture.detectChanges();
+
+        const de = fixture.debugElement.query(By.css('.text-warning'));
+        const el: HTMLElement = de.nativeElement;
+        expect(el.hidden).toBe(false);
+        expect(component.answerSent).toBe(false);
     }));
 });

@@ -47,8 +47,8 @@ export class AddAnswerComponent implements OnInit {
                     if (error.length) {
                         for (const err of error) {
                             if (err.code === 0) this.setAnswerStatus(false);
-                            else if (err.code === 8) this.formValidation.body = true;
-                            else if (err.code === 9) this.formValidation.author = true;
+                            else if (err.code === 34) this.formValidation.body = true;
+                            else if (err.code === 33) this.formValidation.author = true;
                         }
                     } else
                         this.setAnswerStatus(false);

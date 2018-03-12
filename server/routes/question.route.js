@@ -1,8 +1,11 @@
 const db = require('../database/db.service');
 const validate = require('../services/question.validation.service');
+const validateAnswer = require('../services/answer.validation.service');
 const QuestionTitleError = require('../models/error/question/questionTitleError.model');
 const QuestionBodyError = require('../models/error/question/questionBodyError.model');
 const QuestionAuthorError = require('../models/error/question/questionAuthorError.model');
+const AnswerBodyError = require('../models/error/answer/answerBodyError.model');
+const AnswerAuthorError = require('../models/error/answer/answerAuthorError.model');
 const IdError = require('../models/error/idError.model');
 const UnknownError = require('../models/error/unkownError.model');
 
@@ -84,12 +87,12 @@ module.exports = (router) => {
       errors.push(new IdError());
     }
 
-    if (!validate.validateQuestionBody(answer.body)) {
-      errors.push(new QuestionBodyError());
+    if (!validateAnswer.validateAnswerBody(answer.body)) {
+      errors.push(new AnswerBodyError());
     }
 
-    if (!validate.validateQuestionAuthor(answer.author)) {
-      errors.push(new QuestionAuthorError());
+    if (!validateAnswer.validateAnswerAuthor(answer.author)) {
+      errors.push(new AnswerAuthorError());
     }
 
     if (errors.length > 0) {
