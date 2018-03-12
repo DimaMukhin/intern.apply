@@ -9,14 +9,16 @@ const config = require('../config');
 
 let db = {};
 
+config.db = (process.argv.length > 2 && process.argv[2] == 'test') ? config.test_db : config.prod_db;
+
 /**
  * Setting up database connection
  */
 let conn = mysql.createConnection({
-  host: config.prod_db.host,
-  user: config.prod_db.user,
-  password: config.prod_db.password,
-  database: config.prod_db.database
+  host: config.db.host,
+  user: config.db.user,
+  password: config.db.password,
+  database: config.db.database
 });
 
 /**

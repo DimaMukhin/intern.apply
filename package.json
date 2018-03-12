@@ -11,7 +11,7 @@
     "test-watch": "nodemon --exec \"npm test\"",
     "test-front": "ng test -sm=false",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "concurrently \"node server test\" \"ng e2e\""
   },
   "private": true,
   "dependencies": {
@@ -45,6 +45,7 @@
     "@types/node": "~6.0.60",
     "chai": "^4.1.2",
     "codelyzer": "^4.0.1",
+    "concurrently": "^3.5.1",
     "expect": "^1.20.2",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
