@@ -30,7 +30,7 @@ describe('JobCommentsComponent', () => {
   });
 
   it('should get all comments for a valid job id', async(() => {
-    let service = TestBed.get(InternApiService);
+    const service = TestBed.get(InternApiService);
     spyOn(service, 'getAllCommentsOfJob').and.returnValue(Observable.of([
       { author: 'dima', message: 'test' },
       { author: 'ben', message: 'test2' },
@@ -45,7 +45,7 @@ describe('JobCommentsComponent', () => {
   }));
 
   it('should not get any comments for an invalid job id', async(() => {
-    let service = TestBed.get(InternApiService);
+    const service = TestBed.get(InternApiService);
     spyOn(service, 'getAllCommentsOfJob').and.returnValue(Observable.of([
       { author: 'dima', message: 'test' },
       { author: 'ben', message: 'test2' },
@@ -60,7 +60,7 @@ describe('JobCommentsComponent', () => {
   }));
 
   it('shoul display all comments for a valid job id', async(() => {
-    let service = TestBed.get(InternApiService);
+    const service = TestBed.get(InternApiService);
     spyOn(service, 'getAllCommentsOfJob').and.returnValue(Observable.of([
       { author: 'dima', message: 'test' },
       { author: 'ben', message: 'test2' },
@@ -71,15 +71,15 @@ describe('JobCommentsComponent', () => {
     component.getAllComments();
     fixture.detectChanges();
 
-    let deAuthor = fixture.debugElement.queryAll(By.css('.cm-author'));
-    let elAuthor1: HTMLElement = deAuthor[0].nativeElement;
-    let elAuthor2: HTMLElement = deAuthor[1].nativeElement;
-    let elAuthor3: HTMLElement = deAuthor[2].nativeElement;
-    let deMessage = fixture.debugElement.queryAll(By.css('.cm-message'));
-    let elMessage1: HTMLElement = deMessage[0].nativeElement;
-    let elMessage2: HTMLElement = deMessage[1].nativeElement;
-    let elMessage3: HTMLElement = deMessage[2].nativeElement;
-    
+    const deAuthor = fixture.debugElement.queryAll(By.css('.cm-author'));
+    const elAuthor1: HTMLElement = deAuthor[0].nativeElement;
+    const elAuthor2: HTMLElement = deAuthor[1].nativeElement;
+    const elAuthor3: HTMLElement = deAuthor[2].nativeElement;
+    const deMessage = fixture.debugElement.queryAll(By.css('.cm-message'));
+    const elMessage1: HTMLElement = deMessage[0].nativeElement;
+    const elMessage2: HTMLElement = deMessage[1].nativeElement;
+    const elMessage3: HTMLElement = deMessage[2].nativeElement;
+
     expect(deAuthor.length).toBe(3);
     expect(deMessage.length).toBe(3);
     expect(elAuthor1.innerText).toBe('dima');
@@ -92,16 +92,16 @@ describe('JobCommentsComponent', () => {
   }));
 
   it('shoul not display any comments for an invalid job id', async(() => {
-    let service = TestBed.get(InternApiService);
+    const service = TestBed.get(InternApiService);
     spyOn(service, 'getAllCommentsOfJob').and.returnValue(Observable.of([]));
 
     component.jobID = 0;
     component.getAllComments();
     fixture.detectChanges();
 
-    let deAuthor = fixture.debugElement.queryAll(By.css('.cm-author'));
-    let deMessage = fixture.debugElement.queryAll(By.css('.cm-message'));
-    
+    const deAuthor = fixture.debugElement.queryAll(By.css('.cm-author'));
+    const deMessage = fixture.debugElement.queryAll(By.css('.cm-message'));
+
     expect(deAuthor.length).toBe(0);
     expect(deMessage.length).toBe(0);
     expect(component.comments.length).toBe(0);

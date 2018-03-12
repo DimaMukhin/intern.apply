@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SurveyComponent } from './survey/survey.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { ViewJobComponent } from "./view-job/view-job.component";
+import { ViewJobComponent } from './view-job/view-job.component';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
 
