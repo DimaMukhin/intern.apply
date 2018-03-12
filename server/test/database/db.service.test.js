@@ -814,4 +814,109 @@ describe('db.service.js', () => {
       });
     });
   });
+
+  describe('question', () => {
+
+    beforeEach((done) => {
+      db.conn.query(`DROP TABLE IF EXISTS question`, (err, res) => {
+        db.conn.query(`CREATE TABLE question (
+            id INT NOT NULL AUTO_INCREMENT,
+            title VARCHAR(45) NOT NULL,
+            body VARCHAR(1000) NOT NULL,
+            author VARCHAR(45) NOT NULL,
+            creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id))`,
+          (err, res) => {
+            db.conn.query(`INSERT INTO question (id, title, author, body) VALUES
+              (1, 'first test title', 'Dima', 'this is the body'),
+              (2, 'how much time to find a job?', 'Ben', 'I dont want to wait'),
+              (3, 'what are you looking at?', 'dima', 'this is just a question')`,
+              (err, res) => {
+                done();
+              });
+          });
+      });
+    });
+
+    describe('getAllQuestions', () => {
+      it('should return all 3 questions from the database', (done) => {
+        db.getAllQuestions((err, res, fields) => {
+          expect(res).to.have.lengthOf(3);
+          done();
+        });
+      });
+
+      it('should return the questions in the correct order', (done) => {
+        db.getAllQuestions((err, res, fields) => {
+          let firstRecord = res[0];
+          let secondRecord = res[1];
+          let thirdRecord = res[2];
+
+          expect(res).to.have.lengthOf(3);
+          expect(firstRecord.id).to.equal(1);
+          expect(firstRecord.title).to.equal('first test title');
+          expect(secondRecord.id).to.equal(2);
+          expect(secondRecord.title).to.equal('how much time to find a job?');
+          expect(thirdRecord.id).to.equal(3);
+          expect(thirdRecord.title).to.equal('what are you looking at?');
+          done();
+        });
+      });
+    });
+
+    describe('addNewQuestion', () => {
+
+      it('should successfully add a new valid question', (done) => {
+        db.addNewQuestion({ title: 'new title', body: 'new body', author: 'new author' }, (err, res, fields) => {
+          expect(err).to.be.null;
+          done();
+        });
+      });
+
+      it('should not add a new question with an invalid title', (done) => {
+        db.addNewQuestion({ title: undefined, body: 'new body', author: 'new author' }, (err, res, fields) => {
+          expect(err).to.exist;
+          done();
+        });
+      });
+
+      it('should not add a new question with an invalid body', (done) => {
+        db.addNewQuestion({ title: 'new title', body: undefined, author: 'new author' }, (err, res, fields) => {
+          expect(err).to.exist;
+          done();
+        });
+      });
+
+      it('should not add a new question with an invalid author name', (done) => {
+        db.addNewQuestion({ title: 'new title', body: 'new body', author: undefined }, (err, res, fields) => {
+          expect(err).to.exist;
+          done();
+        });
+      });
+
+    });
+
+    describe('getQuestionById', () => {
+
+      it('should the correct question by its id', (done) => {
+        db.getQuestionById(1, (err, res, fields) => {
+          expect(res[0].id).to.equal(1);
+          expect(res[0].title).to.equal('first test title');
+          expect(res[0].body).to.equal('this is the body');
+          expect(res[0].author).to.equal('Dima');
+          done();
+        });
+      });
+
+      it('should return an empty response for an id that does not exist', (done) => {
+        db.getQuestionById(999, (err, res, fields) => {
+          expect(res).to.have.lengthOf(0);
+          done();
+        });
+      });
+
+    });
+
+  });
+
 });

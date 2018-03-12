@@ -1,0 +1,89 @@
+<div class="m-3">
+    <button 
+        type="button" 
+        class="btn btn-primary ask-button" 
+        *ngIf="!showQuestionForm" 
+        (click)="onAskButtonClick()">
+        Ask
+    </button>
+    
+    <!-- Add a new question -->
+    
+    <div *ngIf="showQuestionForm">
+        <form 
+            [formGroup]="addQuestionForm" 
+            (submit)="onQuestionSubmit" 
+            class="question-ask-form">
+            <div class="form-group">
+                <label for="nameInput">Name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="nameInput" 
+                    formControlName="name"
+                    placeholder="John Doe">
+                <span 
+                    class="text-danger name-danger" 
+                    *ngIf="formValidation.name">
+                    Please enter a valid name (max 25 characters)
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="titleInput">Title</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="titleInput" 
+                    formControlName="title">
+                <span 
+                    class="text-danger title-danger" 
+                    *ngIf="formValidation.title">
+                    Please enter a valid title (max 45 characters)
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="questionBody">Question</label>
+                <textarea 
+                    class="form-control" 
+                    id="questionBody" 
+                    formControlName="questionBody"
+                    rows="3">
+                </textarea>
+                <span 
+                    class="text-danger question-danger" 
+                    *ngIf="formValidation.question">
+                    Please enter a valid question (max 1000 characters)
+                </span>
+            </div>
+            
+            <button type="submit" [disabled]="!addQuestionForm.valid" class="btn btn-primary" (click)="onQuestionSubmit()">Submit</button>
+            <button type="button" class="btn btn-primary" (click)="onAskButtonClick()">Close</button>
+
+            <p class="text-success" *ngIf="questionSent">question was sent successfully</p>
+            <p class="text-warning" *ngIf="questionSent == false">An error occured while sending your question, please try again later</p>
+        </form>
+    </div>
+
+    <!-- all questions -->
+
+    <table class="table table-bordered table-striped table-hover" *ngIf="questions && questions.length > 0; else no_questions">
+        <thead class="thead-dark">
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Time Posted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions" routerLink="/questions/{{question.id}}" id="clickableRow">
+                <td class="question-author">{{ question.author }}</td>
+                <td class="question-title">{{ question.title }}</td>
+                <td class="question-time">{{ question.creationTime | date }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #no_questions>
+        <h1 class="no-questions">No Questions Yet</h1>
+    </ng-template>
+</div>
+

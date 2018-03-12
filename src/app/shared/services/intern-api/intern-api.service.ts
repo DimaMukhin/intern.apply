@@ -19,7 +19,7 @@ export class InternApiService {
    * @returns Observable holding list of jobs
    */
   public getAllJobs(filterText?: string): Observable<any> {
-    return this.http.get(BASE_URL + '/api/job', {params: {filter: filterText}}).map((res: Response) => {
+    return this.http.get(BASE_URL + '/api/job', { params: { filter: filterText } }).map((res: Response) => {
       return res.json();
     });
   }
@@ -110,24 +110,56 @@ export class InternApiService {
     });
   }
 
-    /**
-     * getting a rating of a job
-     * @param {number} jobId
-     */
+  /**
+   * get all the Q&A questions from internAPI
+   * @returns Observable holding list of questions
+   */
+  public getAllQuestions(): Observable<any> {
+    return this.http.get(BASE_URL + '/api/question').map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
+   * getting a rating of a job
+   * @param {number} jobId
+   */
   public getJobRating(jobId: number): Observable<any> {
     return this.http.get(`${BASE_URL}/api/job/${jobId}/rating`).map((res: Response) => {
       return res.json();
     });
   }
 
-    /**
-     * rate a job
-     * @param {number} jobId
-     * @param {number} score
-     */
-    public rateJob(jobId: number, score: number): Observable<any> {
-        return this.http.post(`${BASE_URL}/api/job/${jobId}/rating`, {score}).map((res: Response) => {
-            return res.json();
-        });
-    }
+  /**
+   * Add a new question to the Q&A board
+   * @param title   the title of the question
+   * @param body    the question itslef
+   * @param author  the author of the question
+   */
+  public addQuestion(title: string, body: string, author: string): Observable<any> {
+    return this.http.post(BASE_URL + '/api/question', { title, body, author }).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
+   * get a question by id from the server
+   * @param id The id of the question
+   */
+  public getQuestionById(id: number): Observable<any> {
+    return this.http.get(BASE_URL + '/api/question/' + id).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+  /**
+   * rate a job
+   * @param {number} jobId
+   * @param {number} score
+   */
+  public rateJob(jobId: number, score: number): Observable<any> {
+    return this.http.post(`${BASE_URL}/api/job/${jobId}/rating`, { score }).map((res: Response) => {
+      return res.json();
+    });
+  }
 }
