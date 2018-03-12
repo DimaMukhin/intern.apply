@@ -5,7 +5,7 @@ const db = require('../server/e2e/db.service');
 describe('job list', () => {
   let page: AppPage;
 
-  function restoreJobData() {
+  function restoreJobData(done) {
     db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
       db.conn.query(`CREATE TABLE job (
                   id INT NOT NULL AUTO_INCREMENT,
@@ -21,18 +21,19 @@ describe('job list', () => {
                       (3, 'CityOFWinnipeg', 'Junior Dev', 'location'),
                       (4, 'CityOFWinnipeg', 'Soft Dev', 'location')`,
             (err, res) => {
+              done();
             });
         });
     });
   };
 
-  beforeAll(() => {
-    restoreJobData();
+  beforeAll((done) => {
+    restoreJobData(done);
   });
 
-  beforeEach(() => {
+  beforeEach((done) => {
     page = new AppPage();
-    restoreJobData();
+    restoreJobData(done);
   });
 
   it('should display all the jobs in the job list', () => {
