@@ -1,10 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
-import {NgModule} from '@angular/core';
-import {AppRoutingModule} from './app-routing.module';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {RatingModule} from 'ngx-bootstrap/rating';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,10 +21,12 @@ import { ViewJobComponent } from './view-job/view-job.component';
 import { RouterLinkStubDirective } from './shared/directives/router-link-stub.directive';
 import { AddCommentComponent } from './view-job/add-comment/add-comment.component';
 import { JobCommentsComponent } from './view-job/job-comments/job-comments.component';
+import { QuestionListComponent } from './question-list/question-list.component';
 import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
-import {JobRatingComponent} from './view-job/job-rating/job-rating.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { ViewQuestionComponent } from './view-question/view-question.component';
+import { JobRatingComponent } from './view-job/job-rating/job-rating.component';
+import { AddAnswerComponent } from './view-question/add-answer/add-answer.component';
+import { ViewAnswersComponent } from './view-question/view-answers/view-answers.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +44,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RouterLinkStubDirective,
     AddCommentComponent,
     JobCommentsComponent,
+    QuestionListComponent,
     AddSalaryComponent,
-    JobRatingComponent
+    ViewQuestionComponent,
+    JobRatingComponent,
+    AddAnswerComponent,
+    ViewAnswersComponent
   ],
   imports: [
     BrowserModule,

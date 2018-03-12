@@ -3,4 +3,5 @@ export class Job {
     organization: string;
     title: string;
     description: string;
+    url: string;
 }

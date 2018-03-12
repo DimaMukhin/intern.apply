@@ -2,11 +2,12 @@ let validation = {};
 
 // Maximum values of the job form input fields 
 const orgMax = 45,
-    titleMax = 100,
-    locMax = 45,
-    descMax = 2000;
-    jobScoreMax = 5;
-    jobScoreMin = 1;
+  titleMax = 100,
+  locMax = 45,
+  descMax = 2000,
+  urlMax = 1000;
+jobScoreMax = 5;
+jobScoreMin = 1;
 
 /**
  * Validate job organization
@@ -48,6 +49,20 @@ validation.validateJobLocation = (location) => {
 };
 
 /**
+ * Validate the job url 
+ * @param {string} url the job url to validate
+ * @returns true if valid OR false if invalid
+ */
+validation.validateJobUrl = (url) => {
+  var re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+  if (!url) {
+    return false;
+  }
+  url = url.trim();
+  return re.test(url) && url.length < urlMax;
+};
+
+/**
  * Validate the job description
  * @param {string} description the body to validate
  * @returns true if valid OR false if invalid
@@ -75,10 +90,10 @@ validation.validateJobID = (id) => {
  * @returns true if valid, false otherwise
  */
 validation.validateSalary = (salary) => {
-    return !isNaN(salary) &&
-        parseInt(Number(salary), 10) == salary &&
-        !isNaN(parseInt(salary, 10)) &&
-        salary > 0;
+  return !isNaN(salary) &&
+    parseInt(Number(salary), 10) == salary &&
+    !isNaN(parseInt(salary, 10)) &&
+    salary > 0;
 };
 
 /**
@@ -87,10 +102,10 @@ validation.validateSalary = (salary) => {
  * @returns true if valid, false otherwise
  */
 validation.validateSalaryType = (salaryType) => {
-    return !isNaN(salaryType) &&
-        parseInt(Number(salaryType), 10) == salaryType &&
-        !isNaN(parseInt(salaryType, 10)) &&
-        salaryType >= 0 && salaryType <= 3;
+  return !isNaN(salaryType) &&
+    parseInt(Number(salaryType), 10) == salaryType &&
+    !isNaN(parseInt(salaryType, 10)) &&
+    salaryType >= 0 && salaryType <= 3;
 }
 
 /**
