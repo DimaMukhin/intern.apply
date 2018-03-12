@@ -46,6 +46,10 @@ describe('search jobs', () => {
     let jobTitles = element.all(by.css('.job-title'));
     let jobOrgs = element.all(by.css('.job-org'));
     let jobLocs = element.all(by.css('.job-loc'));
+
+    expect(jobTitles.count()).toEqual(1);
+    expect(jobOrgs.count()).toEqual(1);
+    expect(jobLocs.count()).toEqual(1);
     
     expect(jobTitles.get(0).getText()).toEqual("Software Developer");
     expect(jobOrgs.get(0).getText()).toEqual("google");
@@ -104,7 +108,6 @@ describe('search jobs', () => {
 
     element(by.buttonText('Search')).click();
 
-
     let no_job = element.all(by.css('.no-job'));
 
     expect(no_job.get(0).getText()).toEqual("No Jobs Found!");
@@ -117,7 +120,6 @@ describe('search jobs', () => {
     element(by.id('search')).sendKeys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry");
 
     element(by.buttonText('Search')).click();
-
 
     let long_query = element.all(by.css('.long-query'));
 
