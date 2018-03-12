@@ -26,6 +26,7 @@ import { AddSalaryComponent } from './view-job/add-salary/add-salary.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { JobRatingComponent } from './view-job/job-rating/job-rating.component';
 import { AddAnswerComponent } from './view-question/add-answer/add-answer.component';
+import { ViewAnswersComponent } from './view-question/view-answers/view-answers.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AddAnswerComponent } from './view-question/add-answer/add-answer.compon
     AddSalaryComponent,
     ViewQuestionComponent,
     JobRatingComponent,
-    AddAnswerComponent
+    AddAnswerComponent,
+    ViewAnswersComponent
   ],
   imports: [
     BrowserModule,

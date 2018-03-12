@@ -3,6 +3,7 @@
   <h5 class="question-author">Asked by: {{ question.author }}</h5>
   <p class="question-body">{{ question.body }}</p>
   <hr />
+  <app-view-answers [questionId]="question.id"></app-view-answers>
   <app-add-answer [questionId]="question.id"></app-add-answer>
 </div>
 <ng-template #noQuestion>

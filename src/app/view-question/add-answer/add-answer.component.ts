@@ -14,7 +14,7 @@ export class AddAnswerComponent implements OnInit {
 
     answerSent: boolean;
     addAnswerForm: FormGroup;
-    formValidation: any;
+    formValidation: any = {};
 
     constructor(private internApi: InternApiService) {
     }
@@ -40,28 +40,21 @@ export class AddAnswerComponent implements OnInit {
             this.addAnswerForm.value.body,
             this.addAnswerForm.value.author)
             .subscribe((response) => {
-            this.setAnswerStatus(true);
-        }, (error) => {
-            if (error.json) {
-                error = error.json();
-
-                if (error.length) {
-                    for (const err of error){
-                        if (err.code === 0) {
-                            this.setAnswerStatus(false);
-                        } else if (err.code === 5) {
-                            this.formValidation.body = true;
-                        } else if (err.code === 6) {
-                            this.formValidation.author = true;
+                this.setAnswerStatus(true);
+            }, (error) => {
+                if (error.json) {
+                    error = error.json();
+                    if (error.length) {
+                        for (const err of error) {
+                            if (err.code === 0) this.setAnswerStatus(false);
+                            else if (err.code === 8) this.formValidation.body = true;
+                            else if (err.code === 9) this.formValidation.author = true;
                         }
-                    }
-                } else {
+                    } else
+                        this.setAnswerStatus(false);
+                } else
                     this.setAnswerStatus(false);
-                }
-            } else {
-                this.setAnswerStatus(false);
-            }
-        });
+            });
     }
 
     /**

@@ -1,6 +1,7 @@
+<h4>Add an answer</h4>
 <form [formGroup]="addAnswerForm" (submit)="onAnswerSubmit()">
   <div class="form-group">
-    <label for="authorInput">Author</label>
+    <label for="authorInput">Name</label>
     <input type="text" class="form-control" id="authorInput" formControlName="author" placeholder="John Doe">
 
     <span class="text-danger author-danger" *ngIf="formValidation.author">
@@ -18,7 +19,7 @@
     </span>
   </div>
 
-  <button type="submit" [disabled]="!addAnswerForm.valid" class="btn btn-primary" (click)="onAnswerSubmit()">Submit</button>
+  <button type="submit" [disabled]="!addAnswerForm.valid" class="btn btn-primary">Submit</button>
 </form>
 
 <p class="text-success" *ngIf="answerSent">Answer was sent successfully</p>
