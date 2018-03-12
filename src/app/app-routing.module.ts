@@ -10,6 +10,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ViewJobComponent } from './view-job/view-job.component';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
+import { TipsComponent } from './tips/tips.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'questions', component: QuestionListComponent },
     { path: 'questions/:id', component: ViewQuestionComponent },
     { path: 'survey', component: SurveyComponent },
+    { path: 'tips', component: TipsComponent },
     { path: '**', component: PageNotFoundComponent },
 ];
 

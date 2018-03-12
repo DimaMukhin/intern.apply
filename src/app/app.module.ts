@@ -27,6 +27,7 @@ import { ViewQuestionComponent } from './view-question/view-question.component';
 import { JobRatingComponent } from './view-job/job-rating/job-rating.component';
 import { AddAnswerComponent } from './view-question/add-answer/add-answer.component';
 import { ViewAnswersComponent } from './view-question/view-answers/view-answers.component';
+import { TipsComponent } from './tips/tips.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ViewAnswersComponent } from './view-question/view-answers/view-answers.
     ViewQuestionComponent,
     JobRatingComponent,
     AddAnswerComponent,
-    ViewAnswersComponent
+    ViewAnswersComponent,
+    TipsComponent
   ],
   imports: [
     BrowserModule,
