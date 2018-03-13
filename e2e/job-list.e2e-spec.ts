@@ -51,27 +51,4 @@ describe('job list', () => {
     expect(jobTitles.get(2).getText()).toEqual("Junior Dev");
     expect(jobTitles.get(3).getText()).toEqual("Soft Dev");
   });
-
-  it('should add a job', () => {
-    browser.get('/addjob');
-
-    element(by.id('organization')).sendKeys("My Test Organization");
-    element(by.id('title')).sendKeys("My Test Title");
-    element(by.id('location')).sendKeys("My Test Location");
-    element(by.id('description')).sendKeys("My Test Description");
-
-    element(by.buttonText('Submit')).click();
-
-    expect(element(by.css('.alert-success')).isDisplayed()).toBe(true);
-
-    browser.get('/');
-
-    let jobTitles = element.all(by.css('.job-title'));
-    let jobOrgs = element.all(by.css('.job-org'));
-    let jobLocs = element.all(by.css('.job-loc'));
-
-    expect(jobTitles.get(4).getText()).toEqual("My Test Title");
-    expect(jobOrgs.get(4).getText()).toEqual("My Test Organization");
-    expect(jobLocs.get(4).getText()).toEqual("My Test Location");
-  });
 });

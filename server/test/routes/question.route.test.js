@@ -212,26 +212,26 @@ describe('question.route.js', () => {
       .end(done);
     });
 
-    it('should return an error message with code 8 for invalid answer body', (done) => {
+    it('should return an error message with code 34 for invalid answer body', (done) => {
       request(app)
       .post('/api/question/1/answers')
       .send({ body: '', author: 'testauthor' })
       .expect(400)
       .expect(res => {
         expect(res.body).to.have.lengthOf(1);
-        expect(res.body[0].code).to.equal(8);
+        expect(res.body[0].code).to.equal(34);
       })
       .end(done);
     });
 
-    it('should return an error message with code 9 for invalid answer author', (done) => {
+    it('should return an error message with code 33 for invalid answer author', (done) => {
       request(app)
       .post('/api/question/1/answers')
       .send({ body: 'testbody', author: '' })
       .expect(400)
       .expect(res => {
         expect(res.body).to.have.lengthOf(1);
-        expect(res.body[0].code).to.equal(9);
+        expect(res.body[0].code).to.equal(33);
       })
       .end(done);
     });
@@ -243,8 +243,8 @@ describe('question.route.js', () => {
       .expect(400)
       .expect(res => {
         expect(res.body).to.have.lengthOf(2);
-        expect(res.body[0].code).to.equal(8);
-        expect(res.body[1].code).to.equal(9);
+        expect(res.body[0].code).to.equal(34);
+        expect(res.body[1].code).to.equal(33);
       })
       .end(done);
     });
