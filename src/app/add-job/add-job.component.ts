@@ -24,7 +24,8 @@ export class AddJobComponent implements OnInit {
       organization: new FormControl(null),
       title: new FormControl(null),
       location: new FormControl(null),
-      description: new FormControl(null)
+      description: new FormControl(null),
+      url: new FormControl(null)
     });
   }
 
@@ -69,6 +70,7 @@ export class AddJobComponent implements OnInit {
       else if (err.code == 12) this.errors.title = true;
       else if (err.code == 13) this.errors.location = true;
       else if (err.code == 14) this.errors.description = true;
+      else if (err.code == 15) this.errors.url = true;
     }
   }
 

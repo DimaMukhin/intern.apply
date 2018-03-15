@@ -24,6 +24,8 @@ const codes = {
     14: 'invalid job description',
     31: 'invalid id',
     32: 'invalid job score',
+    33: 'invalid answer author',
+    34: 'invalida answer body',
     41: 'invalid salary',
     42: 'unknown salary type',
     51: 'invalid survey'

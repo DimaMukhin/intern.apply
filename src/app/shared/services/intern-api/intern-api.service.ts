@@ -162,4 +162,26 @@ export class InternApiService {
       return res.json();
     });
   }
+
+    /**
+     * add an answer to a question
+     * @param {number} questionId
+     * @param {string} body the body of the answer
+     * @param {string} author
+     */
+  public addAnswer(questionId: number, body: string, author: string): Observable<any> {
+    return this.http.post(`${BASE_URL}/api/question/${questionId}/answers`, { body, author }).map((res: Response) => {
+      return res.json();
+    });
+  }
+
+    /**
+     * get the answer of a question
+     * @param {number} questionId
+     */
+  public getAnswers(questionId: number): Observable<any> {
+    return this.http.get(`${BASE_URL}/api/question/${questionId}/answers`).map((res: Response) => {
+      return res.json();
+    });
+  }
 }

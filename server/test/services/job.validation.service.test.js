@@ -5,7 +5,6 @@ const validation = require('../../services/job.validation.service');
 describe('job.validation.service.js', () => {
 
     describe('validateJobOrganization', () => {
-
         it('should return true for a valid job organization', () => {
             let validOrg = 'I am a valid organization';
             expect(validation.validateJobOrganization(validOrg)).to.be.true;
@@ -23,7 +22,6 @@ describe('job.validation.service.js', () => {
     });
 
     describe('validateJobTitle', () => {
-
         it('should return true for a valid job title', () => {
             let validTitle = 'I am a valid title';
             expect(validation.validateJobTitle(validTitle)).to.be.true;
@@ -41,7 +39,6 @@ describe('job.validation.service.js', () => {
     });
 
     describe('validateJobLocation', () => {
-
         it('should return true for a valid job location', () => {
             let validLoc = 'I am a valid location';
             expect(validation.validateJobLocation(validLoc)).to.be.true;
@@ -57,9 +54,25 @@ describe('job.validation.service.js', () => {
             expect(validation.validateJobLocation(emptyLoc)).to.be.false;
         });
     });
+    
+    describe('validateJobUrl', () => {
+        it('should return true for a valid job URL', () => {
+            let validUrl = 'https://www.validurl.com';
+            expect(validation.validateJobUrl(validUrl)).to.be.true;
+        });
+
+        it('should return false for a job URL without http or https', () => {
+            let invalidUrl = 'www.invalidurl.com';
+            expect(validation.validateJobUrl(invalidUrl)).to.be.false;
+        });
+
+        it('should return false for an empty job URL', () => {
+            let emptyUrl = '';
+            expect(validation.validateJobUrl(emptyUrl)).to.be.false;
+        });
+    });
 
     describe('validateJobDescription', () => {
-
         it('should return true for a valid job description', () => {
             let validDesc = 'I am a valid description';
             expect(validation.validateJobDescription(validDesc)).to.be.true;
