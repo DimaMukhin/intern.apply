@@ -47,4 +47,6 @@ Initial MVC sketch [MVC Sketch.jpeg](https://github.com/DimaMukhin/intern.apply/
 
 We are currently using GitHub flow.  
 Every feature has its own branch.  
-Features are pushed to Master with a code review.
+Features are pushed to Master with a code review.  
+Master should always work.  
+Commits to master are only acceptable for READMEs
