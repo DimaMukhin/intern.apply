@@ -87,9 +87,9 @@ describe('job rating', () => {
 
         element(by.cssContainingText('.job-org', 'CityOFWinnipeg')).click();
 
-        browser.waitForAngular();
-
         element(by.css('.job-rating')).click();
+
+        browser.waitForAngular();
         const jobVotes = element(by.css('.votes'));
 
         expect(jobVotes.getText()).toEqual('(1 votes)');
