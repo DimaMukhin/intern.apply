@@ -25,7 +25,10 @@ For more informatino about the system see [/doc](https://github.com/DimaMukhin/i
 ## Running tests
 
 run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
-run `ng test` to run front end tests (please run the front end tests on Chrome and not in the background)
+run `ng test` to run web front end integration tests (please run the front end tests on Chrome and not in the background)  
+run `npm run e2e` to run web front end system tests (please run the front end tests on Chrome and not in the background)  
+
+Troubleshooting: If the tests do not pass at first, please try again since the integration and acceptance tests are using a shared remote test database. We justify this decission based on the scale of our project, the small amount of developers in our group, and the complexity and difficulty to automatically lunch a local test MySQL database. Instead we focused on creating more than 300 essential tests across our application to make it very robust.
 
 ## Updates and Justifications
 
@@ -53,3 +56,9 @@ run `ng test` to run front end tests (please run the front end tests on Chrome a
     * Can be found after clicking on any of the jobs
 9. Search 
     * Can be found in the navigation bar
+10. Q&A Board
+    * Can be found in the navigation bar
+11. Answers
+    * can be found after clicking on "Q&A" in the navbar, and then clicking on a question
+12. Apply button
+    * fully functional apply button can now be found inside of every job
