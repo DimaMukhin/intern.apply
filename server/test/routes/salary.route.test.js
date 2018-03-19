@@ -1,6 +1,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
+const fs = require('fs');
 
 const app = require('../../../server');
 const db = require('../db.connection.test');
@@ -8,25 +9,10 @@ const db = require('../db.connection.test');
 describe('salary.route.js', () => {
 
     beforeEach((done) => {
-        db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-            db.conn.query(`CREATE TABLE job (
-                id INT NOT NULL AUTO_INCREMENT,
-                organization VARCHAR(45) NOT NULL,
-                title VARCHAR(100) NOT NULL,
-                location VARCHAR(45),
-                description VARCHAR(2000),
-                salary DECIMAL(4,1),
-                numSalaries INT(10),
-                PRIMARY KEY (id))`
-                , (err, res) => {
-                    db.conn.query(`INSERT INTO job (id, organization, title, location, salary, numSalaries) VALUES 
-                (1, 'Facebook', 'test title', 'winnipeg', 4, 1),
-                (2, 'google', 'second title', 'vancouver', 3, 2),
-                (3, 'CityOFWinnipeg', 'third title', 'location', 0, 0)`
-                        , (err, res) => {
-                            done();
-                        });
-                });
+        fs.readFile('test/job.sql', "utf8", function (err, data) {
+            db.conn.query(data, (err, res) => {
+                done();
+            });
         });
     });
 

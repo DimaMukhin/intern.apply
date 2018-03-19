@@ -1,20 +1,15 @@
 import { browser, element, by } from 'protractor';
 import { AppPage } from './app.po';
 const db = require('../server/e2e/db.service');
+const fs = require('fs');
 
 describe('contact-us', () => {
     let page: AppPage;
 
     function restoreContactUsData(done) {
-        db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => { 
-            db.conn.query(`CREATE TABLE contactMessage (
-                id INT NOT NULL AUTO_INCREMENT,
-                email VARCHAR(45) NOT NULL,
-                title VARCHAR(45) NOT NULL,
-                message VARCHAR(300) NOT NULL,
-                PRIMARY KEY (id))`,
-            (err, res) => {
-                done();
+        fs.readFile('test/contactMessage.sql', "utf8", function (err, data) {
+            db.conn.query(data, (err, res) => {
+              done();
             });
         });
     }
