@@ -1,43 +1,17 @@
 import { browser, element, by } from 'protractor';
 import { AppPage } from './app.po';
 const db = require('../server/e2e/db.service');
+const fs = require('fs');
 
 describe('job-comment', () => {
     let page: AppPage;
 
     function restoreCommentData(done) {
-        db.conn.query('DROP TABLE IF EXISTS job', (err, res, fields) => { 
-            db.conn.query(`CREATE TABLE job (
-                id INT NOT NULL AUTO_INCREMENT,
-                organization VARCHAR(45) NOT NULL,
-                title VARCHAR(100) NOT NULL,
-                location VARCHAR(45),
-                description VARCHAR(2000),
-                PRIMARY KEY (id))`,
-            (err, res) => {
-                db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
-                    (1, 'Facebook', 'test title', 'winnipeg'),
-                    (2, 'google', 'second title', 'vancouver'),
-                    (3, 'CityOFWinnipeg', 'third title', 'location')`,
-                (err, res) => {
-                    db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
-                        db.conn.query(`CREATE TABLE comment (
-                            id INT NOT NULL AUTO_INCREMENT,
-                            jobID INT NOT NULL,
-                            message VARCHAR(300) NOT NULL,
-                            author VARCHAR(45) NOT NULL,
-                            ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            PRIMARY KEY (id),
-                            FOREIGN KEY (jobID) REFERENCES job (id))`,
-                        (err, res) => {
-                            db.conn.query(`INSERT INTO comment (id, jobID, message, author) VALUES 
-                                (1, 1, 'this is a nice comment body', 'dima'),
-                                (2, 1, 'another comment for the same job', 'ben'),
-                                (3, 2, 'this last comment is for job 2', 'rick')`,
-                            (err, res) => {
-                                done();
-                            });
-                        });
+        fs.readFile('test/job.sql', "utf8", function (err, data) {
+            db.conn.query(data, (err, res) => {
+                fs.readFile('test/comment.sql', "utf8", function (err, comData) {
+                    db.conn.query(comData, (err, res) => {
+                        done();
                     });
                 });
             });

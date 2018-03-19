@@ -1,6 +1,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
+const fs = require('fs');
 
 const app = require('../../../server');
 const db = require('../db.connection.test');
@@ -8,69 +9,10 @@ const db = require('../db.connection.test');
 describe('survey.route.js', () => {
 
     beforeEach((done) => {
-        db.conn.query('DROP TABLE surveyQuestion', (err, res) => {
-            db.conn.query(`CREATE TABLE surveyQuestion (
-                id INT NOT NULL AUTO_INCREMENT,
-                question VARCHAR(300) NOT NULL,
-                questionType VARCHAR(300) NOT NULL,
-                questionIndex INT NOT NULL,
-                PRIMARY KEY (id))`
-                , (err, res) => {
-                    db.conn.query(`INSERT INTO surveyQuestion (id, question, questionType, questionIndex) VALUES 
-                    (1, 'Is this a test?', 'boolean', 1),
-                    (2, '?', 'scale', 2)`
-                        , (err, res) => { });
-                });
-        });
-
-        db.conn.query('DROP TABLE surveyResponse', (err, res) => {
-            db.conn.query(`CREATE TABLE surveyResponse (
-                id INT NOT NULL AUTO_INCREMENT,
-                response VARCHAR(300) NOT NULL,
-                questionType VARCHAR(300) NOT NULL,
-                PRIMARY KEY (id))`
-                , (err, res) => {
-                    db.conn.query(`INSERT INTO surveyResponse (id, response, questionType) VALUES 
-                    (1, 'True', 'boolean'),
-                    (2, 'False', 'boolean'),
-
-                    (3, 'Disagree', 'scale'),
-                    (4, 'No Opinion', 'scale'),
-                    (5, 'Agree', 'scale')`
-                        , (err, res) => { });
-                });
-        });
-
-        db.conn.query('DROP TABLE completedSurvey', (err, res) => {
-            db.conn.query(`CREATE TABLE completedSurvey (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    completionTime date NOT NULL,
-                    PRIMARY KEY (id))`
-                , (err, res) => {
-                    db.conn.query(`INSERT INTO completedSurvey (id, completionTime) VALUES 
-                        (1, '2018-02-24'),
-                        (2, '1100-01-01')`
-                        , (err, res) => {
-                            db.conn.query('DROP TABLE completedSurveyRes', (err, res) => {
-                                db.conn.query(`CREATE TABLE completedSurveyRes (
-                                id INT NOT NULL AUTO_INCREMENT,
-                                surveyID INT NOT NULL,
-                                response VARCHAR(300) NOT NULL,
-                                questionIndex INT NOT NULL,
-                                PRIMARY KEY (id),
-                                INDEX (surveyID),
-                                FOREIGN KEY (surveyID) REFERENCES completedSurvey(id) ON DELETE CASCADE)`
-                                    , (err, res) => {
-                                        db.conn.query(`INSERT INTO completedSurveyRes (id, surveyID, response, questionIndex) VALUES 
-                                    (1, 1, 'True', 1),
-                                    (2, 1, 'No Opinion', 2)`
-                                            , (err, res) => {
-                                                done();
-                                            });
-                                    });
-                            });
-                        });
-                });
+        fs.readFile('test/survey.sql', "utf8", function (err, comData) {
+            db.conn.query(comData, (err, res) => {
+              done();
+            });
         });
     });
 

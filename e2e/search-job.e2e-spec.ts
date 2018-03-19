@@ -1,38 +1,26 @@
 import { browser, element, by } from 'protractor';
 import { AppPage } from './app.po';
 const db = require('../server/e2e/db.service');
+const fs = require('fs');
 
 describe('search jobs', () => {
   let page: AppPage;
 
-  function restoreJobData() {
-    db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-      db.conn.query(`CREATE TABLE job (
-                  id INT NOT NULL AUTO_INCREMENT,
-                  organization VARCHAR(45) NOT NULL,
-                  title VARCHAR(100) NOT NULL,
-                  location VARCHAR(45),
-                  description VARCHAR(2000),
-                  PRIMARY KEY (id))`,
-        (err, res) => {
-          db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
-                      (1, 'Facebook', 'Software Engineer', 'winnipeg'),
-                      (2, 'google', 'Software Developer', 'vancouver'),
-                      (3, 'CityOFWinnipeg', 'Junior Dev', 'alberta'),
-                      (4, 'CityOFWinnipeg', 'Soft Dev', 'toronto')`,
-            (err, res) => {
-            });
-        });
+  function restoreJobData(done) {
+    fs.readFile('test/job4.sql', "utf8", function (err, data) {
+      db.conn.query(data, (err, res) => {
+        done();
+      });
     });
   };
 
-  beforeAll(() => {
-    restoreJobData();
+  beforeAll((done) => {
+    restoreJobData(done);
   });
 
-  beforeEach(() => {
+  beforeEach((done) => {
     page = new AppPage();
-    restoreJobData();
+    restoreJobData(done);
   });
 
   it('should return jobs upon search by organization', () => {

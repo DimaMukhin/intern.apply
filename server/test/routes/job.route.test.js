@@ -1,6 +1,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const mysql = require('mysql2');
+const fs = require('fs');
 
 const app = require('../../../server');
 const db = require('../db.connection.test');
@@ -8,58 +9,18 @@ const db = require('../db.connection.test');
 describe('job.route.js', () => {
 
   beforeEach((done) => {
-    db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-      db.conn.query(`CREATE TABLE job (
-                id INT NOT NULL AUTO_INCREMENT,
-                organization VARCHAR(45) NOT NULL,
-                title VARCHAR(100) NOT NULL,
-                location VARCHAR(45),
-                description VARCHAR(2000),
-                url VARCHAR(1000),
-                PRIMARY KEY (id))`
-        , (err, res) => {
-          db.conn.query(`INSERT INTO job (id, organization, title, location, description, url) VALUES 
-                    (1, 'Test Org', 'test title', '123 test st', 'test description', 'https://www.testurl1.com'),
-                    (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test', 'https://www.testurl2.com'),
-                    (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description', 'https://www.testurl3.com'),
-                    (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description', 'https://www.testurl4.com')`,
-            (err, res) => {
-              db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
-                db.conn.query(`CREATE TABLE comment (
-                            id INT NOT NULL AUTO_INCREMENT,
-                            jobID INT NOT NULL,
-                            message VARCHAR(300) NOT NULL,
-                            author VARCHAR(45) NOT NULL,
-                            ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            PRIMARY KEY (id),
-                            FOREIGN KEY (jobID) REFERENCES job (id))`,
-                  (err, res) => {
-                    db.conn.query(`INSERT INTO comment (id, jobID, message, author) VALUES 
-                                (1, 1, 'this is a nice comment body', 'dima'),
-                                (2, 1, 'another comment for the same job', 'ben'),
-                                (3, 2, 'this last comment is for job 2', 'rick')`,
-                      (err, res) => {
-                        db.conn.query('DROP TABLE IF EXISTS jobRating', (err, res) => {
-                          db.conn.query(`CREATE TABLE jobRating (
-                                      jobId INT(11) NOT NULL,
-                                      score DECIMAL(3,2) DEFAULT '0.00' NOT NULL,
-                                      votes INT(11) DEFAULT '0' NOT NULL,
-                                      PRIMARY KEY(jobId),
-                                      CONSTRAINT jobId___fk FOREIGN KEY (jobId) REFERENCES job (id) ON DELETE CASCADE )`,
-                            (err, res) => {
-                              db.conn.query(`INSERT INTO jobRating(jobId, score, votes) VALUES 
-                              (1, 1.0, 1),
-                              (2, 2.0, 2),
-                              (3, 3.0, 3)`, (err, res) => {
-                                done();
-                              });
-                            });
-                        });
-                      });
+    fs.readFile('test/job3.sql', "utf8", function (err, data) {
+      db.conn.query(data, (err, res) => {
+          fs.readFile('test/comment.sql', "utf8", function (err, comData) {
+              db.conn.query(comData, (err, res) => {
+                fs.readFile('test/jobRating.sql', "utf8", function (err, ratData) {
+                  db.conn.query(ratData, (err, res) => {
+                      done();
                   });
+                });
               });
-            });
-        });
+          });
+      });
     });
   });
 
