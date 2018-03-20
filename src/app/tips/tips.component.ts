@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TipsComponent implements OnInit {
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 17a00bf9eee2b41a2f57ef93fc0234a40fafc37e
   constructor() { }
 
   ngOnInit() {
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17a00bf9eee2b41a2f57ef93fc0234a40fafc37e
 }

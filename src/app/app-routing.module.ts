@@ -7,9 +7,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SurveyComponent } from './survey/survey.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+<<<<<<< HEAD
 import { ViewJobComponent } from './view-job/view-job.component';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
+=======
+import { ViewJobComponent } from "./view-job/view-job.component";
+>>>>>>> 17a00bf9eee2b41a2f57ef93fc0234a40fafc37e
 import { TipsComponent } from './tips/tips.component';
 
 const routes: Routes = [
