@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const mysql = require('mysql2');
+const fs = require('fs');
 
 const db = require('../db.connection.test');
 
@@ -9,22 +10,10 @@ describe('db.service.js', () => {
   describe('ContactMessage', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS contactMessage', (err, res) => {
-        db.conn.query(`CREATE TABLE contactMessage (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    email VARCHAR(45) NOT NULL,
-                    title VARCHAR(45) NOT NULL,
-                    message VARCHAR(300) NOT NULL,
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO contactMessage (id, email, title, message) VALUES 
-                        (1, 'dima@gmail.com', 'test title', 'test body'),
-                        (2, 'ben@gmail.com', 'second title', 'second body'),
-                        (3, 'what@is.this', 'third title', 'third body')`
-              , (err, res) => {
-                done();
-              });
-          });
+      fs.readFile('test/contactMessage.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -98,23 +87,10 @@ describe('db.service.js', () => {
   describe('GetJobs', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45),
-                    description VARCHAR(2000),
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
-                    (1, 'Facebook', 'test title', 'winnipeg'),
-                    (2, 'google', 'second title', 'vancouver'),
-                    (3, 'CityOFWinnipeg', 'third title', 'location')`
-              , (err, res) => {
-                done();
-              });
-          });
+      fs.readFile('test/job.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -163,25 +139,10 @@ describe('db.service.js', () => {
   describe('GetFilteredJobs', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45),
-                    description VARCHAR(2000),
-                    PRIMARY KEY (id))`,
-          (err, res) => {
-
-            db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
-                        (1, 'Facebook', 'Software Engineer', 'winnipeg'),
-                        (2, 'google', 'Software Developer', 'vancouver'),
-                        (3, 'CityOFWinnipeg', 'Junior Dev', 'location'),
-                        (4, 'CityOFWinnipeg', 'Soft Dev', 'location')`,
-              (err, res) => {
-                done();
-              });
-          });
+      fs.readFile('test/job2.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -217,25 +178,10 @@ describe('db.service.js', () => {
   describe('addJob', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45) NOT NULL,
-                    description VARCHAR(2000) NOT NULL,
-                    url VARCHAR(1000) NOT NULL,
-                    PRIMARY KEY (id))`,
-          (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location, description, url) VALUES 
-                        (1, 'Test Org', 'test title', '123 test st', 'test description', 'https://www.testurl1.com'),
-                        (2, 'Electronic Test', 'second title', '456 test avenue', 'this is a description for a test', 'https://www.testurl2.com'),
-                        (3, 'The Test Mafia', 'second title', '456 test avenue', 'this is a long long long long long long long long long long long long long description', 'https://www.testurl3.com'),
-                        (4, 'Together We Test', 'fourth title', '789 test blvd', 'No description', 'https://www.testurl4.com')`,
-              (err, res) => {
-                done();
-              });
-          });
+      fs.readFile('test/job3.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -245,7 +191,7 @@ describe('db.service.js', () => {
         organization: 'Test Syndicate',
         title: 'i am a test for add job',
         location: '10 Test Square',
-        description: 'I am a description', 
+        description: 'I am a description',
         url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
@@ -270,7 +216,7 @@ describe('db.service.js', () => {
         title: 'i am a test for add job',
         location: '10 Test Square',
         description: 'I am a description',
-        url: 'https://www.testUrl.com'        
+        url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -286,7 +232,7 @@ describe('db.service.js', () => {
         title: undefined,
         location: '10 Test House',
         description: 'I am a description',
-        url: 'https://www.testUrl.com'        
+        url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -302,7 +248,7 @@ describe('db.service.js', () => {
         title: 'cool title',
         location: undefined,
         description: 'I am a description',
-        url: 'https://www.testUrl.com'        
+        url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -318,7 +264,7 @@ describe('db.service.js', () => {
         title: 'sick title',
         location: '20 Test Mansion',
         description: undefined,
-        url: 'https://www.testUrl.com'        
+        url: 'https://www.testUrl.com'
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -326,7 +272,7 @@ describe('db.service.js', () => {
         });
       });
     });
-    
+
     it('it should not add a job without a URL', (done) => {
       db.addJob({
         id: 5,
@@ -334,7 +280,7 @@ describe('db.service.js', () => {
         title: 'sick title',
         location: '20 Test Mansion',
         description: 'I am a description',
-        url: undefined        
+        url: undefined
       }, (err, res, fields) => {
         db.getAllJobs((err, res, fields) => {
           expect(res).to.have.lengthOf(4);
@@ -362,41 +308,14 @@ describe('db.service.js', () => {
   describe('comments', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res, fields) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45),
-                    description VARCHAR(2000),
-                    PRIMARY KEY (id))`,
-          (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location) VALUES 
-                        (1, 'Facebook', 'test title', 'winnipeg'),
-                        (2, 'google', 'second title', 'vancouver'),
-                        (3, 'CityOFWinnipeg', 'third title', 'location')`,
-              (err, res) => {
-                db.conn.query('DROP TABLE IF EXISTS comment', (err, res) => {
-                  db.conn.query(`CREATE TABLE comment (
-                                id INT NOT NULL AUTO_INCREMENT,
-                                jobID INT NOT NULL,
-                                message VARCHAR(300) NOT NULL,
-                                author VARCHAR(45) NOT NULL,
-                                ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                PRIMARY KEY (id),
-                                FOREIGN KEY (jobID) REFERENCES job (id))`,
-                    (err, res) => {
-                      db.conn.query(`INSERT INTO comment (id, jobID, message, author) VALUES 
-                                    (1, 1, 'this is a nice comment body', 'dima'),
-                                    (2, 1, 'another comment for the same job', 'ben'),
-                                    (3, 2, 'this last comment is for job 2', 'rick')`,
-                        (err, res) => {
-                          done();
-                        });
-                    });
-                });
-              });
+      fs.readFile('test/job.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          fs.readFile('test/comment.sql', "utf8", function (err, comData) {
+            db.conn.query(comData, (err, res) => {
+              done();
+            });
           });
+        });
       });
     });
 
@@ -494,25 +413,10 @@ describe('db.service.js', () => {
   describe('addSalary', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45),
-                    description VARCHAR(2000),
-                    salary DECIMAL(4,1),
-                    numSalaries INT(10),
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location, salary, numSalaries) VALUES 
-                    (1, 'Facebook', 'test title', 'winnipeg', 4, 1),
-                    (2, 'google', 'second title', 'vancouver', 3, 2),
-                    (3, 'CityOFWinnipeg', 'third title', 'location', 0, 0)`
-              , (err, res) => {
-                done();
-              });
-          });
+      fs.readFile('test/job.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -549,69 +453,10 @@ describe('db.service.js', () => {
   describe('Survey', () => {
 
     beforeEach((done) => {
-      db.conn.query('DROP TABLE surveyQuestion', (err, res) => {
-        db.conn.query(`CREATE TABLE surveyQuestion (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    question VARCHAR(300) NOT NULL,
-                    questionType VARCHAR(300) NOT NULL,
-                    questionIndex INT NOT NULL,
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO surveyQuestion (id, question, questionType, questionIndex) VALUES 
-                        (1, 'Is this a test?', 'boolean', 1),
-                        (2, '?', 'scale', 2)`
-              , (err, res) => { });
-          });
-      });
-
-      db.conn.query('DROP TABLE surveyResponse', (err, res) => {
-        db.conn.query(`CREATE TABLE surveyResponse (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    response VARCHAR(300) NOT NULL,
-                    questionType VARCHAR(300) NOT NULL,
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO surveyResponse (id, response, questionType) VALUES 
-                        (1, 'True', 'boolean'),
-                        (2, 'False', 'boolean'),
-
-                        (3, 'Disagree', 'scale'),
-                        (4, 'No Opinion', 'scale'),
-                        (5, 'Agree', 'scale')`
-              , (err, res) => { });
-          });
-      });
-
-      db.conn.query('DROP TABLE completedSurvey', (err, res) => {
-        db.conn.query(`CREATE TABLE completedSurvey (
-                        id INT NOT NULL AUTO_INCREMENT,
-                        completionTime date NOT NULL,
-                        PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO completedSurvey (id, completionTime) VALUES 
-                            (1, '2018-02-24'),
-                            (2, '1100-01-01')`
-              , (err, res) => {
-                db.conn.query('DROP TABLE completedSurveyRes', (err, res) => {
-                  db.conn.query(`CREATE TABLE completedSurveyRes (
-                                    id INT NOT NULL AUTO_INCREMENT,
-                                    surveyID INT NOT NULL,
-                                    response VARCHAR(300) NOT NULL,
-                                    questionIndex INT NOT NULL,
-                                    PRIMARY KEY (id),
-                                    INDEX (surveyID),
-                                    FOREIGN KEY (surveyID) REFERENCES completedSurvey(id) ON DELETE CASCADE)`
-                    , (err, res) => {
-                      db.conn.query(`INSERT INTO completedSurveyRes (id, surveyID, response, questionIndex) VALUES 
-                                        (1, 1, 'True', 1),
-                                        (2, 1, 'No Opinion', 2)`
-                        , (err, res) => {
-                          done();
-                        });
-                    });
-                });
-              });
-          });
+      fs.readFile('test/survey.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          done();
+        });
       });
     });
 
@@ -737,39 +582,14 @@ describe('db.service.js', () => {
 
   describe('JobRating', () => {
     beforeEach((done) => {
-      db.conn.query('DROP TABLE IF EXISTS job', (err, res) => {
-        db.conn.query(`CREATE TABLE job (
-                    id INT NOT NULL AUTO_INCREMENT,
-                    organization VARCHAR(45) NOT NULL,
-                    title VARCHAR(100) NOT NULL,
-                    location VARCHAR(45),
-                    description VARCHAR(2000),
-                    salary DECIMAL(4,1),
-                    numSalaries INT(10),
-                    PRIMARY KEY (id))`
-          , (err, res) => {
-            db.conn.query(`INSERT INTO job (id, organization, title, location, salary, numSalaries) VALUES 
-                    (1, 'Facebook', 'test title', 'winnipeg', 4, 1),
-                    (2, 'google', 'second title', 'vancouver', 3, 2),
-                    (3, 'CityOFWinnipeg', 'third title', 'location', 0, 0)`
-              , (err, res) => {
-                db.conn.query('DROP TABLE IF EXISTS jobRating', (err, res) => {
-                  db.conn.query(`CREATE TABLE jobRating (
-                              jobId INT(11) NOT NULL,
-                              score DECIMAL(3,2) DEFAULT '0.00' NOT NULL,
-                              votes INT(11) DEFAULT '0' NOT NULL,
-                              PRIMARY KEY(jobId),
-                              CONSTRAINT jobId___fk FOREIGN KEY (jobId) REFERENCES job (id) ON DELETE CASCADE )`,
-                    (err, res) => {
-                      db.conn.query(`INSERT INTO jobRating(jobId, score, votes) VALUES 
-                              (1, 1.0, 1),
-                              (2, 2.0, 2)`, (err, res) => {
-                        done();
-                      });
-                    });
-                });
-              });
+      fs.readFile('test/job.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
+          fs.readFile('test/jobRating.sql', "utf8", function (err, ratData) {
+            db.conn.query(ratData, (err, res) => {
+              done();
+            });
           });
+        });
       });
     });
 
@@ -841,141 +661,10 @@ describe('db.service.js', () => {
   describe('question', () => {
 
     beforeEach((done) => {
-      db.conn.query(`DROP TABLE IF EXISTS question`, (err, res) => {
-        db.conn.query(`CREATE TABLE question (
-            id INT NOT NULL AUTO_INCREMENT,
-            title VARCHAR(45) NOT NULL,
-            body VARCHAR(1000) NOT NULL,
-            author VARCHAR(45) NOT NULL,
-            creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id))`,
-          (err, res) => {
-            db.conn.query(`INSERT INTO question (id, title, author, body) VALUES
-              (1, 'first test title', 'Dima', 'this is the body'),
-              (2, 'how much time to find a job?', 'Ben', 'I dont want to wait'),
-              (3, 'what are you looking at?', 'dima', 'this is just a question')`,
-              (err, res) => {
-                done();
-              });
-          });
-      });
-    });
-
-    describe('getAllQuestions', () => {
-      it('should return all 3 questions from the database', (done) => {
-        db.getAllQuestions((err, res, fields) => {
-          expect(res).to.have.lengthOf(3);
+      fs.readFile('test/question.sql', "utf8", function (err, data) {
+        db.conn.query(data, (err, res) => {
           done();
         });
-      });
-
-      it('should return the questions in the correct order', (done) => {
-        db.getAllQuestions((err, res, fields) => {
-          let firstRecord = res[0];
-          let secondRecord = res[1];
-          let thirdRecord = res[2];
-
-          expect(res).to.have.lengthOf(3);
-          expect(firstRecord.id).to.equal(1);
-          expect(firstRecord.title).to.equal('first test title');
-          expect(secondRecord.id).to.equal(2);
-          expect(secondRecord.title).to.equal('how much time to find a job?');
-          expect(thirdRecord.id).to.equal(3);
-          expect(thirdRecord.title).to.equal('what are you looking at?');
-          done();
-        });
-      });
-    });
-
-    describe('addNewQuestion', () => {
-
-      it('should successfully add a new valid question', (done) => {
-        db.addNewQuestion({ title: 'new title', body: 'new body', author: 'new author' }, (err, res, fields) => {
-          expect(err).to.be.null;
-          done();
-        });
-      });
-
-      it('should not add a new question with an invalid title', (done) => {
-        db.addNewQuestion({ title: undefined, body: 'new body', author: 'new author' }, (err, res, fields) => {
-          expect(err).to.exist;
-          done();
-        });
-      });
-
-      it('should not add a new question with an invalid body', (done) => {
-        db.addNewQuestion({ title: 'new title', body: undefined, author: 'new author' }, (err, res, fields) => {
-          expect(err).to.exist;
-          done();
-        });
-      });
-
-      it('should not add a new question with an invalid author name', (done) => {
-        db.addNewQuestion({ title: 'new title', body: 'new body', author: undefined }, (err, res, fields) => {
-          expect(err).to.exist;
-          done();
-        });
-      });
-    });
-
-    describe('getQuestionById', () => {
-
-      it('should the correct question by its id', (done) => {
-        db.getQuestionById(1, (err, res, fields) => {
-          expect(res[0].id).to.equal(1);
-          expect(res[0].title).to.equal('first test title');
-          expect(res[0].body).to.equal('this is the body');
-          expect(res[0].author).to.equal('Dima');
-          done();
-        });
-      });
-
-      it('should return an empty response for an id that does not exist', (done) => {
-        db.getQuestionById(999, (err, res, fields) => {
-          expect(res).to.have.lengthOf(0);
-          done();
-        });
-      });
-    });
-  });
-
-  describe('question', () => {
-
-    beforeEach((done) => {
-      db.conn.query(`DROP TABLE IF EXISTS question`, (err, res) => {
-        db.conn.query(`CREATE TABLE question (
-            id INT NOT NULL AUTO_INCREMENT,
-            title VARCHAR(45) NOT NULL,
-            body VARCHAR(1000) NOT NULL,
-            author VARCHAR(45) NOT NULL,
-            creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id))`,
-          (err, res) => {
-            db.conn.query(`INSERT INTO question (id, title, author, body) VALUES
-              (1, 'first test title', 'Dima', 'this is the body'),
-              (2, 'how much time to find a job?', 'Ben', 'I dont want to wait'),
-              (3, 'what are you looking at?', 'dima', 'this is just a question')`,
-              (err, res) => {
-                db.conn.query(`DROP TABLE IF EXISTS answers`, (err, res) => {
-                  db.conn.query(`CREATE TABLE answers (
-                    questionId INT(11) NOT NULL,
-                    body VARCHAR(1000) NOT NULL,
-                    author VARCHAR(45) NOT NULL,
-                    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                    FOREIGN KEY (questionId) REFERENCES question (id) ON DELETE CASCADE)`,
-                    (err, res) => {
-                      db.conn.query(`INSERT INTO answers (questionId, body, author) VALUES
-                        (1, 'body of answer 1', 'Dima'),
-                        (1, 'body of answer 2', 'Dima'),
-                        (2, 'body of answer 1', 'Ben'),
-                        (2, 'body of answer 2', 'Ben')`,
-                        (err, res) => {
-                          done();
-                        });
-                    });
-                });
-              });
-          });
       });
     });
 

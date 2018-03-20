@@ -4,7 +4,7 @@ const path = require('path');
 
 const api = require('./server/api');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || ((process.argv.length > 3 && process.argv[2] == 'test' && process.argv[3] == 'external') ? 3001 : 3000);
 
 // connecting Angular front-end with express back-end
 app.use(express.static(path.join(__dirname, 'dist')));

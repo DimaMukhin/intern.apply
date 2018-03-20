@@ -21,6 +21,10 @@ export class AppPage {
     return element(by.id('location'));
   }
 
+  getJobUrlInputElement() {
+    return element(by.id('url'));
+  }
+
   getJobDescInputElement() {
     return element(by.id('description'));
   }
