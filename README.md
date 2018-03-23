@@ -35,8 +35,9 @@ Troubleshooting: If the tests do not pass at first, please try again since the i
 
 * After some team discussion we decided to put the Registration feature on hold and focus on other more important aspects and features.
 * We decided that for simplicity and because of the size of our project, we would use a remote test DB for integration and acceptance tests, instead of using a local DB.
-* We decided to not implement certain features that were going to use the Registration feature and only be available to admin users,
-such as viewing the survey results, as we would need to implement some other way to lock them.
+* We decided to not implement certain features that were going to use the Registration feature and were supposed to be restricted to admin users, as we would need another way to restrict them. This included viewing the survey results.
+* We decided to leave the if/else blocks that check the error codes corresponding to invalid fields, instead of having the fields listen for the appropriate error related to them. Our justification is that it is too complex to have the fields listen to the errors and we do not have enough time to implement it.
+* We decided to do the nuclear option and create/delete our tables before all the tests, for simplicity. Specifically for system and e2e tests, it also appeared too complex to add test fixtures and launch a specific test db, so in order to focus our efforts on having a wide test coverage, we opted for executing SQL queries before and after our system tests for cleanup.
 
 ## Implemented features
 
