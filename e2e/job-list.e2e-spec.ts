@@ -38,4 +38,18 @@ describe('job list', () => {
     expect(jobTitles.get(2).getText()).toEqual("Junior Dev");
     expect(jobTitles.get(3).getText()).toEqual("Soft Dev");
   });
+
+  it('should show no jobs found', () => {
+
+    fs.readFile('test/emptyJob.sql', "utf8", function (err, data) {
+      db.conn.query(data, (err, res) => {
+      });
+    });
+
+    browser.get('/');
+    browser.pause();
+    let no_job = element.all(by.css('.no-job'));
+    expect(no_job.get(0).getText()).toEqual("No Jobs Found!");
+  });
+
 });
