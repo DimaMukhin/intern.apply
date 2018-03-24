@@ -25,9 +25,11 @@ For more information about the system see [/doc](https://github.com/DimaMukhin/i
 
 ## Running tests
 
-run `npm test` to run backend tests (Note: will have to stop `node server` to run these tests)<br/>
+run `npm test` to run backend tests. These tests include back-end Unit, Integration, and System tests (Note: will have to stop `node server` to run these tests)<br/>
 run `ng test` to run web front end integration tests (please run the front end tests on Chrome and not in the background)  
 run `npm run e2e` to run web front end system tests (please run the front end tests on Chrome and not in the background)  
+
+Note: Front-end does not contain any Unit tests because there are no units to test. The web is implementing a thin client atchitecture, all the logic is in the back-end server.
 
 Troubleshooting: If the tests do not pass at first, please try again since the integration and acceptance tests are using a shared remote test database. We justify this decission based on the scale of our project, the small amount of developers in our group, and the complexity and difficulty to automatically lunch a local test MySQL database. Instead we focused on creating more than 300 essential tests across our application to make it very robust.
 
